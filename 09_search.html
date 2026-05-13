@@ -7,17 +7,15 @@
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <style>
-.app-header { padding: 16px var(--px) 12px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
-.page-title { font-size: 26px; font-weight: 700; color: var(--text-primary); }
-.searchbar { display: flex; align-items: center; gap: 10px; margin: 0 var(--px) 16px; padding: 12px 14px; background: var(--bg-secondary); border-radius: 12px; border: 0.5px solid var(--border); flex-shrink: 0; }
-.searchbar i { font-size: 18px; color: var(--text-tertiary); }
-.searchbar-ph { font-size: 15px; color: var(--text-tertiary); }
-.filter-sec { padding: 0 var(--px) 12px; flex-shrink: 0; }
-.filter-title { font-size: 11px; font-weight: 600; color: var(--text-tertiary); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 8px; }
-.fchips { display: flex; gap: 7px; flex-wrap: wrap; }
-.fchip { padding: 7px 15px; border-radius: var(--radius-pill); font-size: 14px; border: 0.5px solid var(--border); color: var(--text-secondary); background: var(--bg-primary); cursor: pointer; }
-.fchip.on { background: var(--teal-light); color: #085041; border-color: #5DCAA5; }
-.res-label { font-size: 12px; color: var(--text-tertiary); padding: 8px var(--px); flex-shrink: 0; }
+.searchbar { display:flex;align-items:center;gap:10px;margin:0 var(--px) 14px;padding:12px 14px;background:var(--bg-secondary);border-radius:12px;border:0.5px solid var(--border); }
+.searchbar i { font-size:18px;color:var(--text-tertiary); }
+.searchbar-ph { font-size:15px;color:var(--text-tertiary); }
+.filter-sec { padding:0 var(--px) 12px; }
+.filter-title { font-size:11px;font-weight:600;color:var(--text-tertiary);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px; }
+.fchips { display:flex;gap:7px;flex-wrap:wrap; }
+.fchip { padding:7px 15px;border-radius:var(--radius-pill);font-size:14px;border:0.5px solid var(--border);color:var(--text-secondary);background:var(--bg-primary);cursor:pointer; }
+.fchip.on { background:var(--teal-light);color:#085041;border-color:#5DCAA5; }
+.res-label { font-size:12px;color:var(--text-tertiary);padding:8px var(--px); }
 </style>
 </head>
 <body>
@@ -25,66 +23,47 @@
   <span class="sb-time">9:41</span>
   <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
 </div>
-<div class="content">
-  <div class="app-header">
-    <div class="page-title">검색</div>
+
+<div class="page-header-wrap">
+  <div class="page-header-expanded">
+    <div class="page-title-lg">검색</div>
   </div>
+  <div class="page-header-shrunk">
+    <div class="page-title-sm">검색</div>
+  </div>
+</div>
+
+<div class="content">
+  <!-- 검색바 & 필터 고정 -->
   <div class="searchbar">
     <i class="ti ti-search"></i>
     <span class="searchbar-ph">공연, 뮤지션, 공연장</span>
   </div>
   <div class="filter-sec">
     <div class="filter-title">지역</div>
-    <div class="fchips">
-      <div class="fchip on">서울</div>
-      <div class="fchip">홍대</div>
-      <div class="fchip">이태원</div>
-      <div class="fchip">강남</div>
-      <div class="fchip">부산</div>
-    </div>
+    <div class="fchips"><div class="fchip on">서울</div><div class="fchip">홍대</div><div class="fchip">이태원</div><div class="fchip">강남</div><div class="fchip">부산</div></div>
   </div>
   <div class="filter-sec">
     <div class="filter-title">장르</div>
-    <div class="fchips">
-      <div class="fchip on">모던 재즈</div>
-      <div class="fchip">스윙</div>
-      <div class="fchip">보컬</div>
-      <div class="fchip">퓨전</div>
-      <div class="fchip">프리</div>
-    </div>
+    <div class="fchips"><div class="fchip on">모던 재즈</div><div class="fchip">스윙</div><div class="fchip">보컬</div><div class="fchip">퓨전</div></div>
   </div>
   <div class="filter-sec">
     <div class="filter-title">날짜</div>
-    <div class="fchips">
-      <div class="fchip">오늘</div>
-      <div class="fchip on">이번 주</div>
-      <div class="fchip">이번 달</div>
-      <div class="fchip">직접 선택</div>
-    </div>
-  </div>
-  <div class="filter-sec">
-    <div class="filter-title">입장료</div>
-    <div class="fchips">
-      <div class="fchip on">무료</div>
-      <div class="fchip">~₩10,000</div>
-      <div class="fchip">~₩20,000</div>
-    </div>
+    <div class="fchips"><div class="fchip">오늘</div><div class="fchip on">이번 주</div><div class="fchip">이번 달</div></div>
   </div>
   <div class="hr"></div>
-  <div class="res-label">결과 23개</div>
-  <div class="ecard">
-    <div class="ecard-time">5/18 (토) 19:00</div>
-    <div class="ecard-title">Seoul Jazz Collective</div>
-    <div class="ecard-venue"><i class="ti ti-map-pin" style="font-size:13px;"></i> 클럽 에반스 · 홍대</div>
-    <div class="etags"><span class="etag">모던 재즈</span><span class="etag">₩18,000</span></div>
-  </div>
-  <div class="ecard">
-    <div class="ecard-time">5/18 (토) 20:30</div>
-    <div class="ecard-title">Hyun-A Kim Trio</div>
-    <div class="ecard-venue"><i class="ti ti-map-pin" style="font-size:13px;"></i> 재즈바 369 · 이태원</div>
-    <div class="etags"><span class="etag">모던 재즈</span><span class="etag">무료</span></div>
+
+  <!-- 스크롤 영역 -->
+  <div class="scroll-content">
+    <div class="res-label">결과 23개</div>
+    <div class="ecard"><div class="ecard-time">5/18 (토) 19:00</div><div class="ecard-title">Seoul Jazz Collective</div><div class="ecard-venue"><i class="ti ti-map-pin" style="font-size:13px;"></i> 클럽 에반스 · 홍대</div><div class="etags"><span class="etag">모던 재즈</span><span class="etag">₩18,000</span></div></div>
+    <div class="ecard"><div class="ecard-time">5/18 (토) 20:30</div><div class="ecard-title">Hyun-A Kim Trio</div><div class="ecard-venue"><i class="ti ti-map-pin" style="font-size:13px;"></i> 재즈바 369 · 이태원</div><div class="etags"><span class="etag">모던 재즈</span><span class="etag">무료</span></div></div>
+    <div class="ecard"><div class="ecard-time">5/19 (일) 18:00</div><div class="ecard-title">Jamie Kim Trio</div><div class="ecard-venue"><i class="ti ti-map-pin" style="font-size:13px;"></i> 블루문 · 홍대</div><div class="etags"><span class="etag">모던 재즈</span><span class="etag">₩20,000</span></div></div>
+    <div class="ecard"><div class="ecard-time">5/20 (월) 20:00</div><div class="ecard-title">Lee Soo Quartet</div><div class="ecard-venue"><i class="ti ti-map-pin" style="font-size:13px;"></i> 재즈바 퀀텀 · 이태원</div><div class="etags"><span class="etag">스윙</span><span class="etag">₩15,000</span></div></div>
+    <div class="ecard"><div class="ecard-time">5/21 (화) 19:30</div><div class="ecard-title">David Jang Quintet</div><div class="ecard-venue"><i class="ti ti-map-pin" style="font-size:13px;"></i> 올댓재즈 · 강남</div><div class="etags"><span class="etag">모던 재즈</span><span class="etag">₩22,000</span></div></div>
   </div>
 </div>
+
 <div class="navbar">
   <div class="nav-item"><i class="ti ti-home"></i>홈</div>
   <div class="nav-item active"><i class="ti ti-search"></i>검색</div>
@@ -92,5 +71,8 @@
   <div class="nav-item"><i class="ti ti-heart"></i>팔로우</div>
   <div class="nav-item"><i class="ti ti-user"></i>마이</div>
 </div>
+<script>
+(function(){var s=document.querySelector('.scroll-content');var h=document.querySelector('.page-header-wrap');if(!s||!h)return;s.addEventListener('scroll',function(){h.classList.toggle('shrunk',s.scrollTop>10);},{passive:true});})();
+</script>
 </body>
 </html>

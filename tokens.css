@@ -74,6 +74,104 @@ body {
 /* Content */
 .content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
 
+/* ==============================================
+   SHRINKING HEADER — 스크롤 시 헤더 축소 패턴
+   ============================================== */
+
+/* 헤더 래퍼 */
+.app-header-wrap {
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+  transition: height 0.25s cubic-bezier(0.4,0,0.2,1);
+  background: var(--bg-primary);
+  will-change: height;
+}
+.app-header-wrap.dark-header { background: var(--brand-deep); }
+.app-header-wrap { height: 120px; }
+.app-header-wrap.shrunk { height: 56px; }
+
+/* 확장 헤더 */
+.header-expanded {
+  padding: 16px var(--px) 12px;
+  display: flex; align-items: flex-end; justify-content: space-between;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.app-header-wrap.shrunk .header-expanded {
+  opacity: 0; pointer-events: none; transform: translateY(-8px);
+}
+
+/* 축소 헤더 */
+.header-shrunk {
+  height: 56px; padding: 0 var(--px);
+  display: flex; align-items: center; justify-content: space-between;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.18s ease;
+  position: absolute; top: 0; left: 0; right: 0;
+}
+.app-header-wrap.shrunk .header-shrunk { opacity: 1; pointer-events: auto; }
+
+.header-shrunk-title { font-size: 17px; font-weight: 700; color: var(--text-primary); }
+.header-shrunk-title span { color: var(--brand); }
+.app-header-wrap.dark-header .header-shrunk-title { color: #fff; }
+.app-header-wrap.dark-header .header-shrunk-title span { color: var(--brand-mid); }
+
+/* 구분선 (축소 시) */
+.app-header-wrap::after {
+  content: ''; display: block; height: 0.5px;
+  background: var(--border); opacity: 0; transition: opacity 0.18s ease;
+}
+.app-header-wrap.shrunk::after { opacity: 1; }
+
+/* 앱 타이틀 공통 */
+.app-name { font-size: 28px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.1; }
+.app-name span { color: var(--brand); }
+.app-loc { font-size: 13px; color: var(--text-tertiary); margin-top: 3px; display: flex; align-items: center; gap: 3px; }
+.header-icons { display: flex; gap: 8px; }
+
+/* 페이지 타이틀 (검색, 팔로우, 마이 등) */
+.page-header-wrap {
+  flex-shrink: 0; overflow: hidden; position: relative;
+  transition: height 0.25s cubic-bezier(0.4,0,0.2,1);
+  background: var(--bg-primary);
+}
+.page-header-wrap { height: 80px; }
+.page-header-wrap.shrunk { height: 56px; }
+
+.page-header-expanded {
+  padding: 16px var(--px) 10px;
+  display: flex; align-items: flex-end; justify-content: space-between;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.page-header-wrap.shrunk .page-header-expanded {
+  opacity: 0; pointer-events: none; transform: translateY(-6px);
+}
+.page-header-shrunk {
+  height: 56px; padding: 0 var(--px);
+  display: flex; align-items: center; justify-content: space-between;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.18s ease;
+  position: absolute; top: 0; left: 0; right: 0;
+}
+.page-header-wrap.shrunk .page-header-shrunk { opacity: 1; pointer-events: auto; }
+
+.page-title-lg { font-size: 26px; font-weight: 700; color: var(--text-primary); }
+.page-title-sm { font-size: 17px; font-weight: 700; color: var(--text-primary); }
+
+.page-header-wrap::after {
+  content: ''; display: block; height: 0.5px;
+  background: var(--border); opacity: 0; transition: opacity 0.18s ease;
+}
+.page-header-wrap.shrunk::after { opacity: 1; }
+
+/* 스크롤 영역 */
+.scroll-content {
+  flex: 1; overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 16px;
+}
+.scroll-content::-webkit-scrollbar { display: none; }
+
 /* Common */
 .px { padding-left: var(--px); padding-right: var(--px); }
 .hr { height: 0.5px; background: var(--border); flex-shrink: 0; }

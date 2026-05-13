@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jazz Bridge — Claude와 함께한 앱 제작 현황</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --brand:       #534AB7;
+  --brand-dark:  #3C3489;
+  --brand-deep:  #26215C;
+  --brand-light: #EEEDFE;
+  --brand-mid:   #AFA9EC;
+  --teal:        #1D9E75;
+  --teal-light:  #E1F5EE;
+  --amber:       #BA7517;
+  --amber-light: #FAEEDA;
+  --ink:         #1A1724;
+  --ink-mid:     #5C5879;
+  --ink-light:   #9B98AC;
+  --surface:     #F7F6FC;
+  --white:       #FFFFFF;
+  --border:      rgba(83,74,183,0.12);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--ink);
+  color: var(--white);
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 48px;
+  background: rgba(26,23,36,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 0.5px solid rgba(255,255,255,0.08);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 15px; font-weight: 500; color: var(--white);
+}
+.nav-logo svg { flex-shrink: 0; }
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  font-size: 13px; color: rgba(255,255,255,0.5);
+  text-decoration: none; transition: color .2s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-badge {
+  font-size: 12px; font-weight: 500;
+  padding: 5px 12px; border-radius: 99px;
+  background: rgba(83,74,183,0.3);
+  border: 0.5px solid var(--brand-mid);
+  color: var(--brand-mid);
+}
+
+/* SECTIONS */
+section {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 120px 48px 80px;
+  position: relative;
+}
+section:nth-child(even) { background: rgba(255,255,255,0.02); }
+
+/* HERO */
+.hero {
+  background: var(--brand-deep);
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 60% 50%, rgba(83,74,183,0.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+  max-width: 1100px; margin: 0 auto;
+  position: relative; z-index: 1;
+}
+.hero-eyebrow {
+  font-size: 12px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--brand-mid); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--brand-mid); }
+.hero-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1.1; color: var(--white);
+  margin-bottom: 24px;
+}
+.hero-title em { color: var(--brand-mid); font-style: italic; }
+.hero-desc { font-size: 16px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 36px; }
+.hero-meta { display: flex; gap: 24px; flex-wrap: wrap; }
+.meta-item { font-size: 13px; color: rgba(255,255,255,0.4); display: flex; align-items: center; gap: 6px; }
+.meta-item strong { color: rgba(255,255,255,0.8); }
+.hero-visual {
+  display: flex; flex-direction: column; gap: 16px;
+  align-items: flex-end;
+}
+.stat-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
+.stat-card {
+  background: rgba(255,255,255,0.06);
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: 16px; padding: 20px;
+}
+.stat-num { font-family: 'Instrument Serif', serif; font-size: 36px; color: var(--white); line-height: 1; margin-bottom: 4px; }
+.stat-num span { font-size: 20px; }
+.stat-label { font-size: 12px; color: rgba(255,255,255,0.4); }
+
+/* SECTION HEADER */
+.section-eyebrow {
+  font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--brand-mid); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--brand-mid); }
+.section-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 3.5vw, 44px);
+  line-height: 1.15; color: var(--white);
+  margin-bottom: 16px;
+}
+.section-desc { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.7; max-width: 560px; margin-bottom: 48px; }
+.max-w { max-width: 1100px; margin: 0 auto; width: 100%; }
+
+/* PROBLEM */
+.problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.problem-card {
+  background: rgba(255,255,255,0.04);
+  border: 0.5px solid rgba(255,255,255,0.08);
+  border-radius: 16px; padding: 28px;
+  transition: border-color .2s, background .2s;
+}
+.problem-card:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.15); }
+.problem-icon { font-size: 28px; margin-bottom: 16px; color: var(--brand-mid); }
+.problem-title { font-size: 16px; font-weight: 500; color: var(--white); margin-bottom: 8px; }
+.problem-desc { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+/* SOLUTION */
+.solution-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.solution-list { display: flex; flex-direction: column; gap: 16px; }
+.solution-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 20px; border-radius: 14px;
+  background: rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(255,255,255,0.07);
+}
+.solution-item.active {
+  background: rgba(83,74,183,0.15);
+  border-color: rgba(83,74,183,0.4);
+}
+.sol-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: rgba(83,74,183,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: var(--brand-mid); flex-shrink: 0;
+}
+.sol-title { font-size: 14px; font-weight: 500; color: var(--white); margin-bottom: 4px; }
+.sol-desc { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+.tech-stack {
+  background: rgba(255,255,255,0.04);
+  border: 0.5px solid rgba(255,255,255,0.08);
+  border-radius: 16px; padding: 28px;
+}
+.tech-title { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.4); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 16px; }
+.tech-items { display: flex; flex-direction: column; gap: 10px; }
+.tech-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 10px;
+}
+.tech-name { font-size: 13px; color: var(--white); }
+.tech-badge {
+  font-size: 11px; padding: 2px 9px; border-radius: 99px;
+  font-weight: 500;
+}
+.tech-badge.recommended { background: rgba(29,158,117,0.2); color: #5DCAA5; }
+.tech-badge.core { background: rgba(83,74,183,0.2); color: var(--brand-mid); }
+.tech-badge.caution { background: rgba(186,117,23,0.2); color: #EF9F27; }
+
+/* DELIVERABLES */
+.deliverables-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+.del-card {
+  background: rgba(255,255,255,0.04);
+  border: 0.5px solid rgba(255,255,255,0.08);
+  border-radius: 14px; padding: 20px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.del-icon { font-size: 22px; color: var(--brand-mid); }
+.del-count { font-family: 'Instrument Serif', serif; font-size: 28px; color: var(--white); }
+.del-label { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.4; }
+.screens-showcase {
+  background: rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(255,255,255,0.07);
+  border-radius: 16px; padding: 24px;
+}
+.screens-title { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.3); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px; }
+.screens-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.screen-chip {
+  font-size: 12px; padding: 5px 12px; border-radius: 99px;
+  background: rgba(255,255,255,0.06);
+  border: 0.5px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.6);
+}
+.screen-chip.highlight {
+  background: rgba(83,74,183,0.2);
+  border-color: rgba(83,74,183,0.4);
+  color: var(--brand-mid);
+}
+
+/* ROADMAP */
+.roadmap { display: flex; flex-direction: column; gap: 0; }
+.road-item {
+  display: flex; align-items: stretch; gap: 0; position: relative;
+}
+.road-left {
+  display: flex; flex-direction: column; align-items: center;
+  width: 48px; flex-shrink: 0;
+}
+.road-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--brand); flex-shrink: 0;
+  position: relative; z-index: 1;
+  margin-top: 4px;
+}
+.road-dot.done { background: var(--teal); }
+.road-dot.now { background: var(--brand); box-shadow: 0 0 0 4px rgba(83,74,183,0.3); }
+.road-dot.next { background: rgba(255,255,255,0.2); }
+.road-line { width: 1px; flex: 1; background: rgba(255,255,255,0.1); margin: 4px 0; }
+.road-body {
+  flex: 1; padding: 4px 0 32px 20px;
+}
+.road-phase { font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 6px; }
+.road-title { font-size: 17px; font-weight: 500; color: var(--white); margin-bottom: 8px; }
+.road-items { display: flex; flex-wrap: wrap; gap: 6px; }
+.road-tag {
+  font-size: 12px; padding: 4px 10px; border-radius: 99px;
+  background: rgba(255,255,255,0.06);
+  border: 0.5px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.5);
+}
+.road-tag.done { background: rgba(29,158,117,0.1); border-color: rgba(29,158,117,0.3); color: #5DCAA5; }
+.road-tag.now { background: rgba(83,74,183,0.15); border-color: rgba(83,74,183,0.4); color: var(--brand-mid); }
+
+/* WORKFLOW */
+.workflow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.wf-card {
+  background: rgba(255,255,255,0.04);
+  border: 0.5px solid rgba(255,255,255,0.08);
+  border-radius: 16px; padding: 24px;
+}
+.wf-num { font-family: 'Instrument Serif', serif; font-size: 40px; color: rgba(255,255,255,0.1); line-height: 1; margin-bottom: 12px; }
+.wf-title { font-size: 15px; font-weight: 500; color: var(--white); margin-bottom: 8px; }
+.wf-desc { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 14px; }
+.wf-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.wf-tag { font-size: 11px; padding: 3px 8px; border-radius: 99px; background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.4); }
+
+/* CLOSING */
+.closing {
+  background: var(--brand-deep);
+  text-align: center;
+}
+.closing-inner { max-width: 680px; margin: 0 auto; }
+.closing-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(36px, 5vw, 60px);
+  line-height: 1.1; color: var(--white);
+  margin-bottom: 24px;
+}
+.closing-title em { color: var(--brand-mid); font-style: italic; }
+.closing-desc { font-size: 16px; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 40px; }
+.closing-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.link-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 24px; border-radius: 10px;
+  font-size: 14px; font-weight: 500; text-decoration: none;
+  transition: all .2s;
+}
+.link-btn.primary { background: var(--brand); color: var(--white); }
+.link-btn.primary:hover { background: var(--brand-dark); }
+.link-btn.secondary { background: rgba(255,255,255,0.08); color: var(--white); border: 0.5px solid rgba(255,255,255,0.15); }
+.link-btn.secondary:hover { background: rgba(255,255,255,0.12); }
+.closing-meta { margin-top: 48px; font-size: 12px; color: rgba(255,255,255,0.2); }
+
+/* DIVIDER */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+}
+
+/* PROGRESS BAR */
+.progress-bar {
+  position: fixed; top: 0; left: 0; height: 2px;
+  background: var(--brand);
+  z-index: 200; transition: width .1s;
+  width: 0%;
+}
+
+/* SCROLL ANIMATE */
+.fade-up { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 768px) {
+  section { padding: 100px 24px 60px; }
+  nav { padding: 14px 24px; }
+  .nav-links { display: none; }
+  .hero-grid, .solution-grid { grid-template-columns: 1fr; gap: 40px; }
+  .problem-grid, .deliverables-grid, .workflow-grid { grid-template-columns: 1fr 1fr; }
+  .stat-cards { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 64 64" fill="none">
+      <rect width="64" height="64" rx="14" fill="#534AB7"/>
+      <path d="M12 40 Q32 20 52 40" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+      <line x1="12" y1="40" x2="12" y2="48" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+      <line x1="52" y1="40" x2="52" y2="48" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="32" cy="30" r="5" fill="#AFA9EC"/>
+      <line x1="32" y1="35" x2="32" y2="48" stroke="#AFA9EC" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+    Jazz Bridge
+  </div>
+  <div class="nav-links">
+    <a href="#problem">문제 정의</a>
+    <a href="#solution">솔루션</a>
+    <a href="#deliverables">결과물</a>
+    <a href="#roadmap">로드맵</a>
+    <a href="#workflow">워크플로우</a>
+  </div>
+  <div class="nav-badge">Claude로 제작</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid max-w">
+    <div>
+      <div class="hero-eyebrow">Jazz Bridge — 제작 현황 보고</div>
+      <h1 class="hero-title">
+        Claude와 함께<br>만든 <em>재즈 앱</em>,<br>어디까지 왔나
+      </h1>
+      <p class="hero-desc">전국 재즈 공연 정보를 통합하는 앱 Jazz Bridge의 기획부터 디자인, HTML 추출, GitHub 배포까지 Claude와 함께한 전 과정을 정리했습니다.</p>
+      <div class="hero-meta">
+        <div class="meta-item">📅 <strong>2025년 5월</strong> 제작</div>
+        <div class="meta-item">🤖 <strong>Claude Sonnet 4.6</strong></div>
+        <div class="meta-item">👤 <strong>moonggun</strong></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="stat-cards">
+        <div class="stat-card">
+          <div class="stat-num">18<span>개</span></div>
+          <div class="stat-label">디자인 화면</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">20<span>주</span></div>
+          <div class="stat-label">MVP 로드맵</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">7<span>개</span></div>
+          <div class="stat-label">DB 테이블</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">100<span>%</span></div>
+          <div class="stat-label">Claude 제작</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="max-w">
+    <div class="fade-up">
+      <div class="section-eyebrow">01 — 문제 정의</div>
+      <h2 class="section-title">왜 재즈 팬들은<br>공연을 놓칠까?</h2>
+      <p class="section-desc">재즈 공연은 주로 소규모 클럽에서 열리고, 공연 정보는 각 클럽의 SNS에 산발적으로 올라옵니다. 체계적인 정보 수집 수단이 없어 팬들이 직접 일일이 확인해야 하는 구조입니다.</p>
+    </div>
+    <div class="problem-grid fade-up">
+      <div class="problem-card">
+        <div class="problem-icon">📱</div>
+        <div class="problem-title">정보 분산</div>
+        <div class="problem-desc">인스타그램, 네이버 블로그, 카카오 채널 등 각기 다른 플랫폼에 공연 정보가 흩어져 있음</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">🔍</div>
+        <div class="problem-title">검색 불가</div>
+        <div class="problem-desc">날짜, 지역, 뮤지션으로 공연을 통합 검색할 수 있는 서비스가 존재하지 않음</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">🎟</div>
+        <div class="problem-title">예매 불편</div>
+        <div class="problem-desc">DM, 전화, 현장 결제 등 공연장마다 예약 방식이 달라 일관된 경험이 없음</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SOLUTION -->
+<section id="solution">
+  <div class="max-w">
+    <div class="fade-up">
+      <div class="section-eyebrow">02 — 솔루션</div>
+      <h2 class="section-title">Jazz Bridge가<br>해결하는 방법</h2>
+      <p class="section-desc">SNS 자동 수집 + AI 파싱 파이프라인으로 공연 정보를 자동화하고, 통합 예매까지 연결합니다.</p>
+    </div>
+    <div class="solution-grid fade-up">
+      <div class="solution-list">
+        <div class="solution-item active">
+          <div class="sol-icon">🤖</div>
+          <div>
+            <div class="sol-title">SNS 자동 수집 + AI 파싱</div>
+            <div class="sol-desc">네이버 블로그·공식 홈페이지 크롤링 후 Claude Haiku로 날짜·장소·뮤지션 자동 추출. 건당 약 ₩1~3원.</div>
+          </div>
+        </div>
+        <div class="solution-item">
+          <div class="sol-icon">🗓</div>
+          <div>
+            <div class="sol-title">날짜 / 지역 / 뮤지션 필터</div>
+            <div class="sol-desc">오늘 밤 공연부터 이번 달까지, 홍대·이태원·강남 지역별, 팔로우 뮤지션별로 즉시 탐색.</div>
+          </div>
+        </div>
+        <div class="solution-item">
+          <div class="sol-icon">🔔</div>
+          <div>
+            <div class="sol-title">뮤지션 팔로우 & 알림</div>
+            <div class="sol-desc">좋아하는 뮤지션을 팔로우하면 새 공연 등록 시 푸시 알림. 핵심 리텐션 기능.</div>
+          </div>
+        </div>
+        <div class="solution-item">
+          <div class="sol-icon">💳</div>
+          <div>
+            <div class="sol-title">통합 예매</div>
+            <div class="sol-desc">파트너 공연장 대상 인앱 결제. 토스페이먼츠 연동, 수수료 3~5% 수익 모델.</div>
+          </div>
+        </div>
+      </div>
+      <div class="tech-stack">
+        <div class="tech-title">기술 스택</div>
+        <div class="tech-items">
+          <div class="tech-item">
+            <span class="tech-name">크롤러 (requests + BeautifulSoup)</span>
+            <span class="tech-badge recommended">권장</span>
+          </div>
+          <div class="tech-item">
+            <span class="tech-name">JS 렌더링 (Playwright)</span>
+            <span class="tech-badge core">보조</span>
+          </div>
+          <div class="tech-item">
+            <span class="tech-name">AI 파싱 (Claude Haiku)</span>
+            <span class="tech-badge recommended">권장</span>
+          </div>
+          <div class="tech-item">
+            <span class="tech-name">DB (PostgreSQL)</span>
+            <span class="tech-badge core">핵심</span>
+          </div>
+          <div class="tech-item">
+            <span class="tech-name">스케줄러 (APScheduler)</span>
+            <span class="tech-badge core">핵심</span>
+          </div>
+          <div class="tech-item">
+            <span class="tech-name">인스타그램 직접 크롤링</span>
+            <span class="tech-badge caution">약관 주의</span>
+          </div>
+          <div class="tech-item">
+            <span class="tech-name">결제 (토스페이먼츠)</span>
+            <span class="tech-badge core">4단계</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- DELIVERABLES -->
+<section id="deliverables">
+  <div class="max-w">
+    <div class="fade-up">
+      <div class="section-eyebrow">03 — 결과물</div>
+      <h2 class="section-title">Claude와 함께<br>만든 것들</h2>
+      <p class="section-desc">브레인스토밍부터 HTML 코드 추출, GitHub 배포까지 Claude 단독으로 수행한 결과물 전체입니다.</p>
+    </div>
+    <div class="deliverables-grid fade-up">
+      <div class="del-card">
+        <div class="del-icon">🎨</div>
+        <div class="del-count">18</div>
+        <div class="del-label">375×812px 기준 앱 화면 목업</div>
+      </div>
+      <div class="del-card">
+        <div class="del-icon">💾</div>
+        <div class="del-count">18</div>
+        <div class="del-label">독립 실행 가능한 HTML 파일</div>
+      </div>
+      <div class="del-card">
+        <div class="del-icon">🗄</div>
+        <div class="del-count">7</div>
+        <div class="del-label">PostgreSQL DB 테이블 스키마</div>
+      </div>
+      <div class="del-card">
+        <div class="del-icon">🗺</div>
+        <div class="del-count">4</div>
+        <div class="del-label">단계별 MVP 로드맵 (20주)</div>
+      </div>
+    </div>
+    <div class="screens-showcase fade-up">
+      <div class="screens-title">전체 화면 목록</div>
+      <div class="screens-list">
+        <span class="screen-chip highlight">스플래시</span>
+        <span class="screen-chip highlight">온보딩 1~3</span>
+        <span class="screen-chip highlight">권한 요청</span>
+        <span class="screen-chip">홈</span>
+        <span class="screen-chip">공연 상세</span>
+        <span class="screen-chip">캘린더</span>
+        <span class="screen-chip">검색 & 필터</span>
+        <span class="screen-chip">뮤지션 팔로우</span>
+        <span class="screen-chip">마이 페이지</span>
+        <span class="screen-chip">예매 — 수량 선택</span>
+        <span class="screen-chip">예매 — 결제</span>
+        <span class="screen-chip">예매 완료</span>
+        <span class="screen-chip">뮤지션 프로필</span>
+        <span class="screen-chip">공연장 프로필</span>
+        <span class="screen-chip">알림 센터</span>
+        <span class="screen-chip">공연 기록 아카이브</span>
+        <span class="screen-chip highlight">브랜드 시스템</span>
+        <span class="screen-chip highlight">DB 스키마 (ERD)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="max-w">
+    <div class="fade-up">
+      <div class="section-eyebrow">04 — MVP 로드맵</div>
+      <h2 class="section-title">0 → 서비스 출시까지<br>20주 계획</h2>
+      <p class="section-desc">데이터가 먼저, 앱은 그 다음. 크롤러와 DB 구축을 선행하고 단계적으로 기능을 붙여나가는 전략입니다.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;">
+      <div class="roadmap fade-up">
+        <div class="road-item">
+          <div class="road-left"><div class="road-dot done"></div><div class="road-line"></div></div>
+          <div class="road-body">
+            <div class="road-phase">1단계 · 주 1~4</div>
+            <div class="road-title">기반 구축</div>
+            <div class="road-items">
+              <span class="road-tag done">클럽 소스 목록 수집</span>
+              <span class="road-tag done">크롤러 개발</span>
+              <span class="road-tag done">AI 파싱 파이프라인</span>
+              <span class="road-tag done">DB 스키마 설계</span>
+              <span class="road-tag done">스케줄러 설정</span>
+            </div>
+          </div>
+        </div>
+        <div class="road-item">
+          <div class="road-left"><div class="road-dot now"></div><div class="road-line"></div></div>
+          <div class="road-body">
+            <div class="road-phase">2단계 · 주 5~8</div>
+            <div class="road-title">MVP 앱 개발</div>
+            <div class="road-items">
+              <span class="road-tag now">공연 목록 & 캘린더</span>
+              <span class="road-tag now">날짜 / 지역 필터</span>
+              <span class="road-tag now">공연 상세 페이지</span>
+              <span class="road-tag now">검수 대시보드</span>
+            </div>
+          </div>
+        </div>
+        <div class="road-item">
+          <div class="road-left"><div class="road-dot next"></div><div class="road-line"></div></div>
+          <div class="road-body">
+            <div class="road-phase">3단계 · 주 9~14</div>
+            <div class="road-title">베타 출시</div>
+            <div class="road-items">
+              <span class="road-tag">뮤지션 팔로우 & 알림</span>
+              <span class="road-tag">크롤러 확장</span>
+              <span class="road-tag">베타 유저 300명</span>
+              <span class="road-tag">B2B 파트너십</span>
+            </div>
+          </div>
+        </div>
+        <div class="road-item">
+          <div class="road-left"><div class="road-dot next"></div></div>
+          <div class="road-body">
+            <div class="road-phase">4단계 · 주 15~20</div>
+            <div class="road-title">정식 출시 & 수익화</div>
+            <div class="road-items">
+              <span class="road-tag">인앱 예매 & 결제</span>
+              <span class="road-tag">앱스토어 등록</span>
+              <span class="road-tag">MAU 1,000+</span>
+              <span class="road-tag">첫 수익 발생</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fade-up">
+        <div class="tech-stack" style="margin-bottom:16px;">
+          <div class="tech-title">DB 핵심 테이블</div>
+          <div class="tech-items">
+            <div class="tech-item"><span class="tech-name">event (공연)</span><span class="tech-badge core">핵심</span></div>
+            <div class="tech-item"><span class="tech-name">venue (공연장)</span><span class="tech-badge core">핵심</span></div>
+            <div class="tech-item"><span class="tech-name">artist (뮤지션)</span><span class="tech-badge core">핵심</span></div>
+            <div class="tech-item"><span class="tech-name">event_artist (출연진)</span><span class="tech-badge recommended">중간</span></div>
+            <div class="tech-item"><span class="tech-name">user (사용자)</span><span class="tech-badge recommended">중간</span></div>
+            <div class="tech-item"><span class="tech-name">user_artist_follow</span><span class="tech-badge recommended">중간</span></div>
+            <div class="tech-item"><span class="tech-name">booking (예매)</span><span class="tech-badge caution">4단계</span></div>
+          </div>
+        </div>
+        <div class="tech-stack">
+          <div class="tech-title">수익 모델</div>
+          <div class="tech-items">
+            <div class="tech-item"><span class="tech-name">예매 수수료</span><span class="tech-badge recommended">3~5%</span></div>
+            <div class="tech-item"><span class="tech-name">공연장 구독 (B2B)</span><span class="tech-badge core">월정액</span></div>
+            <div class="tech-item"><span class="tech-name">프리미엄 노출</span><span class="tech-badge caution">추후</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- WORKFLOW -->
+<section id="workflow">
+  <div class="max-w">
+    <div class="fade-up">
+      <div class="section-eyebrow">05 — 워크플로우</div>
+      <h2 class="section-title">Claude와 함께한<br>작업 방식</h2>
+      <p class="section-desc">이번 프로젝트에서 Claude를 활용한 방식입니다. 기획 → 디자인 → 코드 추출까지 전 과정을 대화 형태로 진행했습니다.</p>
+    </div>
+    <div class="workflow-grid fade-up">
+      <div class="wf-card">
+        <div class="wf-num">01</div>
+        <div class="wf-title">브레인스토밍 & 기획</div>
+        <div class="wf-desc">문제 정의부터 핵심 기능, 차별화 포인트, MVP 우선순위까지 대화로 구조화.</div>
+        <div class="wf-tags"><span class="wf-tag">문제 정의</span><span class="wf-tag">기능 설계</span><span class="wf-tag">로드맵</span></div>
+      </div>
+      <div class="wf-card">
+        <div class="wf-num">02</div>
+        <div class="wf-title">기술 설계</div>
+        <div class="wf-desc">SNS 크롤링 파이프라인, AI 파싱 방식, DB 스키마, 수익 모델까지 설계 완료.</div>
+        <div class="wf-tags"><span class="wf-tag">크롤링</span><span class="wf-tag">DB 설계</span><span class="wf-tag">ERD</span></div>
+      </div>
+      <div class="wf-card">
+        <div class="wf-num">03</div>
+        <div class="wf-title">UI 목업 & 브랜드</div>
+        <div class="wf-desc">375×812px 기준 18개 화면 목업 + 로고, 컬러 시스템, 타이포그래피 시스템 완성.</div>
+        <div class="wf-tags"><span class="wf-tag">목업</span><span class="wf-tag">브랜드</span><span class="wf-tag">디자인 토큰</span></div>
+      </div>
+      <div class="wf-card">
+        <div class="wf-num">04</div>
+        <div class="wf-title">HTML 코드 추출</div>
+        <div class="wf-desc">모든 화면을 독립 실행 가능한 HTML 파일로 추출. 공통 토큰 CSS 분리 구조.</div>
+        <div class="wf-tags"><span class="wf-tag">HTML</span><span class="wf-tag">CSS</span><span class="wf-tag">375×812</span></div>
+      </div>
+      <div class="wf-card">
+        <div class="wf-num">05</div>
+        <div class="wf-title">GitHub 배포</div>
+        <div class="wf-desc">Git 초기화부터 Personal Access Token 인증, 푸시까지 Claude Code와 함께 완료.</div>
+        <div class="wf-tags"><span class="wf-tag">Git</span><span class="wf-tag">GitHub Pages</span><span class="wf-tag">배포</span></div>
+      </div>
+      <div class="wf-card">
+        <div class="wf-num">06</div>
+        <div class="wf-title">Figma 연동 시도</div>
+        <div class="wf-desc">Figma MCP 서버 연결 완료. HTML to Design 플러그인으로 캔버스 반입 시도 중.</div>
+        <div class="wf-tags"><span class="wf-tag">Figma MCP</span><span class="wf-tag">진행 중</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CLOSING -->
+<section class="closing" id="closing">
+  <div class="closing-inner fade-up">
+    <div class="section-eyebrow" style="justify-content:center;margin-bottom:20px;">Jazz Bridge</div>
+    <h2 class="closing-title">
+      아이디어에서<br><em>코드까지</em>,<br>Claude와 함께
+    </h2>
+    <p class="closing-desc">브레인스토밍 하나로 시작해서 DB 스키마, 18개 화면 목업, HTML 코드, GitHub 배포까지 — 전통적으로 여러 명의 팀이 수주에 걸쳐 하던 작업을 대화 형식으로 진행했습니다.</p>
+    <div class="closing-links">
+      <a href="https://github.com/moonggun/jazz-bridge" class="link-btn primary" target="_blank">GitHub 저장소 →</a>
+      <a href="https://moonggun.github.io/jazz-bridge/01_home.html" class="link-btn secondary" target="_blank">UI 미리보기 →</a>
+    </div>
+    <div class="closing-meta">Made with Claude Sonnet 4.6 · 2025.05 · Jazz Bridge</div>
+  </div>
+</section>
+
+<script>
+const progress = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  progress.style.width = (scrolled / total * 100) + '%';
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
