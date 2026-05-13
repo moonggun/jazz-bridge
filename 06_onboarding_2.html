@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 온보딩 2</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.ob-hero { background: var(--brand-deep); padding: 32px var(--px) 28px; display: flex; flex-direction: column; align-items: center; gap: 18px; flex-shrink: 0; }
+.ob-prog { display: flex; gap: 6px; width: 100%; }
+.ob-pd { height: 4px; flex: 1; border-radius: 2px; background: rgba(255,255,255,.2); }
+.ob-pd.on { background: var(--brand-mid); }
+.ob-icon-wrap { width: 76px; height: 76px; background: var(--brand); border-radius: 22px; display: flex; align-items: center; justify-content: center; }
+.ob-icon-wrap i { font-size: 36px; color: #fff; }
+.ob-title { font-size: 22px; font-weight: 700; color: #fff; text-align: center; line-height: 1.3; }
+.ob-desc { font-size: 15px; color: var(--brand-mid); text-align: center; line-height: 1.6; margin-top: 6px; }
+.ob-body { flex: 1; padding: 24px var(--px) 0; display: flex; flex-direction: column; gap: 18px; }
+.ob-item { display: flex; align-items: flex-start; gap: 14px; }
+.ob-bullet { width: 38px; height: 38px; border-radius: 11px; background: var(--brand-light); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.ob-bullet i { font-size: 20px; color: var(--brand); }
+.ob-item-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
+.ob-item-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.4; }
+.ob-footer { padding: 20px var(--px) 24px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="statusbar dark">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="ob-hero">
+    <div class="ob-prog"><div class="ob-pd"></div><div class="ob-pd on"></div><div class="ob-pd"></div></div>
+    <div class="ob-icon-wrap"><i class="ti ti-heart"></i></div>
+    <div>
+      <div class="ob-title">좋아하는 뮤지션,<br>공연 놓치지 마세요</div>
+      <div class="ob-desc">팔로우하면 새 공연 등록 시<br>바로 알림을 보내드려요</div>
+    </div>
+  </div>
+  <div class="ob-body">
+    <div class="ob-item">
+      <div class="ob-bullet"><i class="ti ti-bell"></i></div>
+      <div><div class="ob-item-title">공연 등록 즉시 알림</div><div class="ob-item-desc">팔로우 뮤지션 공연 놓치지 않게</div></div>
+    </div>
+    <div class="ob-item">
+      <div class="ob-bullet"><i class="ti ti-user"></i></div>
+      <div><div class="ob-item-title">뮤지션 프로필</div><div class="ob-item-desc">출연 이력과 스케줄 한눈에</div></div>
+    </div>
+    <div class="ob-item">
+      <div class="ob-bullet"><i class="ti ti-sparkles"></i></div>
+      <div><div class="ob-item-title">취향 기반 추천</div><div class="ob-item-desc">비슷한 뮤지션 공연 자동 발견</div></div>
+    </div>
+  </div>
+  <div class="ob-footer">
+    <div class="btn-primary">다음</div>
+    <div class="btn-ghost">건너뛰기</div>
+  </div>
+</div>
+</body>
+</html>

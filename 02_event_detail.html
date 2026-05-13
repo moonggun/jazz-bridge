@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 공연 상세</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --brand:        #534AB7;
+    --brand-dark:   #3C3489;
+    --brand-deep:   #26215C;
+    --brand-light:  #EEEDFE;
+    --brand-mid:    #AFA9EC;
+    --teal:         #1D9E75;
+    --teal-light:   #E1F5EE;
+    --text-primary:   #1A1A1A;
+    --text-secondary: #5C5C5C;
+    --text-tertiary:  #9B9B9B;
+    --bg-primary:   #FFFFFF;
+    --bg-secondary: #F5F5F3;
+    --border:       rgba(0,0,0,0.1);
+    --radius-card:  14px;
+    --radius-pill:  99px;
+    --px:           16px;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Pretendard", sans-serif;
+    background: var(--bg-primary);
+    width: 375px;
+    height: 812px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* STATUS BAR — dark (hero bg) */
+  .statusbar {
+    height: 44px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 24px 8px;
+    flex-shrink: 0;
+    background: var(--brand-deep);
+  }
+  .sb-time { font-size: 15px; font-weight: 600; color: #AFA9EC; }
+  .sb-icons { display: flex; gap: 6px; align-items: center; font-size: 13px; color: #AFA9EC; }
+
+  /* HERO */
+  .detail-hero {
+    background: var(--brand-deep);
+    padding: 20px var(--px) 24px;
+    flex-shrink: 0;
+  }
+  .back-btn {
+    font-size: 14px;
+    color: var(--brand-mid);
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 5px;
+    cursor: pointer;
+  }
+  .detail-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 5px;
+    line-height: 1.2;
+  }
+  .detail-date { font-size: 14px; color: var(--brand-mid); }
+
+  /* CONTENT */
+  .content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+  .detail-body { flex: 1; padding: 20px var(--px) 0; overflow: hidden; }
+
+  .drow {
+    display: flex; align-items: flex-start;
+    gap: 12px; margin-bottom: 16px;
+  }
+  .drow-icon {
+    font-size: 20px;
+    color: var(--text-tertiary);
+    margin-top: 1px;
+    flex-shrink: 0;
+    width: 24px;
+    text-align: center;
+  }
+  .drow-label {
+    font-size: 14px; font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+  }
+  .drow-val {
+    font-size: 14px; color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* ARTIST CHIPS */
+  .achips { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 6px; }
+  .achip {
+    display: flex; align-items: center; gap: 6px;
+    padding: 5px 12px 5px 6px;
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-pill);
+    font-size: 13px; color: var(--text-primary);
+  }
+  .av {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--brand-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 700; color: var(--brand-dark);
+  }
+
+  /* BOOKING BAR */
+  .book-bar {
+    padding: 14px var(--px) 16px;
+    border-top: 0.5px solid var(--border);
+    flex-shrink: 0;
+    background: var(--bg-primary);
+  }
+  .book-info {
+    font-size: 13px; color: var(--text-secondary);
+    margin-bottom: 10px;
+  }
+  .book-btn {
+    width: 100%; padding: 17px;
+    background: var(--brand);
+    color: #fff; border: none;
+    border-radius: var(--radius-card);
+    font-size: 17px; font-weight: 600;
+    text-align: center; cursor: pointer;
+  }
+  .source-note {
+    font-size: 12px; color: var(--text-tertiary);
+    margin-top: 10px;
+    display: flex; align-items: center; gap: 4px;
+    justify-content: center;
+  }
+
+  /* NAVBAR */
+  .navbar {
+    height: 83px;
+    border-top: 0.5px solid var(--border);
+    display: flex; padding: 8px 0 0;
+    flex-shrink: 0;
+    background: var(--bg-primary);
+  }
+  .nav-item {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; gap: 4px;
+    font-size: 10px; color: var(--text-tertiary);
+    padding-top: 4px; cursor: pointer;
+  }
+  .nav-item.active { color: var(--brand); }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+</head>
+<body>
+
+<!-- STATUS BAR -->
+<div class="statusbar">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons">
+    <i class="ti ti-wifi"></i>
+    <i class="ti ti-battery"></i>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="detail-hero">
+  <div class="back-btn">
+    <i class="ti ti-arrow-left" style="font-size:15px;"></i>
+    돌아가기
+  </div>
+  <div class="detail-title">Jamie Kim Trio</div>
+  <div class="detail-date">5월 17일 (금) · 오후 8시</div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+  <div class="detail-body">
+
+    <div class="drow">
+      <i class="ti ti-map-pin drow-icon"></i>
+      <div>
+        <div class="drow-label">블루문 재즈클럽</div>
+        <div class="drow-val">서울 마포구 · 홍대입구역 도보 3분</div>
+      </div>
+    </div>
+
+    <div class="drow">
+      <i class="ti ti-users drow-icon"></i>
+      <div>
+        <div class="drow-label">출연진</div>
+        <div class="achips">
+          <div class="achip"><div class="av">JK</div>Jamie Kim</div>
+          <div class="achip"><div class="av">SL</div>Soo Lee</div>
+          <div class="achip"><div class="av">MP</div>Min Park</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="drow">
+      <i class="ti ti-ticket drow-icon"></i>
+      <div>
+        <div class="drow-label">입장료</div>
+        <div class="drow-val">₩20,000 · 음료 1잔 포함</div>
+      </div>
+    </div>
+
+    <div class="drow">
+      <i class="ti ti-music drow-icon"></i>
+      <div>
+        <div class="drow-label">장르</div>
+        <div class="drow-val">모던 재즈 · 트리오</div>
+      </div>
+    </div>
+
+    <div class="drow">
+      <i class="ti ti-armchair drow-icon"></i>
+      <div>
+        <div class="drow-label">잔여석</div>
+        <div class="drow-val">12석 남음</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOOKING BAR -->
+  <div class="book-bar">
+    <div class="book-info">₩20,000 / 1인 · 잔여석 12</div>
+    <div class="book-btn">예매하기</div>
+    <div class="source-note">
+      <i class="ti ti-brand-instagram" style="font-size:14px;"></i>
+      @bluemoon_jazz 에서 수집
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="nav-item">
+    <i class="ti ti-home" style="font-size:24px;"></i>홈
+  </div>
+  <div class="nav-item">
+    <i class="ti ti-search" style="font-size:24px;"></i>검색
+  </div>
+  <div class="nav-item">
+    <i class="ti ti-calendar" style="font-size:24px;"></i>캘린더
+  </div>
+  <div class="nav-item">
+    <i class="ti ti-heart" style="font-size:24px;"></i>팔로우
+  </div>
+  <div class="nav-item">
+    <i class="ti ti-user" style="font-size:24px;"></i>마이
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 캘린더</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --brand:        #534AB7;
+    --brand-dark:   #3C3489;
+    --brand-deep:   #26215C;
+    --brand-light:  #EEEDFE;
+    --brand-mid:    #AFA9EC;
+    --brand-muted:  #7F77DD;
+    --text-primary:   #1A1A1A;
+    --text-secondary: #5C5C5C;
+    --text-tertiary:  #9B9B9B;
+    --bg-primary:   #FFFFFF;
+    --bg-secondary: #F5F5F3;
+    --border:       rgba(0,0,0,0.1);
+    --radius-card:  14px;
+    --px:           16px;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Pretendard", sans-serif;
+    background: var(--bg-primary);
+    width: 375px;
+    height: 812px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* STATUS BAR */
+  .statusbar {
+    height: 44px;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    padding: 0 24px 8px;
+    flex-shrink: 0;
+  }
+  .sb-time { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+  .sb-icons { display: flex; gap: 6px; align-items: center; font-size: 13px; color: var(--text-primary); }
+
+  /* CONTENT */
+  .content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+
+  /* CALENDAR HEADER */
+  .cal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px var(--px) 14px;
+    flex-shrink: 0;
+  }
+  .cal-month { font-size: 20px; font-weight: 600; color: var(--text-primary); }
+  .cal-nav-btn {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: var(--text-secondary);
+    cursor: pointer;
+  }
+
+  /* CALENDAR GRID */
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    padding: 0 var(--px) 10px;
+    flex-shrink: 0;
+  }
+  .cal-day-name {
+    font-size: 11px; font-weight: 500;
+    color: var(--text-tertiary);
+    text-align: center;
+    padding: 4px 0 6px;
+  }
+  .cal-day {
+    font-size: 13px;
+    text-align: center;
+    padding: 6px 2px 4px;
+    border-radius: 6px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    position: relative;
+    line-height: 1.2;
+  }
+  .cal-day.other { color: var(--text-tertiary); }
+  .cal-day.today {
+    background: var(--brand-light);
+    color: var(--brand-dark);
+    font-weight: 700;
+  }
+  .cal-day.has-event::after {
+    content: '';
+    display: block;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--brand);
+    margin: 2px auto 0;
+  }
+  .cal-day.today.has-event::after { background: var(--brand-dark); }
+
+  /* SELECTED DATE PANEL */
+  .cal-selected {
+    margin: 0 var(--px) 14px;
+    padding: 14px 16px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-card);
+    flex-shrink: 0;
+  }
+  .cal-sel-date {
+    font-size: 13px; font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+  }
+  .cal-event-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 7px 0;
+    border-bottom: 0.5px solid var(--border);
+    cursor: pointer;
+  }
+  .cal-event-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .cal-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--brand);
+    flex-shrink: 0;
+  }
+  .cal-event-name {
+    font-size: 14px; color: var(--text-primary);
+    flex: 1; font-weight: 500;
+  }
+  .cal-event-venue { font-size: 12px; color: var(--text-tertiary); }
+  .cal-event-time {
+    font-size: 12px; color: var(--text-tertiary);
+    flex-shrink: 0;
+  }
+
+  /* DIVIDER */
+  .hr { height: 0.5px; background: var(--border); margin: 0 0 10px; flex-shrink: 0; }
+
+  /* UPCOMING SECTION */
+  .sec-hd {
+    font-size: 11px; font-weight: 600;
+    color: var(--text-tertiary);
+    letter-spacing: .06em; text-transform: uppercase;
+    padding: 0 var(--px) 10px;
+    flex-shrink: 0;
+  }
+  .upcoming-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px var(--px);
+    border-bottom: 0.5px solid var(--border);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .upcoming-date {
+    font-size: 13px; font-weight: 600;
+    color: var(--brand); min-width: 38px;
+  }
+  .upcoming-name { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .upcoming-venue { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
+
+  /* NAVBAR */
+  .navbar {
+    height: 83px;
+    border-top: 0.5px solid var(--border);
+    display: flex; padding: 8px 0 0;
+    flex-shrink: 0;
+    background: var(--bg-primary);
+    margin-top: auto;
+  }
+  .nav-item {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; gap: 4px;
+    font-size: 10px; color: var(--text-tertiary);
+    padding-top: 4px; cursor: pointer;
+  }
+  .nav-item.active { color: var(--brand); }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+</head>
+<body>
+
+<!-- STATUS BAR -->
+<div class="statusbar">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons">
+    <i class="ti ti-wifi"></i>
+    <i class="ti ti-battery"></i>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- CALENDAR HEADER -->
+  <div class="cal-header">
+    <div class="cal-nav-btn"><i class="ti ti-chevron-left"></i></div>
+    <div class="cal-month">2025년 5월</div>
+    <div class="cal-nav-btn"><i class="ti ti-chevron-right"></i></div>
+  </div>
+
+  <!-- CALENDAR GRID -->
+  <div class="cal-grid">
+    <!-- 요일 헤더 -->
+    <div class="cal-day-name">일</div>
+    <div class="cal-day-name">월</div>
+    <div class="cal-day-name">화</div>
+    <div class="cal-day-name">수</div>
+    <div class="cal-day-name">목</div>
+    <div class="cal-day-name">금</div>
+    <div class="cal-day-name">토</div>
+    <!-- 1주 -->
+    <div class="cal-day other"></div>
+    <div class="cal-day other"></div>
+    <div class="cal-day other"></div>
+    <div class="cal-day other"></div>
+    <div class="cal-day">1</div>
+    <div class="cal-day has-event">2</div>
+    <div class="cal-day has-event">3</div>
+    <!-- 2주 -->
+    <div class="cal-day has-event">4</div>
+    <div class="cal-day">5</div>
+    <div class="cal-day has-event">6</div>
+    <div class="cal-day">7</div>
+    <div class="cal-day">8</div>
+    <div class="cal-day has-event">9</div>
+    <div class="cal-day has-event">10</div>
+    <!-- 3주 -->
+    <div class="cal-day has-event">11</div>
+    <div class="cal-day">12</div>
+    <div class="cal-day">13</div>
+    <div class="cal-day has-event">14</div>
+    <div class="cal-day">15</div>
+    <div class="cal-day has-event">16</div>
+    <div class="cal-day today has-event">17</div>
+    <!-- 4주 -->
+    <div class="cal-day has-event">18</div>
+    <div class="cal-day">19</div>
+    <div class="cal-day">20</div>
+    <div class="cal-day has-event">21</div>
+    <div class="cal-day">22</div>
+    <div class="cal-day has-event">23</div>
+    <div class="cal-day has-event">24</div>
+    <!-- 5주 -->
+    <div class="cal-day has-event">25</div>
+    <div class="cal-day">26</div>
+    <div class="cal-day">27</div>
+    <div class="cal-day has-event">28</div>
+    <div class="cal-day">29</div>
+    <div class="cal-day has-event">30</div>
+    <div class="cal-day has-event">31</div>
+  </div>
+
+  <!-- SELECTED DATE PANEL -->
+  <div class="cal-selected">
+    <div class="cal-sel-date">5월 17일 토요일 · 공연 3개</div>
+    <div class="cal-event-row">
+      <div class="cal-dot"></div>
+      <div style="flex:1;">
+        <div class="cal-event-name">Jamie Kim Trio</div>
+        <div class="cal-event-venue">블루문 · 홍대</div>
+      </div>
+      <div class="cal-event-time">20:00</div>
+    </div>
+    <div class="cal-event-row">
+      <div class="cal-dot"></div>
+      <div style="flex:1;">
+        <div class="cal-event-name">Lee Soo Quartet</div>
+        <div class="cal-event-venue">재즈바 퀀텀 · 이태원</div>
+      </div>
+      <div class="cal-event-time">21:30</div>
+    </div>
+    <div class="cal-event-row">
+      <div class="cal-dot"></div>
+      <div style="flex:1;">
+        <div class="cal-event-name">Park Minjun Solo</div>
+        <div class="cal-event-venue">올댓재즈 · 강남</div>
+      </div>
+      <div class="cal-event-time">22:00</div>
+    </div>
+  </div>
+
+  <!-- UPCOMING -->
+  <div class="sec-hd">이번 주 더 보기</div>
+  <div class="hr"></div>
+  <div class="upcoming-row">
+    <div class="upcoming-date">5/18</div>
+    <div>
+      <div class="upcoming-name">Seoul Jazz Collective</div>
+      <div class="upcoming-venue">클럽 에반스 · 홍대 · 19:00</div>
+    </div>
+    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);margin-left:auto;"></i>
+  </div>
+  <div class="upcoming-row">
+    <div class="upcoming-date">5/21</div>
+    <div>
+      <div class="upcoming-name">Soo Lee Solo</div>
+      <div class="upcoming-venue">올댓재즈 · 강남 · 20:00</div>
+    </div>
+    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);margin-left:auto;"></i>
+  </div>
+
+</div>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="nav-item">
+    <i class="ti ti-home" style="font-size:24px;"></i>홈
+  </div>
+  <div class="nav-item">
+    <i class="ti ti-search" style="font-size:24px;"></i>검색
+  </div>
+  <div class="nav-item active">
+    <i class="ti ti-calendar" style="font-size:24px;"></i>캘린더
+  </div>
+  <div class="nav-item">
+    <i class="ti ti-heart" style="font-size:24px;"></i>팔로우
+  </div>
+  <div class="nav-item">
+    <i class="ti ti-user" style="font-size:24px;"></i>마이
+  </div>
+</div>
+
+</body>
+</html>

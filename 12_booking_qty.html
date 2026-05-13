@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 예매</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.drow { display: flex; align-items: flex-start; gap: 12px; padding: 16px var(--px) 0; flex-shrink: 0; }
+.drow i { font-size: 20px; color: var(--text-tertiary); margin-top: 1px; flex-shrink: 0; }
+.drow-label { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+.drow-val { font-size: 14px; color: var(--text-secondary); }
+.divider { height: 0.5px; background: var(--border); margin: 16px 0; flex-shrink: 0; }
+.qty-row { display: flex; align-items: center; justify-content: space-between; padding: 16px; background: var(--bg-secondary); border-radius: var(--radius-card); margin: 0 var(--px); flex-shrink: 0; }
+.qty-label { font-size: 17px; font-weight: 500; color: var(--text-primary); }
+.qty-ctrl { display: flex; align-items: center; gap: 18px; }
+.qty-btn { width: 34px; height: 34px; border-radius: 50%; border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--text-secondary); cursor: pointer; background: var(--bg-primary); }
+.qty-num { font-size: 20px; font-weight: 700; color: var(--text-primary); min-width: 24px; text-align: center; }
+.price-section { padding: 16px var(--px) 0; flex-shrink: 0; }
+.price-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
+.price-label { font-size: 15px; color: var(--text-secondary); }
+.price-val { font-size: 15px; color: var(--text-primary); }
+.price-total { display: flex; justify-content: space-between; align-items: center; padding: 16px var(--px); border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); margin: 14px 0 0; flex-shrink: 0; }
+.price-total-label { font-size: 17px; font-weight: 600; color: var(--text-primary); }
+.price-total-val { font-size: 24px; font-weight: 700; color: var(--brand); }
+.footer { padding: 16px var(--px) 20px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="statusbar dark">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="purple-hero">
+    <div class="hero-back"><i class="ti ti-arrow-left" style="font-size:15px;"></i> 공연 상세</div>
+    <div class="hero-title">예매하기</div>
+    <div class="hero-sub">Jamie Kim Trio · 5월 17일 20:00</div>
+  </div>
+  <div class="drow">
+    <i class="ti ti-map-pin"></i>
+    <div><div class="drow-label">블루문 재즈클럽</div><div class="drow-val">서울 마포구 · 잔여석 12</div></div>
+  </div>
+  <div class="divider"></div>
+  <div class="qty-row">
+    <div class="qty-label">인원</div>
+    <div class="qty-ctrl">
+      <div class="qty-btn">−</div>
+      <div class="qty-num">2</div>
+      <div class="qty-btn">+</div>
+    </div>
+  </div>
+  <div class="price-section">
+    <div class="price-row"><div class="price-label">단가</div><div class="price-val">₩20,000 / 1인</div></div>
+    <div class="price-row"><div class="price-label">2인</div><div class="price-val">₩40,000</div></div>
+  </div>
+  <div class="price-total">
+    <div class="price-total-label">합계</div>
+    <div class="price-total-val">₩40,000</div>
+  </div>
+  <div class="footer"><div class="btn-primary">결제하기</div></div>
+</div>
+<div class="navbar">
+  <div class="nav-item"><i class="ti ti-home"></i>홈</div>
+  <div class="nav-item"><i class="ti ti-search"></i>검색</div>
+  <div class="nav-item"><i class="ti ti-calendar"></i>캘린더</div>
+  <div class="nav-item"><i class="ti ti-heart"></i>팔로우</div>
+  <div class="nav-item"><i class="ti ti-user"></i>마이</div>
+</div>
+</body>
+</html>

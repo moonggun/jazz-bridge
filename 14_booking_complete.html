@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 예매 완료</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.success-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; gap: 18px; }
+.success-circle { width: 76px; height: 76px; border-radius: 50%; background: var(--teal-light); display: flex; align-items: center; justify-content: center; }
+.success-circle i { font-size: 34px; color: var(--teal); }
+.success-title { font-size: 26px; font-weight: 700; color: var(--text-primary); text-align: center; }
+.success-sub { font-size: 15px; color: var(--text-secondary); text-align: center; line-height: 1.6; }
+.ticket-card { width: 100%; background: var(--bg-secondary); border-radius: 18px; padding: 20px; border: 0.5px solid var(--border); }
+.ticket-title { font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 5px; }
+.ticket-meta { font-size: 14px; color: var(--text-secondary); margin-bottom: 3px; }
+.ticket-code { display: inline-block; font-size: 15px; font-weight: 700; font-family: monospace; color: var(--brand); margin-top: 12px; padding: 7px 14px; background: var(--brand-light); border-radius: 8px; }
+.action-btns { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+</style>
+</head>
+<body>
+<div class="statusbar">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="success-wrap">
+    <div class="success-circle"><i class="ti ti-check"></i></div>
+    <div class="success-title">예매 완료!</div>
+    <div class="success-sub">공연 당일 입구에서<br>예매 코드를 보여주세요</div>
+    <div class="ticket-card">
+      <div class="ticket-title">Jamie Kim Trio</div>
+      <div class="ticket-meta">5월 17일 (금) 20:00</div>
+      <div class="ticket-meta">블루문 재즈클럽 · 2인 · ₩40,000</div>
+      <div class="ticket-code">JB-20250517-4829</div>
+    </div>
+    <div class="action-btns">
+      <div class="btn-primary">캘린더에 추가</div>
+      <div class="btn-outline">홈으로</div>
+    </div>
+  </div>
+</div>
+<div class="navbar">
+  <div class="nav-item"><i class="ti ti-home"></i>홈</div>
+  <div class="nav-item"><i class="ti ti-search"></i>검색</div>
+  <div class="nav-item"><i class="ti ti-calendar"></i>캘린더</div>
+  <div class="nav-item"><i class="ti ti-heart"></i>팔로우</div>
+  <div class="nav-item active"><i class="ti ti-user"></i>마이</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 결제</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.pay-card { display: flex; align-items: center; justify-content: space-between; margin: 0 var(--px) 10px; padding: 16px; background: var(--bg-secondary); border-radius: var(--radius-card); border: 0.5px solid var(--border); cursor: pointer; flex-shrink: 0; }
+.pay-card.selected { background: var(--brand-light); border-color: var(--brand); }
+.pay-name { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+.pay-card.selected .pay-name { color: var(--brand-dark); }
+.pay-sub { font-size: 13px; color: var(--text-tertiary); }
+.pay-notice { margin: 12px var(--px) 0; padding: 14px; background: var(--bg-secondary); border-radius: 10px; font-size: 13px; color: var(--text-tertiary); line-height: 1.6; flex-shrink: 0; }
+.pay-footer { padding: 14px var(--px) 20px; border-top: 0.5px solid var(--border); flex-shrink: 0; margin-top: auto; }
+.pay-summary { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.pay-summary-amount { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+.pay-summary-method { font-size: 13px; color: var(--text-tertiary); }
+</style>
+</head>
+<body>
+<div class="statusbar dark">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="purple-hero">
+    <div class="hero-back"><i class="ti ti-arrow-left" style="font-size:15px;"></i> 수량 선택</div>
+    <div class="hero-title">결제</div>
+    <div class="hero-sub">총 ₩40,000 · 2인</div>
+  </div>
+  <div class="sec-hd">결제 수단</div>
+  <div class="pay-card selected">
+    <div><div class="pay-name">토스페이</div><div class="pay-sub">간편결제</div></div>
+    <i class="ti ti-check" style="font-size:20px;color:var(--brand);"></i>
+  </div>
+  <div class="pay-card">
+    <div><div class="pay-name">신용카드</div><div class="pay-sub">직접 입력</div></div>
+    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
+  </div>
+  <div class="pay-card">
+    <div><div class="pay-name">카카오페이</div><div class="pay-sub">간편결제</div></div>
+    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
+  </div>
+  <div class="pay-notice">공연 48시간 전까지 전액 환불 가능. 결제 시 환불 정책에 동의하게 됩니다.</div>
+  <div class="pay-footer">
+    <div class="pay-summary">
+      <div class="pay-summary-amount">₩40,000</div>
+      <div class="pay-summary-method">토스페이로 결제</div>
+    </div>
+    <div class="btn-primary">결제 완료</div>
+  </div>
+</div>
+<div class="navbar">
+  <div class="nav-item"><i class="ti ti-home"></i>홈</div>
+  <div class="nav-item"><i class="ti ti-search"></i>검색</div>
+  <div class="nav-item"><i class="ti ti-calendar"></i>캘린더</div>
+  <div class="nav-item"><i class="ti ti-heart"></i>팔로우</div>
+  <div class="nav-item"><i class="ti ti-user"></i>마이</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 뮤지션 프로필</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.artist-hero { background: var(--brand-deep); padding: 16px var(--px) 24px; display: flex; flex-direction: column; align-items: center; gap: 12px; flex-shrink: 0; }
+.hero-back { align-self: flex-start; font-size: 13px; color: var(--brand-mid); display: flex; align-items: center; gap: 5px; cursor: pointer; }
+.artist-av { width: 76px; height: 76px; border-radius: 50%; background: var(--brand); display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 700; color: #fff; }
+.artist-name { font-size: 24px; font-weight: 700; color: #fff; }
+.artist-inst { font-size: 14px; color: var(--brand-mid); }
+.artist-stats { display: flex; gap: 28px; }
+.astat { text-align: center; }
+.astat-n { font-size: 20px; font-weight: 700; color: #fff; }
+.astat-l { font-size: 11px; color: var(--brand-muted); margin-top: 2px; }
+.follow-btn { padding: 10px 36px; border-radius: var(--radius-pill); background: var(--brand); color: #fff; font-size: 15px; font-weight: 600; border: none; cursor: pointer; }
+.follow-btn.following { background: transparent; border: 1.5px solid var(--brand-mid); color: var(--brand-mid); }
+</style>
+</head>
+<body>
+<div class="statusbar dark">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="artist-hero">
+    <div class="hero-back"><i class="ti ti-arrow-left" style="font-size:14px;"></i> 돌아가기</div>
+    <div class="artist-av">JK</div>
+    <div style="text-align:center;">
+      <div class="artist-name">Jamie Kim</div>
+      <div class="artist-inst">피아노 · 모던 재즈</div>
+    </div>
+    <div class="artist-stats">
+      <div class="astat"><div class="astat-n">128</div><div class="astat-l">팔로워</div></div>
+      <div class="astat"><div class="astat-n">34</div><div class="astat-l">공연</div></div>
+      <div class="astat"><div class="astat-n">12</div><div class="astat-l">클럽</div></div>
+    </div>
+    <button class="follow-btn following">팔로우 중</button>
+  </div>
+  <div class="sec-hd">다가오는 공연</div>
+  <div class="hr"></div>
+  <div class="upcoming-row">
+    <div class="upcoming-date">5/17</div>
+    <div style="flex:1;min-width:0;"><div class="upcoming-name">Jamie Kim Trio</div><div class="upcoming-venue">블루문 · 홍대 · 20:00</div></div>
+    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
+  </div>
+  <div class="upcoming-row">
+    <div class="upcoming-date">5/24</div>
+    <div style="flex:1;min-width:0;"><div class="upcoming-name">Jamie Kim & Soo Lee</div><div class="upcoming-venue">올댓재즈 · 강남 · 21:00</div></div>
+    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
+  </div>
+  <div class="upcoming-row">
+    <div class="upcoming-date">6/1</div>
+    <div style="flex:1;min-width:0;"><div class="upcoming-name">Seoul Jazz Collective</div><div class="upcoming-venue">클럽 에반스 · 19:30</div></div>
+    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
+  </div>
+</div>
+<div class="navbar">
+  <div class="nav-item"><i class="ti ti-home"></i>홈</div>
+  <div class="nav-item"><i class="ti ti-search"></i>검색</div>
+  <div class="nav-item"><i class="ti ti-calendar"></i>캘린더</div>
+  <div class="nav-item active"><i class="ti ti-heart"></i>팔로우</div>
+  <div class="nav-item"><i class="ti ti-user"></i>마이</div>
+</div>
+</body>
+</html>

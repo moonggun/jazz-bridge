@@ -1,0 +1,148 @@
+/* Jazz Bridge — Design Tokens */
+:root {
+  --brand:          #534AB7;
+  --brand-dark:     #3C3489;
+  --brand-deep:     #26215C;
+  --brand-light:    #EEEDFE;
+  --brand-mid:      #AFA9EC;
+  --brand-muted:    #7F77DD;
+  --teal:           #1D9E75;
+  --teal-light:     #E1F5EE;
+  --amber:          #BA7517;
+  --amber-light:    #FAEEDA;
+  --coral-light:    #FAECE7;
+  --text-primary:   #1A1A1A;
+  --text-secondary: #5C5C5C;
+  --text-tertiary:  #9B9B9B;
+  --bg-primary:     #FFFFFF;
+  --bg-secondary:   #F5F5F3;
+  --border:         rgba(0,0,0,0.1);
+  --radius-card:    14px;
+  --radius-lg:      16px;
+  --radius-pill:    99px;
+  --px:             16px;
+  --statusbar-h:    44px;
+  --navbar-h:       83px;
+}
+
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Base */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Pretendard", sans-serif;
+  background: var(--bg-primary);
+  width: 375px;
+  height: 812px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Status Bar */
+.statusbar {
+  height: var(--statusbar-h);
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding: 0 24px 8px;
+  flex-shrink: 0;
+  background: var(--bg-primary);
+}
+.statusbar.dark { background: var(--brand-deep); }
+.sb-time { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+.statusbar.dark .sb-time { color: var(--brand-mid); }
+.sb-icons { display: flex; gap: 6px; align-items: center; font-size: 13px; color: var(--text-primary); }
+.statusbar.dark .sb-icons { color: var(--brand-muted); }
+
+/* Navbar */
+.navbar {
+  height: var(--navbar-h);
+  border-top: 0.5px solid var(--border);
+  display: flex; padding: 8px 0 0;
+  flex-shrink: 0;
+  background: var(--bg-primary);
+  margin-top: auto;
+}
+.nav-item {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; gap: 4px;
+  font-size: 10px; color: var(--text-tertiary);
+  padding-top: 4px; cursor: pointer;
+}
+.nav-item i { font-size: 24px; }
+.nav-item.active { color: var(--brand); }
+
+/* Content */
+.content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+
+/* Common */
+.px { padding-left: var(--px); padding-right: var(--px); }
+.hr { height: 0.5px; background: var(--border); flex-shrink: 0; }
+.sec-hd {
+  font-size: 11px; font-weight: 600; color: var(--text-tertiary);
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: 14px var(--px) 10px; flex-shrink: 0;
+}
+
+/* Buttons */
+.btn-primary {
+  width: 100%; padding: 17px;
+  background: var(--brand); color: #fff;
+  border: none; border-radius: var(--radius-card);
+  font-size: 16px; font-weight: 600; text-align: center; cursor: pointer;
+}
+.btn-outline {
+  width: 100%; padding: 15px;
+  background: transparent; color: var(--brand);
+  border: 1.5px solid var(--brand); border-radius: var(--radius-card);
+  font-size: 15px; font-weight: 500; text-align: center; cursor: pointer;
+}
+.btn-ghost {
+  width: 100%; padding: 14px;
+  background: transparent; color: var(--text-tertiary);
+  border: none; font-size: 14px; text-align: center; cursor: pointer;
+}
+
+/* Hero (purple) */
+.purple-hero {
+  background: var(--brand-deep);
+  padding: 16px var(--px) 20px;
+  flex-shrink: 0;
+}
+.hero-back { font-size: 13px; color: var(--brand-mid); margin-bottom: 10px; display: flex; align-items: center; gap: 5px; cursor: pointer; }
+.hero-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 4px; line-height: 1.2; }
+.hero-sub { font-size: 13px; color: var(--brand-mid); }
+
+/* Event card */
+.ecard {
+  margin: 0 var(--px) 10px;
+  padding: 14px 16px;
+  background: var(--bg-primary);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-card);
+  flex-shrink: 0;
+}
+.ecard-time { font-size: 12px; color: var(--text-tertiary); margin-bottom: 3px; }
+.ecard-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
+.ecard-venue { font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 4px; }
+.etags { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.etag { font-size: 12px; padding: 3px 10px; border-radius: var(--radius-pill); background: var(--bg-secondary); color: var(--text-secondary); }
+
+/* Pills */
+.pill-row { display: flex; gap: 8px; padding: 0 var(--px) 14px; overflow-x: auto; flex-shrink: 0; }
+.pill-row::-webkit-scrollbar { display: none; }
+.pill { padding: 7px 16px; border-radius: var(--radius-pill); font-size: 14px; font-weight: 500; border: 0.5px solid var(--border); color: var(--text-secondary); background: var(--bg-primary); white-space: nowrap; cursor: pointer; flex-shrink: 0; }
+.pill.active { background: var(--brand-light); color: var(--brand-dark); border-color: var(--brand-mid); }
+
+/* Icon btn */
+.icon-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--bg-secondary); border: 0.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: var(--text-secondary); cursor: pointer;
+}
+
+/* Upcoming row */
+.upcoming-row { display: flex; align-items: center; gap: 12px; padding: 14px var(--px); border-bottom: 0.5px solid var(--border); cursor: pointer; flex-shrink: 0; }
+.upcoming-date { font-size: 13px; font-weight: 600; color: var(--brand); min-width: 40px; }
+.upcoming-name { font-size: 15px; font-weight: 500; color: var(--text-primary); }
+.upcoming-venue { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }

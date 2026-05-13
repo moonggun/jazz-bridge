@@ -1,0 +1,2187 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;padding:16px;color:#1a1a1a}
+h2{font-size:15px;font-weight:700;margin-bottom:4px}
+p{font-size:12px;color:#666;margin-bottom:12px}
+#btn{width:100%;padding:11px;background:#534AB7;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:opacity .2s}
+#btn:disabled{opacity:.45;cursor:not-allowed}
+.bar-wrap{margin-top:10px;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden}
+.bar{height:6px;background:#534AB7;border-radius:4px;width:0;transition:width .4s}
+#log{margin-top:10px;font-size:11.5px;color:#444;line-height:1.7;max-height:320px;overflow-y:auto}
+.ok{color:#1D9E75}.err{color:#e53e3e}
+</style>
+</head>
+<body>
+<h2>🎷 Jazz Bridge HTML → Figma</h2>
+<p>HTML을 파싱해서 Figma 프레임으로 생성합니다 (18개 화면)</p>
+<button id="btn">모든 화면 가져오기</button>
+<div class="bar-wrap"><div class="bar" id="bar"></div></div>
+<div id="log"></div>
+
+<!-- hidden render iframe: sandbox allows scripts so computed styles work -->
+<iframe id="frame"
+  sandbox="allow-scripts allow-same-origin"
+  style="position:fixed;left:-9999px;top:0;width:375px;height:812px;border:none;"></iframe>
+
+<script>
+const PAGES = [
+  {name:"01_home",title:"\ud648",html:`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 홈</title>
+<style>
+  /* ===== RESET ===== */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ===== TOKENS ===== */
+  :root {
+    --brand:        #534AB7;
+    --brand-dark:   #3C3489;
+    --brand-deep:   #26215C;
+    --brand-light:  #EEEDFE;
+    --brand-mid:    #AFA9EC;
+    --brand-muted:  #7F77DD;
+    --teal:         #1D9E75;
+    --text-primary:   #1A1A1A;
+    --text-secondary: #5C5C5C;
+    --text-tertiary:  #9B9B9B;
+    --bg-primary:   #FFFFFF;
+    --bg-secondary: #F5F5F3;
+    --border:       rgba(0,0,0,0.1);
+    --radius-card:  14px;
+    --radius-pill:  99px;
+    --px:           16px;
+  }
+
+  /* ===== BASE ===== */
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Pretendard", sans-serif;
+    background: var(--bg-primary);
+    width: 375px;
+    height: 812px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  /* ===== STATUS BAR ===== */
+  .statusbar {
+    height: 44px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 24px 8px;
+    flex-shrink: 0;
+    background: var(--bg-primary);
+  }
+  .sb-time { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+  .sb-icons { display: flex; gap: 6px; align-items: center; font-size: 13px; color: var(--text-primary); }
+
+  /* ===== CONTENT ===== */
+  .content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+
+  /* ===== APP HEADER ===== */
+  .app-header {
+    padding: 16px var(--px) 12px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .app-name {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .app-name span { color: var(--brand); }
+  .app-loc {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    margin-top: 3px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+  .header-icons { display: flex; gap: 8px; }
+  .icon-btn {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; color: var(--text-secondary);
+    cursor: pointer;
+  }
+
+  /* ===== PILL FILTER ===== */
+  .pill-row {
+    display: flex;
+    gap: 8px;
+    padding: 0 var(--px) 14px;
+    overflow-x: auto;
+    flex-shrink: 0;
+  }
+  .pill-row::-webkit-scrollbar { display: none; }
+  .pill {
+    padding: 7px 16px;
+    border-radius: var(--radius-pill);
+    font-size: 14px;
+    font-weight: 500;
+    border: 0.5px solid var(--border);
+    color: var(--text-secondary);
+    background: var(--bg-primary);
+    white-space: nowrap;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .pill.active {
+    background: var(--brand-light);
+    color: var(--brand-dark);
+    border-color: var(--brand-mid);
+  }
+
+  /* ===== TONIGHT BANNER ===== */
+  .tonight {
+    margin: 0 var(--px) 14px;
+    padding: 16px;
+    background: var(--brand-light);
+    border-radius: 16px;
+    flex-shrink: 0;
+  }
+  .tonight-label { font-size: 12px; font-weight: 600; color: var(--brand); margin-bottom: 3px; }
+  .tonight-num { font-size: 32px; font-weight: 700; color: var(--brand-deep); line-height: 1; }
+  .tonight-sub { font-size: 12px; color: var(--brand-muted); margin-top: 4px; }
+
+  /* ===== EVENT CARD ===== */
+  .ecard {
+    margin: 0 var(--px) 10px;
+    padding: 14px 16px;
+    background: var(--bg-primary);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-card);
+    flex-shrink: 0;
+  }
+  .ecard.muted { background: var(--bg-secondary); }
+  .ecard-time { font-size: 12px; color: var(--text-tertiary); margin-bottom: 3px; }
+  .ecard-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
+  .ecard-venue {
+    font-size: 13px; color: var(--text-secondary);
+    display: flex; align-items: center; gap: 4px;
+  }
+  .etags { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+  .etag {
+    font-size: 12px; padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+  }
+
+  /* ===== NAVBAR ===== */
+  .navbar {
+    height: 83px;
+    border-top: 0.5px solid var(--border);
+    display: flex;
+    padding: 8px 0 0;
+    flex-shrink: 0;
+    background: var(--bg-primary);
+  }
+  .nav-item {
+    flex: 1;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 4px;
+    font-size: 10px;
+    color: var(--text-tertiary);
+    padding-top: 4px;
+    cursor: pointer;
+  }
+  .nav-item svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .nav-item.active { color: var(--brand); }
+</style>
+<!-- Tabler Icons CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+</head>
+<body>
+
+<!-- STATUS BAR -->
+<div class="statusbar">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons">
+    <i class="ti ti-wifi"></i>
+    <i class="ti ti-battery"></i>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- APP HEADER -->
+  <div class="app-header">
+    <div>
+      <div class="app-name">Jazz <span>Bridge</span></div>
+      <div class="app-loc">
+        <i class="ti ti-map-pin" style="font-size:13px;"></i>
+        서울 · 오늘
+      </div>
+    </div>
+    <div class="header-icons">
+      <div class="icon-btn"><i class="ti ti-bell"></i></div>
+      <div class="icon-btn"><i class="ti ti-search"></i></div>
+    </div>
+  </div>
+
+  <!-- PILL FILTER -->
+  <div class="pill-row">
+    <div class="pill active">오늘</div>
+    <div class="pill">내일</div>
+    <div class="pill">이번 주</div>
+    <div class="pill">이번 달</div>
+  </div>
+
+  <!-- TONIGHT BANNER -->
+  <div class="tonight">
+    <div class="tonight-label">오늘 밤 공연</div>
+    <div class="tonight-num">7개</div>
+    <div class="tonight-sub">서울 전체 · 티켓 있음 3개</div>
+  </div>
+
+  <!-- EVENT CARDS -->
+  <div class="ecard">
+    <div class="ecard-time">오늘 20:00</div>
+    <div class="ecard-title">Jamie Kim Trio</div>
+    <div class="ecard-venue">
+      <i class="ti ti-map-pin" style="font-size:13px;"></i>
+      블루문 재즈클럽 · 홍대
+    </div>
+    <div class="etags">
+      <span class="etag">모던 재즈</span>
+      <span class="etag">트리오</span>
+      <span class="etag">₩20,000</span>
+    </div>
+  </div>
+
+  <div class="ecard">
+    <div class="ecard-time">오늘 21:30</div>
+    <div class="ecard-title">Lee Soo Quartet</div>
+    <div class="ecard-venue">
+      <i class="ti ti-map-pin" style="font-size:13px;"></i>
+      재즈바 퀀텀 · 이태원
+    </div>
+    <div class="etags">
+      <span class="etag">스윙</span>
+      <span class="etag">₩15,000</span>
+    </div>
+  </div>
+
+  <div class="ecard muted">
+    <div class="ecard-time">오늘 22:00</div>
+    <div class="ecard-title">Park Minjun Solo</div>
+    <div class="ecard-venue">
+      <i class="ti ti-map-pin" style="font-size:13px;"></i>
+      올댓재즈 · 강남
+    </div>
+    <div class="etags">
+      <span class="etag">보컬</span>
+      <span class="etag">무료</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="nav-item active">
+    <i class="ti ti-home" style="font-size:24px;"></i>
+    홈
+  </div>
+  <div class="nav-item">
+    <i class="ti ti-search" style="font-size:24px;"></i>
+    검색
+  </div>
+  <div class="nav-item">
+    <i class="ti ti-calendar" style="font-size:24px;"></i>
+    캘린더
+  </div>
+  <div class="nav-item">
+    <i class="ti ti-heart" style="font-size:24px;"></i>
+    팔로우
+  </div>
+  <div class="nav-item">
+    <i class="ti ti-user" style="font-size:24px;"></i>
+    마이
+  </div>
+</div>
+
+</body>
+</html>
+`},
+  {name:"02_event_detail",title:"\uc774\ubca4\ud2b8 \uc0c1\uc138",html:`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 공연 상세</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --brand:        #534AB7;
+    --brand-dark:   #3C3489;
+    --brand-deep:   #26215C;
+    --brand-light:  #EEEDFE;
+    --brand-mid:    #AFA9EC;
+    --teal:         #1D9E75;
+    --teal-light:   #E1F5EE;
+    --text-primary:   #1A1A1A;
+    --text-secondary: #5C5C5C;
+    --text-tertiary:  #9B9B9B;
+    --bg-primary:   #FFFFFF;
+    --bg-secondary: #F5F5F3;
+    --border:       rgba(0,0,0,0.1);
+    --radius-card:  14px;
+    --radius-pill:  99px;
+    --px:           16px;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Pretendard", sans-serif;
+    background: var(--bg-primary);
+    width: 375px;
+    height: 812px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* STATUS BAR — dark (hero bg) */
+  .statusbar {
+    height: 44px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 24px 8px;
+    flex-shrink: 0;
+    background: var(--brand-deep);
+  }
+  .sb-time { font-size: 15px; font-weight: 600; color: #AFA9EC; }
+  .sb-icons { display: flex; gap: 6px; align-items: center; font-size: 13px; color: #AFA9EC; }
+
+  /* HERO */
+  .detail-hero {
+    background: var(--brand-deep);
+    padding: 20px var(--px) 24px;
+    flex-shrink: 0;
+  }
+  .back-btn {
+    font-size: 14px;
+    color: var(--brand-mid);
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 5px;
+    cursor: pointer;
+  }
+  .detail-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 5px;
+    line-height: 1.2;
+  }
+  .detail-date { font-size: 14px; color: var(--brand-mid); }
+
+  /* CONTENT */
+  .content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+  .detail-body { flex: 1; padding: 20px var(--px) 0; overflow: hidden; }
+
+  .drow {
+    display: flex; align-items: flex-start;
+    gap: 12px; margin-bottom: 16px;
+  }
+  .drow-icon {
+    font-size: 20px;
+    color: var(--text-tertiary);
+    margin-top: 1px;
+    flex-shrink: 0;
+    width: 24px;
+    text-align: center;
+  }
+  .drow-label {
+    font-size: 14px; font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+  }
+  .drow-val {
+    font-size: 14px; color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* ARTIST CHIPS */
+  .achips { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 6px; }
+  .achip {
+    display: flex; align-items: center; gap: 6px;
+    padding: 5px 12px 5px 6px;
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-pill);
+    font-size: 13px; color: var(--text-primary);
+  }
+  .av {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--brand-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 700; color: var(--brand-dark);
+  }
+
+  /* BOOKING BAR */
+  .book-bar {
+    padding: 14px var(--px) 16px;
+    border-top: 0.5px solid var(--border);
+    flex-shrink: 0;
+    background: var(--bg-primary);
+  }
+  .book-info {
+    font-size: 13px; color: var(--text-secondary);
+    margin-bottom: 10px;
+  }
+  .book-btn {
+    width: 100%; padding: 17px;
+    background: var(--brand);
+    color: #fff; border: none;
+    border-radius: var(--radius-card);
+    font-size: 17px; font-weight: 600;
+    text-align: center; cursor: pointer;
+  }
+  .source-note {
+    font-size: 12px; color: var(--text-tertiary);
+    margin-top: 10px;
+    display: flex; align-items: center; gap: 4px;
+    justify-content: center;
+  }
+
+  /* NAVBAR */
+  .navbar {
+    height: 83px;
+    border-top: 0.5px solid var(--border);
+    display: flex; padding: 8px 0 0;
+    flex-shrink: 0;
+    background: var(--bg-primary);
+  }
+  .nav-item {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; gap: 4px;
+    font-size: 10px; color: var(--text-tertiary);
+    padding-top: 4px; cursor: pointer;
+  }
+  .nav-item.active { color: var(--brand); }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+</head>
+<body>
+
+<!-- STATUS BAR -->
+<div class="statusbar">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons">
+    <i class="ti ti-wifi"></i>
+    <i class="ti ti-battery"></i>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="detail-hero">
+  <div class="back-btn">
+    <i class="ti ti-arrow-left" style="font-size:15px;"></i>
+    돌아가기
+  </div>
+  <div class="detail-title">Jamie Kim Trio</div>
+  <div class="detail-date">5월 17일 (금) · 오후 8시</div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+  <div class="detail-body">
+
+    <div class="drow">
+      <i class="ti ti-map-pin drow-icon"></i>
+      <div>
+        <div class="drow-label">블루문 재즈클럽</div>
+        <div class="drow-val">서울 마포구 · 홍대입구역 도보 3분</div>
+      </div>
+    </div>
+
+    <div class="drow">
+      <i class="ti ti-users drow-icon"></i>
+      <div>
+        <div class="drow-label">출연진</div>
+        <div class="achips">
+          <div class="achip"><div class="av">JK</div>Jamie Kim</div>
+          <div class="achip"><div class="av">SL</div>Soo Lee</div>
+          <div class="achip"><div class="av">MP</div>Min Park</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="drow">
+      <i class="ti ti-ticket drow-icon"></i>
+      <div>
+        <div class="drow-label">입장료</div>
+        <div class="drow-val">₩20,000 · 음료 1잔 포함</div>
+      </div>
+    </div>
+
+    <div class="drow">
+      <i class="ti ti-music drow-icon"></i>
+      <div>
+        <div class="drow-label">장르</div>
+        <div class="drow-val">모던 재즈 · 트리오</div>
+      </div>
+    </div>
+
+    <div class="drow">
+      <i class="ti ti-armchair drow-icon"></i>
+      <div>
+        <div class="drow-label">잔여석</div>
+        <div class="drow-val">12석 남음</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOOKING BAR -->
+  <div class="book-bar">
+    <div class="book-info">₩20,000 / 1인 · 잔여석 12</div>
+    <div class="book-btn">예매하기</div>
+    <div class="source-note">
+      <i class="ti ti-brand-instagram" style="font-size:14px;"></i>
+      @bluemoon_jazz 에서 수집
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="nav-item">
+    <i class="ti ti-home" style="font-size:24px;"></i>홈
+  </div>
+  <div class="nav-item">
+    <i class="ti ti-search" style="font-size:24px;"></i>검색
+  </div>
+  <div class="nav-item">
+    <i class="ti ti-calendar" style="font-size:24px;"></i>캘린더
+  </div>
+  <div class="nav-item">
+    <i class="ti ti-heart" style="font-size:24px;"></i>팔로우
+  </div>
+  <div class="nav-item">
+    <i class="ti ti-user" style="font-size:24px;"></i>마이
+  </div>
+</div>
+
+</body>
+</html>
+`},
+  {name:"03_calendar",title:"\uce98\ub9b0\ub354",html:`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 캘린더</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --brand:        #534AB7;
+    --brand-dark:   #3C3489;
+    --brand-deep:   #26215C;
+    --brand-light:  #EEEDFE;
+    --brand-mid:    #AFA9EC;
+    --brand-muted:  #7F77DD;
+    --text-primary:   #1A1A1A;
+    --text-secondary: #5C5C5C;
+    --text-tertiary:  #9B9B9B;
+    --bg-primary:   #FFFFFF;
+    --bg-secondary: #F5F5F3;
+    --border:       rgba(0,0,0,0.1);
+    --radius-card:  14px;
+    --px:           16px;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Pretendard", sans-serif;
+    background: var(--bg-primary);
+    width: 375px;
+    height: 812px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* STATUS BAR */
+  .statusbar {
+    height: 44px;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    padding: 0 24px 8px;
+    flex-shrink: 0;
+  }
+  .sb-time { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+  .sb-icons { display: flex; gap: 6px; align-items: center; font-size: 13px; color: var(--text-primary); }
+
+  /* CONTENT */
+  .content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+
+  /* CALENDAR HEADER */
+  .cal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px var(--px) 14px;
+    flex-shrink: 0;
+  }
+  .cal-month { font-size: 20px; font-weight: 600; color: var(--text-primary); }
+  .cal-nav-btn {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: var(--text-secondary);
+    cursor: pointer;
+  }
+
+  /* CALENDAR GRID */
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    padding: 0 var(--px) 10px;
+    flex-shrink: 0;
+  }
+  .cal-day-name {
+    font-size: 11px; font-weight: 500;
+    color: var(--text-tertiary);
+    text-align: center;
+    padding: 4px 0 6px;
+  }
+  .cal-day {
+    font-size: 13px;
+    text-align: center;
+    padding: 6px 2px 4px;
+    border-radius: 6px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    position: relative;
+    line-height: 1.2;
+  }
+  .cal-day.other { color: var(--text-tertiary); }
+  .cal-day.today {
+    background: var(--brand-light);
+    color: var(--brand-dark);
+    font-weight: 700;
+  }
+  .cal-day.has-event::after {
+    content: '';
+    display: block;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--brand);
+    margin: 2px auto 0;
+  }
+  .cal-day.today.has-event::after { background: var(--brand-dark); }
+
+  /* SELECTED DATE PANEL */
+  .cal-selected {
+    margin: 0 var(--px) 14px;
+    padding: 14px 16px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-card);
+    flex-shrink: 0;
+  }
+  .cal-sel-date {
+    font-size: 13px; font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+  }
+  .cal-event-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 7px 0;
+    border-bottom: 0.5px solid var(--border);
+    cursor: pointer;
+  }
+  .cal-event-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .cal-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--brand);
+    flex-shrink: 0;
+  }
+  .cal-event-name {
+    font-size: 14px; color: var(--text-primary);
+    flex: 1; font-weight: 500;
+  }
+  .cal-event-venue { font-size: 12px; color: var(--text-tertiary); }
+  .cal-event-time {
+    font-size: 12px; color: var(--text-tertiary);
+    flex-shrink: 0;
+  }
+
+  /* DIVIDER */
+  .hr { height: 0.5px; background: var(--border); margin: 0 0 10px; flex-shrink: 0; }
+
+  /* UPCOMING SECTION */
+  .sec-hd {
+    font-size: 11px; font-weight: 600;
+    color: var(--text-tertiary);
+    letter-spacing: .06em; text-transform: uppercase;
+    padding: 0 var(--px) 10px;
+    flex-shrink: 0;
+  }
+  .upcoming-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px var(--px);
+    border-bottom: 0.5px solid var(--border);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .upcoming-date {
+    font-size: 13px; font-weight: 600;
+    color: var(--brand); min-width: 38px;
+  }
+  .upcoming-name { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .upcoming-venue { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
+
+  /* NAVBAR */
+  .navbar {
+    height: 83px;
+    border-top: 0.5px solid var(--border);
+    display: flex; padding: 8px 0 0;
+    flex-shrink: 0;
+    background: var(--bg-primary);
+    margin-top: auto;
+  }
+  .nav-item {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; gap: 4px;
+    font-size: 10px; color: var(--text-tertiary);
+    padding-top: 4px; cursor: pointer;
+  }
+  .nav-item.active { color: var(--brand); }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+</head>
+<body>
+
+<!-- STATUS BAR -->
+<div class="statusbar">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons">
+    <i class="ti ti-wifi"></i>
+    <i class="ti ti-battery"></i>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- CALENDAR HEADER -->
+  <div class="cal-header">
+    <div class="cal-nav-btn"><i class="ti ti-chevron-left"></i></div>
+    <div class="cal-month">2025년 5월</div>
+    <div class="cal-nav-btn"><i class="ti ti-chevron-right"></i></div>
+  </div>
+
+  <!-- CALENDAR GRID -->
+  <div class="cal-grid">
+    <!-- 요일 헤더 -->
+    <div class="cal-day-name">일</div>
+    <div class="cal-day-name">월</div>
+    <div class="cal-day-name">화</div>
+    <div class="cal-day-name">수</div>
+    <div class="cal-day-name">목</div>
+    <div class="cal-day-name">금</div>
+    <div class="cal-day-name">토</div>
+    <!-- 1주 -->
+    <div class="cal-day other"></div>
+    <div class="cal-day other"></div>
+    <div class="cal-day other"></div>
+    <div class="cal-day other"></div>
+    <div class="cal-day">1</div>
+    <div class="cal-day has-event">2</div>
+    <div class="cal-day has-event">3</div>
+    <!-- 2주 -->
+    <div class="cal-day has-event">4</div>
+    <div class="cal-day">5</div>
+    <div class="cal-day has-event">6</div>
+    <div class="cal-day">7</div>
+    <div class="cal-day">8</div>
+    <div class="cal-day has-event">9</div>
+    <div class="cal-day has-event">10</div>
+    <!-- 3주 -->
+    <div class="cal-day has-event">11</div>
+    <div class="cal-day">12</div>
+    <div class="cal-day">13</div>
+    <div class="cal-day has-event">14</div>
+    <div class="cal-day">15</div>
+    <div class="cal-day has-event">16</div>
+    <div class="cal-day today has-event">17</div>
+    <!-- 4주 -->
+    <div class="cal-day has-event">18</div>
+    <div class="cal-day">19</div>
+    <div class="cal-day">20</div>
+    <div class="cal-day has-event">21</div>
+    <div class="cal-day">22</div>
+    <div class="cal-day has-event">23</div>
+    <div class="cal-day has-event">24</div>
+    <!-- 5주 -->
+    <div class="cal-day has-event">25</div>
+    <div class="cal-day">26</div>
+    <div class="cal-day">27</div>
+    <div class="cal-day has-event">28</div>
+    <div class="cal-day">29</div>
+    <div class="cal-day has-event">30</div>
+    <div class="cal-day has-event">31</div>
+  </div>
+
+  <!-- SELECTED DATE PANEL -->
+  <div class="cal-selected">
+    <div class="cal-sel-date">5월 17일 토요일 · 공연 3개</div>
+    <div class="cal-event-row">
+      <div class="cal-dot"></div>
+      <div style="flex:1;">
+        <div class="cal-event-name">Jamie Kim Trio</div>
+        <div class="cal-event-venue">블루문 · 홍대</div>
+      </div>
+      <div class="cal-event-time">20:00</div>
+    </div>
+    <div class="cal-event-row">
+      <div class="cal-dot"></div>
+      <div style="flex:1;">
+        <div class="cal-event-name">Lee Soo Quartet</div>
+        <div class="cal-event-venue">재즈바 퀀텀 · 이태원</div>
+      </div>
+      <div class="cal-event-time">21:30</div>
+    </div>
+    <div class="cal-event-row">
+      <div class="cal-dot"></div>
+      <div style="flex:1;">
+        <div class="cal-event-name">Park Minjun Solo</div>
+        <div class="cal-event-venue">올댓재즈 · 강남</div>
+      </div>
+      <div class="cal-event-time">22:00</div>
+    </div>
+  </div>
+
+  <!-- UPCOMING -->
+  <div class="sec-hd">이번 주 더 보기</div>
+  <div class="hr"></div>
+  <div class="upcoming-row">
+    <div class="upcoming-date">5/18</div>
+    <div>
+      <div class="upcoming-name">Seoul Jazz Collective</div>
+      <div class="upcoming-venue">클럽 에반스 · 홍대 · 19:00</div>
+    </div>
+    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);margin-left:auto;"></i>
+  </div>
+  <div class="upcoming-row">
+    <div class="upcoming-date">5/21</div>
+    <div>
+      <div class="upcoming-name">Soo Lee Solo</div>
+      <div class="upcoming-venue">올댓재즈 · 강남 · 20:00</div>
+    </div>
+    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);margin-left:auto;"></i>
+  </div>
+
+</div>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="nav-item">
+    <i class="ti ti-home" style="font-size:24px;"></i>홈
+  </div>
+  <div class="nav-item">
+    <i class="ti ti-search" style="font-size:24px;"></i>검색
+  </div>
+  <div class="nav-item active">
+    <i class="ti ti-calendar" style="font-size:24px;"></i>캘린더
+  </div>
+  <div class="nav-item">
+    <i class="ti ti-heart" style="font-size:24px;"></i>팔로우
+  </div>
+  <div class="nav-item">
+    <i class="ti ti-user" style="font-size:24px;"></i>마이
+  </div>
+</div>
+
+</body>
+</html>
+`},
+  {name:"04_splash",title:"\uc2a4\ud50c\ub798\uc2dc",html:`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 스플래시</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+body { background: var(--brand-deep); }
+.statusbar { background: var(--brand-deep); }
+.sb-time { color: var(--brand-muted); }
+.sb-icons { color: var(--brand-muted); }
+.splash {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 28px; padding: 40px 32px;
+  background: var(--brand-deep);
+}
+.splash-icon {
+  width: 100px; height: 100px;
+  background: var(--brand); border-radius: 28px;
+  display: flex; align-items: center; justify-content: center;
+}
+.splash-title { font-size: 40px; font-weight: 700; color: #fff; letter-spacing: -.8px; text-align: center; line-height: 1.1; }
+.splash-title span { color: var(--brand-mid); }
+.splash-sub { font-size: 17px; color: var(--brand-muted); text-align: center; line-height: 1.7; }
+.splash-dots { display: flex; gap: 8px; }
+.sdot { width: 7px; height: 7px; border-radius: 50%; background: var(--brand); }
+.sdot.on { background: var(--brand-mid); width: 22px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<div class="statusbar dark">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="splash">
+  <div class="splash-icon">
+    <svg width="56" height="56" viewBox="0 0 64 64" fill="none">
+      <path d="M10 42 Q32 18 54 42" stroke="#fff" stroke-width="4.5" stroke-linecap="round"/>
+      <line x1="10" y1="42" x2="10" y2="52" stroke="#fff" stroke-width="4.5" stroke-linecap="round"/>
+      <line x1="54" y1="42" x2="54" y2="52" stroke="#fff" stroke-width="4.5" stroke-linecap="round"/>
+      <circle cx="32" cy="30" r="6" fill="#AFA9EC"/>
+      <line x1="32" y1="36" x2="32" y2="52" stroke="#AFA9EC" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div>
+    <div class="splash-title">Jazz<br><span>Bridge</span></div>
+    <div class="splash-sub">전국 재즈 공연을<br>한 곳에서</div>
+  </div>
+  <div class="splash-dots">
+    <div class="sdot on"></div>
+    <div class="sdot"></div>
+    <div class="sdot"></div>
+  </div>
+</div>
+</body>
+</html>
+`},
+  {name:"05_onboarding_1",title:"\uc628\ubcf4\ub529 1",html:`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 온보딩 1</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.ob-hero {
+  background: var(--brand-deep);
+  padding: 32px var(--px) 28px;
+  display: flex; flex-direction: column; align-items: center; gap: 18px;
+  flex-shrink: 0;
+}
+.ob-prog { display: flex; gap: 6px; width: 100%; }
+.ob-pd { height: 4px; flex: 1; border-radius: 2px; background: rgba(255,255,255,.2); }
+.ob-pd.on { background: var(--brand-mid); }
+.ob-icon-wrap {
+  width: 76px; height: 76px; background: var(--brand);
+  border-radius: 22px; display: flex; align-items: center; justify-content: center;
+}
+.ob-icon-wrap i { font-size: 36px; color: #fff; }
+.ob-title { font-size: 22px; font-weight: 700; color: #fff; text-align: center; line-height: 1.3; }
+.ob-desc { font-size: 15px; color: var(--brand-mid); text-align: center; line-height: 1.6; }
+.ob-body { flex: 1; padding: 24px var(--px) 0; display: flex; flex-direction: column; gap: 18px; overflow: hidden; }
+.ob-item { display: flex; align-items: flex-start; gap: 14px; }
+.ob-bullet {
+  width: 38px; height: 38px; border-radius: 11px;
+  background: var(--brand-light); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.ob-bullet i { font-size: 20px; color: var(--brand); }
+.ob-item-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
+.ob-item-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.4; }
+.ob-footer { padding: 20px var(--px) 24px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="statusbar dark">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="ob-hero">
+    <div class="ob-prog"><div class="ob-pd on"></div><div class="ob-pd"></div><div class="ob-pd"></div></div>
+    <div class="ob-icon-wrap"><i class="ti ti-map-pin"></i></div>
+    <div>
+      <div class="ob-title">SNS에 흩어진 공연,<br>이제 한 번에</div>
+      <div class="ob-desc" style="margin-top:6px;">인스타·블로그에 올라온 재즈 공연을<br>자동으로 모아드려요</div>
+    </div>
+  </div>
+  <div class="ob-body">
+    <div class="ob-item">
+      <div class="ob-bullet"><i class="ti ti-calendar"></i></div>
+      <div><div class="ob-item-title">날짜별 공연 캘린더</div><div class="ob-item-desc">오늘, 이번 주 공연을 한눈에 확인</div></div>
+    </div>
+    <div class="ob-item">
+      <div class="ob-bullet"><i class="ti ti-map-pin"></i></div>
+      <div><div class="ob-item-title">지역별 필터</div><div class="ob-item-desc">홍대, 이태원, 강남 등 동네별 탐색</div></div>
+    </div>
+    <div class="ob-item">
+      <div class="ob-bullet"><i class="ti ti-music"></i></div>
+      <div><div class="ob-item-title">장르 & 규모 필터</div><div class="ob-item-desc">모던 재즈, 스윙, 보컬 등 취향대로</div></div>
+    </div>
+  </div>
+  <div class="ob-footer">
+    <div class="btn-primary">다음</div>
+    <div class="btn-ghost">건너뛰기</div>
+  </div>
+</div>
+</body>
+</html>
+`},
+  {name:"06_onboarding_2",title:"\uc628\ubcf4\ub529 2",html:`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 온보딩 2</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.ob-hero { background: var(--brand-deep); padding: 32px var(--px) 28px; display: flex; flex-direction: column; align-items: center; gap: 18px; flex-shrink: 0; }
+.ob-prog { display: flex; gap: 6px; width: 100%; }
+.ob-pd { height: 4px; flex: 1; border-radius: 2px; background: rgba(255,255,255,.2); }
+.ob-pd.on { background: var(--brand-mid); }
+.ob-icon-wrap { width: 76px; height: 76px; background: var(--brand); border-radius: 22px; display: flex; align-items: center; justify-content: center; }
+.ob-icon-wrap i { font-size: 36px; color: #fff; }
+.ob-title { font-size: 22px; font-weight: 700; color: #fff; text-align: center; line-height: 1.3; }
+.ob-desc { font-size: 15px; color: var(--brand-mid); text-align: center; line-height: 1.6; margin-top: 6px; }
+.ob-body { flex: 1; padding: 24px var(--px) 0; display: flex; flex-direction: column; gap: 18px; }
+.ob-item { display: flex; align-items: flex-start; gap: 14px; }
+.ob-bullet { width: 38px; height: 38px; border-radius: 11px; background: var(--brand-light); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.ob-bullet i { font-size: 20px; color: var(--brand); }
+.ob-item-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
+.ob-item-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.4; }
+.ob-footer { padding: 20px var(--px) 24px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="statusbar dark">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="ob-hero">
+    <div class="ob-prog"><div class="ob-pd"></div><div class="ob-pd on"></div><div class="ob-pd"></div></div>
+    <div class="ob-icon-wrap"><i class="ti ti-heart"></i></div>
+    <div>
+      <div class="ob-title">좋아하는 뮤지션,<br>공연 놓치지 마세요</div>
+      <div class="ob-desc">팔로우하면 새 공연 등록 시<br>바로 알림을 보내드려요</div>
+    </div>
+  </div>
+  <div class="ob-body">
+    <div class="ob-item">
+      <div class="ob-bullet"><i class="ti ti-bell"></i></div>
+      <div><div class="ob-item-title">공연 등록 즉시 알림</div><div class="ob-item-desc">팔로우 뮤지션 공연 놓치지 않게</div></div>
+    </div>
+    <div class="ob-item">
+      <div class="ob-bullet"><i class="ti ti-user"></i></div>
+      <div><div class="ob-item-title">뮤지션 프로필</div><div class="ob-item-desc">출연 이력과 스케줄 한눈에</div></div>
+    </div>
+    <div class="ob-item">
+      <div class="ob-bullet"><i class="ti ti-sparkles"></i></div>
+      <div><div class="ob-item-title">취향 기반 추천</div><div class="ob-item-desc">비슷한 뮤지션 공연 자동 발견</div></div>
+    </div>
+  </div>
+  <div class="ob-footer">
+    <div class="btn-primary">다음</div>
+    <div class="btn-ghost">건너뛰기</div>
+  </div>
+</div>
+</body>
+</html>
+`},
+  {name:"07_onboarding_3",title:"\uc628\ubcf4\ub529 3",html:`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 온보딩 3</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.ob-hero { background: var(--brand-deep); padding: 28px var(--px) 22px; display: flex; flex-direction: column; align-items: center; gap: 16px; flex-shrink: 0; }
+.ob-prog { display: flex; gap: 6px; width: 100%; }
+.ob-pd { height: 4px; flex: 1; border-radius: 2px; background: rgba(255,255,255,.2); }
+.ob-pd.on { background: var(--brand-mid); }
+.ob-icon-wrap { width: 72px; height: 72px; background: var(--brand); border-radius: 22px; display: flex; align-items: center; justify-content: center; }
+.ob-icon-wrap i { font-size: 34px; color: #fff; }
+.ob-title { font-size: 22px; font-weight: 700; color: #fff; text-align: center; line-height: 1.2; }
+.ob-desc { font-size: 14px; color: var(--brand-mid); text-align: center; }
+.pref-section { padding: 18px var(--px) 0; flex-shrink: 0; }
+.pref-label { font-size: 12px; font-weight: 600; color: var(--text-tertiary); letter-spacing: .05em; text-transform: uppercase; margin-bottom: 10px; }
+.chip-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.pchip { padding: 8px 16px; border-radius: var(--radius-pill); font-size: 14px; font-weight: 500; border: 0.5px solid var(--border); color: var(--text-secondary); background: var(--bg-primary); cursor: pointer; }
+.pchip.on { background: var(--brand-light); color: var(--brand-dark); border-color: var(--brand-mid); }
+.loc-card { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--bg-secondary); border-radius: var(--radius-card); border: 0.5px solid var(--border); cursor: pointer; }
+.loc-card i { font-size: 20px; color: var(--brand); flex-shrink: 0; }
+.loc-name { font-size: 15px; font-weight: 500; color: var(--text-primary); }
+.loc-sub { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
+.ob-footer { padding: 16px var(--px) 24px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="statusbar dark">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="ob-hero">
+    <div class="ob-prog"><div class="ob-pd"></div><div class="ob-pd"></div><div class="ob-pd on"></div></div>
+    <div class="ob-icon-wrap"><i class="ti ti-adjustments-horizontal"></i></div>
+    <div style="text-align:center;">
+      <div class="ob-title">취향을 알려주세요</div>
+      <div class="ob-desc" style="margin-top:4px;">더 잘 맞는 공연을 추천해드려요</div>
+    </div>
+  </div>
+  <div class="pref-section">
+    <div class="pref-label">좋아하는 장르</div>
+    <div class="chip-wrap">
+      <div class="pchip on">모던 재즈</div>
+      <div class="pchip on">스윙</div>
+      <div class="pchip">보컬</div>
+      <div class="pchip on">프리 재즈</div>
+      <div class="pchip">퓨전</div>
+      <div class="pchip">라틴</div>
+      <div class="pchip">비밥</div>
+    </div>
+    <div class="pref-label">주로 가는 지역</div>
+    <div class="loc-card">
+      <i class="ti ti-map-pin"></i>
+      <div style="flex:1;">
+        <div class="loc-name">서울 홍대 / 마포</div>
+        <div class="loc-sub">현재 위치 기반 자동 설정</div>
+      </div>
+      <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
+    </div>
+  </div>
+  <div class="ob-footer">
+    <div class="btn-primary">시작하기</div>
+  </div>
+</div>
+</body>
+</html>
+`},
+  {name:"08_permissions",title:"\uad8c\ud55c",html:`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 권한 요청</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.perm-top { padding: 28px var(--px) 20px; text-align: center; border-bottom: 0.5px solid var(--border); flex-shrink: 0; }
+.perm-app-icon { width: 64px; height: 64px; background: var(--brand); border-radius: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+.perm-title { font-size: 20px; font-weight: 700; color: var(--text-primary); line-height: 1.3; margin-bottom: 8px; }
+.perm-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+.perm-body { flex: 1; padding: 20px var(--px) 0; display: flex; flex-direction: column; gap: 12px; }
+.perm-item { display: flex; align-items: center; gap: 14px; padding: 16px; background: var(--bg-secondary); border-radius: var(--radius-card); border: 0.5px solid var(--border); }
+.perm-item i { font-size: 22px; color: var(--brand); flex-shrink: 0; }
+.perm-name { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+.perm-sub { font-size: 13px; color: var(--text-tertiary); }
+.perm-footer { padding: 16px var(--px) 24px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
+.btn-later { width: 100%; padding: 14px; background: transparent; color: var(--text-tertiary); border: none; font-size: 14px; text-align: center; cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="statusbar">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="perm-top">
+    <div class="perm-app-icon">
+      <svg width="36" height="36" viewBox="0 0 64 64" fill="none">
+        <path d="M10 42 Q32 18 54 42" stroke="#fff" stroke-width="4.5" stroke-linecap="round"/>
+        <line x1="10" y1="42" x2="10" y2="52" stroke="#fff" stroke-width="4.5" stroke-linecap="round"/>
+        <line x1="54" y1="42" x2="54" y2="52" stroke="#fff" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="32" cy="30" r="6" fill="#AFA9EC"/>
+        <line x1="32" y1="36" x2="32" y2="52" stroke="#AFA9EC" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="perm-title">Jazz Bridge가<br>알림을 보내도 될까요?</div>
+    <div class="perm-desc">팔로우한 뮤지션 공연 등록 시,<br>예매 마감 임박 시 알려드려요</div>
+  </div>
+  <div class="perm-body">
+    <div class="perm-item">
+      <i class="ti ti-bell"></i>
+      <div>
+        <div class="perm-name">알림 (푸시)</div>
+        <div class="perm-sub">공연 알림, 예매 확인 등</div>
+      </div>
+    </div>
+    <div class="perm-item">
+      <i class="ti ti-map-pin"></i>
+      <div>
+        <div class="perm-name">위치 (선택)</div>
+        <div class="perm-sub">주변 공연장 추천에 사용</div>
+      </div>
+    </div>
+  </div>
+  <div class="perm-footer">
+    <div class="btn-primary">허용하기</div>
+    <div class="btn-later">나중에</div>
+  </div>
+</div>
+</body>
+</html>
+`},
+  {name:"09_search",title:"\uac80\uc0c9",html:`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 검색</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.app-header { padding: 16px var(--px) 12px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.page-title { font-size: 26px; font-weight: 700; color: var(--text-primary); }
+.searchbar { display: flex; align-items: center; gap: 10px; margin: 0 var(--px) 16px; padding: 12px 14px; background: var(--bg-secondary); border-radius: 12px; border: 0.5px solid var(--border); flex-shrink: 0; }
+.searchbar i { font-size: 18px; color: var(--text-tertiary); }
+.searchbar-ph { font-size: 15px; color: var(--text-tertiary); }
+.filter-sec { padding: 0 var(--px) 12px; flex-shrink: 0; }
+.filter-title { font-size: 11px; font-weight: 600; color: var(--text-tertiary); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 8px; }
+.fchips { display: flex; gap: 7px; flex-wrap: wrap; }
+.fchip { padding: 7px 15px; border-radius: var(--radius-pill); font-size: 14px; border: 0.5px solid var(--border); color: var(--text-secondary); background: var(--bg-primary); cursor: pointer; }
+.fchip.on { background: var(--teal-light); color: #085041; border-color: #5DCAA5; }
+.res-label { font-size: 12px; color: var(--text-tertiary); padding: 8px var(--px); flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="statusbar">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="app-header">
+    <div class="page-title">검색</div>
+  </div>
+  <div class="searchbar">
+    <i class="ti ti-search"></i>
+    <span class="searchbar-ph">공연, 뮤지션, 공연장</span>
+  </div>
+  <div class="filter-sec">
+    <div class="filter-title">지역</div>
+    <div class="fchips">
+      <div class="fchip on">서울</div>
+      <div class="fchip">홍대</div>
+      <div class="fchip">이태원</div>
+      <div class="fchip">강남</div>
+      <div class="fchip">부산</div>
+    </div>
+  </div>
+  <div class="filter-sec">
+    <div class="filter-title">장르</div>
+    <div class="fchips">
+      <div class="fchip on">모던 재즈</div>
+      <div class="fchip">스윙</div>
+      <div class="fchip">보컬</div>
+      <div class="fchip">퓨전</div>
+      <div class="fchip">프리</div>
+    </div>
+  </div>
+  <div class="filter-sec">
+    <div class="filter-title">날짜</div>
+    <div class="fchips">
+      <div class="fchip">오늘</div>
+      <div class="fchip on">이번 주</div>
+      <div class="fchip">이번 달</div>
+      <div class="fchip">직접 선택</div>
+    </div>
+  </div>
+  <div class="filter-sec">
+    <div class="filter-title">입장료</div>
+    <div class="fchips">
+      <div class="fchip on">무료</div>
+      <div class="fchip">~₩10,000</div>
+      <div class="fchip">~₩20,000</div>
+    </div>
+  </div>
+  <div class="hr"></div>
+  <div class="res-label">결과 23개</div>
+  <div class="ecard">
+    <div class="ecard-time">5/18 (토) 19:00</div>
+    <div class="ecard-title">Seoul Jazz Collective</div>
+    <div class="ecard-venue"><i class="ti ti-map-pin" style="font-size:13px;"></i> 클럽 에반스 · 홍대</div>
+    <div class="etags"><span class="etag">모던 재즈</span><span class="etag">₩18,000</span></div>
+  </div>
+  <div class="ecard">
+    <div class="ecard-time">5/18 (토) 20:30</div>
+    <div class="ecard-title">Hyun-A Kim Trio</div>
+    <div class="ecard-venue"><i class="ti ti-map-pin" style="font-size:13px;"></i> 재즈바 369 · 이태원</div>
+    <div class="etags"><span class="etag">모던 재즈</span><span class="etag">무료</span></div>
+  </div>
+</div>
+<div class="navbar">
+  <div class="nav-item"><i class="ti ti-home"></i>홈</div>
+  <div class="nav-item active"><i class="ti ti-search"></i>검색</div>
+  <div class="nav-item"><i class="ti ti-calendar"></i>캘린더</div>
+  <div class="nav-item"><i class="ti ti-heart"></i>팔로우</div>
+  <div class="nav-item"><i class="ti ti-user"></i>마이</div>
+</div>
+</body>
+</html>
+`},
+  {name:"10_follow",title:"\ud314\ub85c\uc6b0",html:`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 팔로우</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.app-header { padding: 16px var(--px) 12px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.page-title { font-size: 26px; font-weight: 700; color: var(--text-primary); }
+.arow { display: flex; align-items: center; gap: 12px; padding: 14px var(--px); border-bottom: 0.5px solid var(--border); flex-shrink: 0; }
+.aav { width: 44px; height: 44px; border-radius: 50%; background: #FAECE7; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #712B13; flex-shrink: 0; }
+.aav.teal { background: var(--teal-light); color: #085041; }
+.aname { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+.ainst { font-size: 13px; color: var(--text-tertiary); margin-top: 1px; }
+.anext { margin-left: auto; text-align: right; flex-shrink: 0; }
+.anext-date { font-size: 13px; font-weight: 600; color: var(--brand); }
+.anext-venue { font-size: 11px; color: var(--text-tertiary); margin-top: 1px; }
+.fbtn { width: 28px; height: 28px; border-radius: 50%; border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-left: 10px; }
+.fbtn i { font-size: 15px; color: var(--text-secondary); }
+.fbtn.on { background: var(--brand-light); border-color: var(--brand-mid); }
+.fbtn.on i { color: var(--brand); }
+</style>
+</head>
+<body>
+<div class="statusbar">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="app-header">
+    <div class="page-title">팔로우</div>
+    <div class="icon-btn"><i class="ti ti-plus"></i></div>
+  </div>
+  <div class="sec-hd" style="padding-top:0;">팔로우 중 — 5명</div>
+  <div class="hr"></div>
+  <div class="arow">
+    <div class="aav">JK</div>
+    <div style="flex:1;min-width:0;"><div class="aname">Jamie Kim</div><div class="ainst">피아노</div></div>
+    <div class="anext"><div class="anext-date">오늘</div><div class="anext-venue">블루문</div></div>
+    <div class="fbtn on"><i class="ti ti-bell"></i></div>
+  </div>
+  <div class="arow">
+    <div class="aav">SL</div>
+    <div style="flex:1;min-width:0;"><div class="aname">Soo Lee</div><div class="ainst">색소폰</div></div>
+    <div class="anext"><div class="anext-date">5/21 화</div><div class="anext-venue">올댓재즈</div></div>
+    <div class="fbtn on"><i class="ti ti-bell"></i></div>
+  </div>
+  <div class="arow">
+    <div class="aav">HK</div>
+    <div style="flex:1;min-width:0;"><div class="aname">Hyun-A Kim</div><div class="ainst">보컬</div></div>
+    <div class="anext"><div class="anext-date">5/18 토</div><div class="anext-venue">재즈바 369</div></div>
+    <div class="fbtn on"><i class="ti ti-bell"></i></div>
+  </div>
+  <div class="arow">
+    <div class="aav">MP</div>
+    <div style="flex:1;min-width:0;"><div class="aname">Min Park</div><div class="ainst">베이스</div></div>
+    <div class="anext"><div class="anext-date">예정 없음</div><div class="anext-venue">—</div></div>
+    <div class="fbtn on"><i class="ti ti-bell"></i></div>
+  </div>
+  <div class="sec-hd" style="margin-top:6px;">추천 뮤지션</div>
+  <div class="hr"></div>
+  <div class="arow">
+    <div class="aav teal">YC</div>
+    <div style="flex:1;min-width:0;"><div class="aname">Yuna Choi</div><div class="ainst">드럼</div></div>
+    <div class="fbtn" style="margin-left:auto;"><i class="ti ti-plus"></i></div>
+  </div>
+  <div class="arow">
+    <div class="aav teal">DJ</div>
+    <div style="flex:1;min-width:0;"><div class="aname">David Jang</div><div class="ainst">트럼펫</div></div>
+    <div class="fbtn" style="margin-left:auto;"><i class="ti ti-plus"></i></div>
+  </div>
+</div>
+<div class="navbar">
+  <div class="nav-item"><i class="ti ti-home"></i>홈</div>
+  <div class="nav-item"><i class="ti ti-search"></i>검색</div>
+  <div class="nav-item"><i class="ti ti-calendar"></i>캘린더</div>
+  <div class="nav-item active"><i class="ti ti-heart"></i>팔로우</div>
+  <div class="nav-item"><i class="ti ti-user"></i>마이</div>
+</div>
+</body>
+</html>
+`},
+  {name:"11_my",title:"\ub9c8\uc774",html:`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 마이</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.app-header { padding: 16px var(--px) 14px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.page-title { font-size: 26px; font-weight: 700; color: var(--text-primary); }
+.profile-row { display: flex; align-items: center; gap: 14px; padding: 0 var(--px) 18px; flex-shrink: 0; }
+.my-avatar { width: 58px; height: 58px; border-radius: 50%; background: var(--brand-light); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: var(--brand-dark); flex-shrink: 0; }
+.my-name { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+.my-meta { font-size: 13px; color: var(--text-tertiary); margin-top: 2px; }
+.stat-row { display: flex; gap: 1px; margin: 0 var(--px) 18px; flex-shrink: 0; }
+.stat { flex: 1; background: var(--bg-secondary); padding: 12px 8px; text-align: center; }
+.stat:first-child { border-radius: 12px 4px 4px 12px; }
+.stat:last-child { border-radius: 4px 12px 12px 4px; }
+.stat-n { font-size: 22px; font-weight: 700; color: var(--text-primary); }
+.stat-l { font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
+.arch-row { display: flex; align-items: center; gap: 10px; padding: 13px var(--px); border-bottom: 0.5px solid var(--border); flex-shrink: 0; }
+.arch-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--brand-light); border: 2px solid var(--brand); flex-shrink: 0; }
+.arch-title { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+.arch-venue { font-size: 12px; color: var(--text-tertiary); margin-top: 1px; }
+.arch-date { margin-left: auto; font-size: 12px; color: var(--text-tertiary); flex-shrink: 0; }
+.menu-row { display: flex; align-items: center; padding: 16px var(--px); border-bottom: 0.5px solid var(--border); cursor: pointer; flex-shrink: 0; }
+.menu-row i.icon { font-size: 20px; color: var(--text-secondary); margin-right: 14px; }
+.menu-label { font-size: 16px; color: var(--text-primary); flex: 1; }
+.menu-row i.arrow { font-size: 18px; color: var(--text-tertiary); }
+</style>
+</head>
+<body>
+<div class="statusbar">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="app-header">
+    <div class="page-title">마이</div>
+    <div class="icon-btn"><i class="ti ti-settings"></i></div>
+  </div>
+  <div class="profile-row">
+    <div class="my-avatar">이재</div>
+    <div>
+      <div class="my-name">이재윤</div>
+      <div class="my-meta">서울 · 가입 2025.03</div>
+    </div>
+  </div>
+  <div class="stat-row">
+    <div class="stat"><div class="stat-n">24</div><div class="stat-l">본 공연</div></div>
+    <div class="stat"><div class="stat-n">5</div><div class="stat-l">팔로우</div></div>
+    <div class="stat"><div class="stat-n">3</div><div class="stat-l">예매</div></div>
+  </div>
+  <div class="sec-hd" style="padding-top:0;">최근 공연 기록</div>
+  <div class="hr"></div>
+  <div class="arch-row">
+    <div class="arch-dot"></div>
+    <div style="flex:1;min-width:0;"><div class="arch-title">Jamie Kim Trio</div><div class="arch-venue">블루문 · 홍대</div></div>
+    <div class="arch-date">5/10</div>
+  </div>
+  <div class="arch-row">
+    <div class="arch-dot"></div>
+    <div style="flex:1;min-width:0;"><div class="arch-title">Seoul Jazz Collective</div><div class="arch-venue">클럽 에반스 · 홍대</div></div>
+    <div class="arch-date">5/3</div>
+  </div>
+  <div class="arch-row">
+    <div class="arch-dot"></div>
+    <div style="flex:1;min-width:0;"><div class="arch-title">Lee Soo Quartet</div><div class="arch-venue">올댓재즈 · 강남</div></div>
+    <div class="arch-date">4/26</div>
+  </div>
+  <div class="hr" style="margin-top:8px;"></div>
+  <div class="menu-row">
+    <i class="ti ti-bell icon"></i>
+    <span class="menu-label">알림 설정</span>
+    <i class="ti ti-chevron-right arrow"></i>
+  </div>
+  <div class="menu-row">
+    <i class="ti ti-map-pin icon"></i>
+    <span class="menu-label">지역 설정</span>
+    <i class="ti ti-chevron-right arrow"></i>
+  </div>
+  <div class="menu-row">
+    <i class="ti ti-info-circle icon"></i>
+    <span class="menu-label">공연 제보하기</span>
+    <i class="ti ti-chevron-right arrow"></i>
+  </div>
+</div>
+<div class="navbar">
+  <div class="nav-item"><i class="ti ti-home"></i>홈</div>
+  <div class="nav-item"><i class="ti ti-search"></i>검색</div>
+  <div class="nav-item"><i class="ti ti-calendar"></i>캘린더</div>
+  <div class="nav-item"><i class="ti ti-heart"></i>팔로우</div>
+  <div class="nav-item active"><i class="ti ti-user"></i>마이</div>
+</div>
+</body>
+</html>
+`},
+  {name:"12_booking_qty",title:"\uc608\ub9e4 \uc218\ub7c9",html:`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 예매</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.drow { display: flex; align-items: flex-start; gap: 12px; padding: 16px var(--px) 0; flex-shrink: 0; }
+.drow i { font-size: 20px; color: var(--text-tertiary); margin-top: 1px; flex-shrink: 0; }
+.drow-label { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+.drow-val { font-size: 14px; color: var(--text-secondary); }
+.divider { height: 0.5px; background: var(--border); margin: 16px 0; flex-shrink: 0; }
+.qty-row { display: flex; align-items: center; justify-content: space-between; padding: 16px; background: var(--bg-secondary); border-radius: var(--radius-card); margin: 0 var(--px); flex-shrink: 0; }
+.qty-label { font-size: 17px; font-weight: 500; color: var(--text-primary); }
+.qty-ctrl { display: flex; align-items: center; gap: 18px; }
+.qty-btn { width: 34px; height: 34px; border-radius: 50%; border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--text-secondary); cursor: pointer; background: var(--bg-primary); }
+.qty-num { font-size: 20px; font-weight: 700; color: var(--text-primary); min-width: 24px; text-align: center; }
+.price-section { padding: 16px var(--px) 0; flex-shrink: 0; }
+.price-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
+.price-label { font-size: 15px; color: var(--text-secondary); }
+.price-val { font-size: 15px; color: var(--text-primary); }
+.price-total { display: flex; justify-content: space-between; align-items: center; padding: 16px var(--px); border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); margin: 14px 0 0; flex-shrink: 0; }
+.price-total-label { font-size: 17px; font-weight: 600; color: var(--text-primary); }
+.price-total-val { font-size: 24px; font-weight: 700; color: var(--brand); }
+.footer { padding: 16px var(--px) 20px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="statusbar dark">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="purple-hero">
+    <div class="hero-back"><i class="ti ti-arrow-left" style="font-size:15px;"></i> 공연 상세</div>
+    <div class="hero-title">예매하기</div>
+    <div class="hero-sub">Jamie Kim Trio · 5월 17일 20:00</div>
+  </div>
+  <div class="drow">
+    <i class="ti ti-map-pin"></i>
+    <div><div class="drow-label">블루문 재즈클럽</div><div class="drow-val">서울 마포구 · 잔여석 12</div></div>
+  </div>
+  <div class="divider"></div>
+  <div class="qty-row">
+    <div class="qty-label">인원</div>
+    <div class="qty-ctrl">
+      <div class="qty-btn">−</div>
+      <div class="qty-num">2</div>
+      <div class="qty-btn">+</div>
+    </div>
+  </div>
+  <div class="price-section">
+    <div class="price-row"><div class="price-label">단가</div><div class="price-val">₩20,000 / 1인</div></div>
+    <div class="price-row"><div class="price-label">2인</div><div class="price-val">₩40,000</div></div>
+  </div>
+  <div class="price-total">
+    <div class="price-total-label">합계</div>
+    <div class="price-total-val">₩40,000</div>
+  </div>
+  <div class="footer"><div class="btn-primary">결제하기</div></div>
+</div>
+<div class="navbar">
+  <div class="nav-item"><i class="ti ti-home"></i>홈</div>
+  <div class="nav-item"><i class="ti ti-search"></i>검색</div>
+  <div class="nav-item"><i class="ti ti-calendar"></i>캘린더</div>
+  <div class="nav-item"><i class="ti ti-heart"></i>팔로우</div>
+  <div class="nav-item"><i class="ti ti-user"></i>마이</div>
+</div>
+</body>
+</html>
+`},
+  {name:"13_booking_payment",title:"\uc608\ub9e4 \uacb0\uc81c",html:`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 결제</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.pay-card { display: flex; align-items: center; justify-content: space-between; margin: 0 var(--px) 10px; padding: 16px; background: var(--bg-secondary); border-radius: var(--radius-card); border: 0.5px solid var(--border); cursor: pointer; flex-shrink: 0; }
+.pay-card.selected { background: var(--brand-light); border-color: var(--brand); }
+.pay-name { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+.pay-card.selected .pay-name { color: var(--brand-dark); }
+.pay-sub { font-size: 13px; color: var(--text-tertiary); }
+.pay-notice { margin: 12px var(--px) 0; padding: 14px; background: var(--bg-secondary); border-radius: 10px; font-size: 13px; color: var(--text-tertiary); line-height: 1.6; flex-shrink: 0; }
+.pay-footer { padding: 14px var(--px) 20px; border-top: 0.5px solid var(--border); flex-shrink: 0; margin-top: auto; }
+.pay-summary { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.pay-summary-amount { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+.pay-summary-method { font-size: 13px; color: var(--text-tertiary); }
+</style>
+</head>
+<body>
+<div class="statusbar dark">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="purple-hero">
+    <div class="hero-back"><i class="ti ti-arrow-left" style="font-size:15px;"></i> 수량 선택</div>
+    <div class="hero-title">결제</div>
+    <div class="hero-sub">총 ₩40,000 · 2인</div>
+  </div>
+  <div class="sec-hd">결제 수단</div>
+  <div class="pay-card selected">
+    <div><div class="pay-name">토스페이</div><div class="pay-sub">간편결제</div></div>
+    <i class="ti ti-check" style="font-size:20px;color:var(--brand);"></i>
+  </div>
+  <div class="pay-card">
+    <div><div class="pay-name">신용카드</div><div class="pay-sub">직접 입력</div></div>
+    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
+  </div>
+  <div class="pay-card">
+    <div><div class="pay-name">카카오페이</div><div class="pay-sub">간편결제</div></div>
+    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
+  </div>
+  <div class="pay-notice">공연 48시간 전까지 전액 환불 가능. 결제 시 환불 정책에 동의하게 됩니다.</div>
+  <div class="pay-footer">
+    <div class="pay-summary">
+      <div class="pay-summary-amount">₩40,000</div>
+      <div class="pay-summary-method">토스페이로 결제</div>
+    </div>
+    <div class="btn-primary">결제 완료</div>
+  </div>
+</div>
+<div class="navbar">
+  <div class="nav-item"><i class="ti ti-home"></i>홈</div>
+  <div class="nav-item"><i class="ti ti-search"></i>검색</div>
+  <div class="nav-item"><i class="ti ti-calendar"></i>캘린더</div>
+  <div class="nav-item"><i class="ti ti-heart"></i>팔로우</div>
+  <div class="nav-item"><i class="ti ti-user"></i>마이</div>
+</div>
+</body>
+</html>
+`},
+  {name:"14_booking_complete",title:"\uc608\ub9e4 \uc644\ub8cc",html:`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 예매 완료</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.success-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; gap: 18px; }
+.success-circle { width: 76px; height: 76px; border-radius: 50%; background: var(--teal-light); display: flex; align-items: center; justify-content: center; }
+.success-circle i { font-size: 34px; color: var(--teal); }
+.success-title { font-size: 26px; font-weight: 700; color: var(--text-primary); text-align: center; }
+.success-sub { font-size: 15px; color: var(--text-secondary); text-align: center; line-height: 1.6; }
+.ticket-card { width: 100%; background: var(--bg-secondary); border-radius: 18px; padding: 20px; border: 0.5px solid var(--border); }
+.ticket-title { font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 5px; }
+.ticket-meta { font-size: 14px; color: var(--text-secondary); margin-bottom: 3px; }
+.ticket-code { display: inline-block; font-size: 15px; font-weight: 700; font-family: monospace; color: var(--brand); margin-top: 12px; padding: 7px 14px; background: var(--brand-light); border-radius: 8px; }
+.action-btns { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+</style>
+</head>
+<body>
+<div class="statusbar">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="success-wrap">
+    <div class="success-circle"><i class="ti ti-check"></i></div>
+    <div class="success-title">예매 완료!</div>
+    <div class="success-sub">공연 당일 입구에서<br>예매 코드를 보여주세요</div>
+    <div class="ticket-card">
+      <div class="ticket-title">Jamie Kim Trio</div>
+      <div class="ticket-meta">5월 17일 (금) 20:00</div>
+      <div class="ticket-meta">블루문 재즈클럽 · 2인 · ₩40,000</div>
+      <div class="ticket-code">JB-20250517-4829</div>
+    </div>
+    <div class="action-btns">
+      <div class="btn-primary">캘린더에 추가</div>
+      <div class="btn-outline">홈으로</div>
+    </div>
+  </div>
+</div>
+<div class="navbar">
+  <div class="nav-item"><i class="ti ti-home"></i>홈</div>
+  <div class="nav-item"><i class="ti ti-search"></i>검색</div>
+  <div class="nav-item"><i class="ti ti-calendar"></i>캘린더</div>
+  <div class="nav-item"><i class="ti ti-heart"></i>팔로우</div>
+  <div class="nav-item active"><i class="ti ti-user"></i>마이</div>
+</div>
+</body>
+</html>
+`},
+  {name:"15_artist_profile",title:"\uc544\ud2f0\uc2a4\ud2b8 \ud504\ub85c\ud544",html:`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 뮤지션 프로필</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.artist-hero { background: var(--brand-deep); padding: 16px var(--px) 24px; display: flex; flex-direction: column; align-items: center; gap: 12px; flex-shrink: 0; }
+.hero-back { align-self: flex-start; font-size: 13px; color: var(--brand-mid); display: flex; align-items: center; gap: 5px; cursor: pointer; }
+.artist-av { width: 76px; height: 76px; border-radius: 50%; background: var(--brand); display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 700; color: #fff; }
+.artist-name { font-size: 24px; font-weight: 700; color: #fff; }
+.artist-inst { font-size: 14px; color: var(--brand-mid); }
+.artist-stats { display: flex; gap: 28px; }
+.astat { text-align: center; }
+.astat-n { font-size: 20px; font-weight: 700; color: #fff; }
+.astat-l { font-size: 11px; color: var(--brand-muted); margin-top: 2px; }
+.follow-btn { padding: 10px 36px; border-radius: var(--radius-pill); background: var(--brand); color: #fff; font-size: 15px; font-weight: 600; border: none; cursor: pointer; }
+.follow-btn.following { background: transparent; border: 1.5px solid var(--brand-mid); color: var(--brand-mid); }
+</style>
+</head>
+<body>
+<div class="statusbar dark">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="artist-hero">
+    <div class="hero-back"><i class="ti ti-arrow-left" style="font-size:14px;"></i> 돌아가기</div>
+    <div class="artist-av">JK</div>
+    <div style="text-align:center;">
+      <div class="artist-name">Jamie Kim</div>
+      <div class="artist-inst">피아노 · 모던 재즈</div>
+    </div>
+    <div class="artist-stats">
+      <div class="astat"><div class="astat-n">128</div><div class="astat-l">팔로워</div></div>
+      <div class="astat"><div class="astat-n">34</div><div class="astat-l">공연</div></div>
+      <div class="astat"><div class="astat-n">12</div><div class="astat-l">클럽</div></div>
+    </div>
+    <button class="follow-btn following">팔로우 중</button>
+  </div>
+  <div class="sec-hd">다가오는 공연</div>
+  <div class="hr"></div>
+  <div class="upcoming-row">
+    <div class="upcoming-date">5/17</div>
+    <div style="flex:1;min-width:0;"><div class="upcoming-name">Jamie Kim Trio</div><div class="upcoming-venue">블루문 · 홍대 · 20:00</div></div>
+    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
+  </div>
+  <div class="upcoming-row">
+    <div class="upcoming-date">5/24</div>
+    <div style="flex:1;min-width:0;"><div class="upcoming-name">Jamie Kim & Soo Lee</div><div class="upcoming-venue">올댓재즈 · 강남 · 21:00</div></div>
+    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
+  </div>
+  <div class="upcoming-row">
+    <div class="upcoming-date">6/1</div>
+    <div style="flex:1;min-width:0;"><div class="upcoming-name">Seoul Jazz Collective</div><div class="upcoming-venue">클럽 에반스 · 19:30</div></div>
+    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
+  </div>
+</div>
+<div class="navbar">
+  <div class="nav-item"><i class="ti ti-home"></i>홈</div>
+  <div class="nav-item"><i class="ti ti-search"></i>검색</div>
+  <div class="nav-item"><i class="ti ti-calendar"></i>캘린더</div>
+  <div class="nav-item active"><i class="ti ti-heart"></i>팔로우</div>
+  <div class="nav-item"><i class="ti ti-user"></i>마이</div>
+</div>
+</body>
+</html>
+`},
+  {name:"16_venue_profile",title:"\uacf5\uc5f0\uc7a5 \ud504\ub85c\ud544",html:`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 공연장 프로필</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.venue-hero { background: var(--brand-deep); padding: 16px var(--px) 20px; flex-shrink: 0; }
+.hero-back { font-size: 13px; color: var(--brand-mid); display: flex; align-items: center; gap: 5px; margin-bottom: 10px; cursor: pointer; }
+.partner-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; background: var(--teal-light); border-radius: var(--radius-pill); font-size: 12px; font-weight: 600; color: #085041; margin-bottom: 8px; }
+.venue-name { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.venue-addr { font-size: 13px; color: var(--brand-mid); display: flex; align-items: center; gap: 4px; margin-bottom: 14px; }
+.venue-stats { display: flex; gap: 8px; }
+.vstat { flex: 1; background: rgba(255,255,255,.1); border-radius: 10px; padding: 10px; text-align: center; }
+.vstat-n { font-size: 17px; font-weight: 700; color: #fff; }
+.vstat-l { font-size: 10px; color: var(--brand-mid); margin-top: 2px; }
+.map-box { margin: 14px var(--px); height: 96px; background: var(--bg-secondary); border-radius: var(--radius-card); border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--text-tertiary); font-size: 15px; flex-shrink: 0; }
+.seg-tabs { display: flex; gap: 1px; margin: 0 var(--px) 12px; flex-shrink: 0; }
+.seg-tab { flex: 1; padding: 11px; background: var(--bg-secondary); text-align: center; font-size: 15px; color: var(--text-secondary); cursor: pointer; }
+.seg-tab:first-child { border-radius: 10px 4px 4px 10px; }
+.seg-tab:last-child { border-radius: 4px 10px 10px 4px; }
+.seg-tab.on { background: var(--brand-light); color: var(--brand-dark); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="statusbar dark">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="venue-hero">
+    <div class="hero-back"><i class="ti ti-arrow-left" style="font-size:14px;"></i> 돌아가기</div>
+    <div class="partner-badge"><i class="ti ti-check" style="font-size:12px;"></i> 파트너 공연장</div>
+    <div class="venue-name">블루문 재즈클럽</div>
+    <div class="venue-addr"><i class="ti ti-map-pin" style="font-size:13px;"></i> 서울 마포구 · 홍대입구역 도보 3분</div>
+    <div class="venue-stats">
+      <div class="vstat"><div class="vstat-n">~80</div><div class="vstat-l">수용 인원</div></div>
+      <div class="vstat"><div class="vstat-n">월~토</div><div class="vstat-l">공연 요일</div></div>
+      <div class="vstat"><div class="vstat-n">4.8</div><div class="vstat-l">평점</div></div>
+    </div>
+  </div>
+  <div class="map-box">
+    <i class="ti ti-map" style="font-size:22px;"></i>
+    <span>지도 보기</span>
+  </div>
+  <div class="seg-tabs">
+    <div class="seg-tab on">공연 일정</div>
+    <div class="seg-tab">공연장 정보</div>
+  </div>
+  <div class="hr"></div>
+  <div class="upcoming-row">
+    <div class="upcoming-date">5/17</div>
+    <div style="flex:1;min-width:0;"><div class="upcoming-name">Jamie Kim Trio</div><div class="upcoming-venue">20:00 · ₩20,000</div></div>
+    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
+  </div>
+  <div class="upcoming-row">
+    <div class="upcoming-date">5/18</div>
+    <div style="flex:1;min-width:0;"><div class="upcoming-name">Seoul Jazz Collective</div><div class="upcoming-venue">19:00 · ₩18,000</div></div>
+    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
+  </div>
+  <div class="upcoming-row">
+    <div class="upcoming-date">5/20</div>
+    <div style="flex:1;min-width:0;"><div class="upcoming-name">Park Minjun Solo</div><div class="upcoming-venue">21:00 · 무료</div></div>
+    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
+  </div>
+</div>
+<div class="navbar">
+  <div class="nav-item"><i class="ti ti-home"></i>홈</div>
+  <div class="nav-item active"><i class="ti ti-search"></i>검색</div>
+  <div class="nav-item"><i class="ti ti-calendar"></i>캘린더</div>
+  <div class="nav-item"><i class="ti ti-heart"></i>팔로우</div>
+  <div class="nav-item"><i class="ti ti-user"></i>마이</div>
+</div>
+</body>
+</html>
+`},
+  {name:"17_notifications",title:"\uc54c\ub9bc",html:`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 알림</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.notif-header { display: flex; align-items: center; justify-content: space-between; padding: 16px var(--px) 14px; border-bottom: 0.5px solid var(--border); flex-shrink: 0; }
+.page-title { font-size: 26px; font-weight: 700; color: var(--text-primary); }
+.read-all { font-size: 14px; color: var(--brand); cursor: pointer; }
+.notif-item { display: flex; align-items: flex-start; gap: 12px; padding: 16px var(--px); border-bottom: 0.5px solid var(--border); flex-shrink: 0; }
+.notif-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--brand); flex-shrink: 0; margin-top: 4px; }
+.notif-dot.read { background: var(--border); }
+.notif-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.notif-icon i { font-size: 19px; }
+.notif-title { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
+.notif-body { font-size: 14px; color: var(--text-secondary); line-height: 1.4; }
+.notif-time { font-size: 12px; color: var(--text-tertiary); margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="statusbar">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="notif-header">
+    <div class="page-title">알림</div>
+    <div class="read-all">모두 읽음</div>
+  </div>
+  <div class="notif-item">
+    <div class="notif-dot"></div>
+    <div class="notif-icon" style="background:var(--brand-light);"><i class="ti ti-bell" style="color:var(--brand);"></i></div>
+    <div><div class="notif-title">Jamie Kim 공연 등록</div><div class="notif-body">5월 24일 올댓재즈 공연이 등록됐어요</div><div class="notif-time">방금 전</div></div>
+  </div>
+  <div class="notif-item">
+    <div class="notif-dot"></div>
+    <div class="notif-icon" style="background:var(--amber-light);"><i class="ti ti-ticket" style="color:var(--amber);"></i></div>
+    <div><div class="notif-title">예매 마감 임박</div><div class="notif-body">Jamie Kim Trio 잔여석 3석 남았어요</div><div class="notif-time">1시간 전</div></div>
+  </div>
+  <div class="notif-item">
+    <div class="notif-dot read"></div>
+    <div class="notif-icon" style="background:var(--teal-light);"><i class="ti ti-check" style="color:var(--teal);"></i></div>
+    <div><div class="notif-title">예매 완료</div><div class="notif-body">Jamie Kim Trio 2인 예매가 완료됐어요</div><div class="notif-time">어제</div></div>
+  </div>
+  <div class="notif-item">
+    <div class="notif-dot read"></div>
+    <div class="notif-icon" style="background:var(--brand-light);"><i class="ti ti-bell" style="color:var(--brand);"></i></div>
+    <div><div class="notif-title">Soo Lee 공연 등록</div><div class="notif-body">5월 21일 올댓재즈 공연이 등록됐어요</div><div class="notif-time">2일 전</div></div>
+  </div>
+  <div class="notif-item">
+    <div class="notif-dot read"></div>
+    <div class="notif-icon" style="background:var(--bg-secondary);"><i class="ti ti-star" style="color:var(--amber);"></i></div>
+    <div><div class="notif-title">이번 주 추천 공연</div><div class="notif-body">취향에 맞는 공연 5개가 등록됐어요</div><div class="notif-time">3일 전</div></div>
+  </div>
+</div>
+<div class="navbar">
+  <div class="nav-item"><i class="ti ti-home"></i>홈</div>
+  <div class="nav-item"><i class="ti ti-search"></i>검색</div>
+  <div class="nav-item"><i class="ti ti-calendar"></i>캘린더</div>
+  <div class="nav-item"><i class="ti ti-heart"></i>팔로우</div>
+  <div class="nav-item active"><i class="ti ti-user"></i>마이</div>
+</div>
+</body>
+</html>
+`},
+  {name:"18_archive",title:"\uc544\uce74\uc774\ube0c",html:`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 공연 기록</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.arch-header { display: flex; align-items: flex-end; justify-content: space-between; padding: 16px var(--px) 14px; border-bottom: 0.5px solid var(--border); flex-shrink: 0; }
+.page-title { font-size: 26px; font-weight: 700; color: var(--text-primary); }
+.page-sub { font-size: 13px; color: var(--text-tertiary); margin-top: 2px; }
+.add-btn { font-size: 15px; color: var(--brand); cursor: pointer; }
+.arch-item { display: flex; align-items: flex-start; gap: 14px; padding: 16px var(--px); border-bottom: 0.5px solid var(--border); flex-shrink: 0; }
+.arch-date-col { text-align: center; min-width: 36px; flex-shrink: 0; }
+.arch-month { font-size: 10px; color: var(--text-tertiary); text-transform: uppercase; font-weight: 600; }
+.arch-day { font-size: 22px; font-weight: 700; color: var(--brand); line-height: 1.1; }
+.arch-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+.arch-meta { font-size: 13px; color: var(--text-secondary); }
+.arch-tags { display: flex; gap: 5px; margin-top: 6px; flex-wrap: wrap; }
+.atag { font-size: 12px; padding: 3px 10px; border-radius: var(--radius-pill); background: var(--bg-secondary); color: var(--text-secondary); }
+.arch-note { font-size: 13px; color: var(--text-tertiary); font-style: italic; margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="statusbar">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="arch-header">
+    <div>
+      <div class="page-title">공연 기록</div>
+      <div class="page-sub">총 24개 · 2025년</div>
+    </div>
+    <div class="add-btn">+ 기록 추가</div>
+  </div>
+  <div class="arch-item">
+    <div class="arch-date-col"><div class="arch-month">MAY</div><div class="arch-day">10</div></div>
+    <div style="flex:1;min-width:0;">
+      <div class="arch-title">Jamie Kim Trio</div>
+      <div class="arch-meta">블루문 · 홍대</div>
+      <div class="arch-tags"><span class="atag">모던 재즈</span><span class="atag">트리오</span></div>
+      <div class="arch-note">"최고의 피아노 솔로였다"</div>
+    </div>
+  </div>
+  <div class="arch-item">
+    <div class="arch-date-col"><div class="arch-month">MAY</div><div class="arch-day">3</div></div>
+    <div style="flex:1;min-width:0;">
+      <div class="arch-title">Seoul Jazz Collective</div>
+      <div class="arch-meta">클럽 에반스 · 홍대</div>
+      <div class="arch-tags"><span class="atag">빅밴드</span></div>
+    </div>
+  </div>
+  <div class="arch-item">
+    <div class="arch-date-col"><div class="arch-month">APR</div><div class="arch-day">26</div></div>
+    <div style="flex:1;min-width:0;">
+      <div class="arch-title">Lee Soo Quartet</div>
+      <div class="arch-meta">올댓재즈 · 강남</div>
+      <div class="arch-tags"><span class="atag">스윙</span><span class="atag">쿼텟</span></div>
+      <div class="arch-note">"색소폰이 정말 인상적"</div>
+    </div>
+  </div>
+  <div class="arch-item">
+    <div class="arch-date-col"><div class="arch-month">APR</div><div class="arch-day">18</div></div>
+    <div style="flex:1;min-width:0;">
+      <div class="arch-title">Hyun-A Kim Vocal</div>
+      <div class="arch-meta">재즈바 369 · 이태원</div>
+      <div class="arch-tags"><span class="atag">보컬</span></div>
+    </div>
+  </div>
+  <div class="arch-item">
+    <div class="arch-date-col"><div class="arch-month">APR</div><div class="arch-day">12</div></div>
+    <div style="flex:1;min-width:0;">
+      <div class="arch-title">Park Minjun Solo</div>
+      <div class="arch-meta">올댓재즈 · 강남</div>
+      <div class="arch-tags"><span class="atag">보컬 재즈</span><span class="atag">무료</span></div>
+      <div class="arch-note">"분위기 최고의 공연"</div>
+    </div>
+  </div>
+</div>
+<div class="navbar">
+  <div class="nav-item"><i class="ti ti-home"></i>홈</div>
+  <div class="nav-item"><i class="ti ti-search"></i>검색</div>
+  <div class="nav-item"><i class="ti ti-calendar"></i>캘린더</div>
+  <div class="nav-item"><i class="ti ti-heart"></i>팔로우</div>
+  <div class="nav-item active"><i class="ti ti-user"></i>마이</div>
+</div>
+</body>
+</html>
+`}
+];
+
+const btn  = document.getElementById('btn');
+const logEl= document.getElementById('log');
+const bar  = document.getElementById('bar');
+const iframe = document.getElementById('frame');
+
+function log(msg, cls) {
+  const d = document.createElement('div');
+  d.textContent = msg;
+  if (cls) d.className = cls;
+  logEl.appendChild(d);
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+/* ── color helpers ── */
+function parseRgb(str) {
+  if (!str) return null;
+  const m = str.match(/rgba?\((\d+(?:\.\d+)?),\s*(\d+(?:\.\d+)?),\s*(\d+(?:\.\d+)?)/);
+  if (!m) return null;
+  return {r: +m[1]/255, g: +m[2]/255, b: +m[3]/255};
+}
+function parseOpacity(str) {
+  const m = str && str.match(/rgba\([\d\s.,]+,\s*([\d.]+)\)/);
+  return m ? parseFloat(m[1]) : 1;
+}
+function isTransp(str) {
+  if (!str || str === 'transparent') return true;
+  const m = str.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+  if (!m) return true;
+  return m[4] !== undefined && parseFloat(m[4]) < 0.01;
+}
+
+/* ── DOM traversal ── */
+function collectElements(doc) {
+  const SKIP = new Set(['HTML','HEAD','STYLE','LINK','SCRIPT','META','TITLE','NOSCRIPT']);
+  const els  = [];
+
+  function walk(el, depth) {
+    if (depth > 25 || SKIP.has(el.tagName)) return;
+
+    const cs   = doc.defaultView.getComputedStyle(el);
+    if (cs.display === 'none' || cs.visibility === 'hidden') return;
+
+    const rect = el.getBoundingClientRect();
+    if (rect.width < 1 || rect.height < 1) return;
+    if (rect.top > 830 || rect.left > 390 || rect.bottom < -5) return;
+
+    const bg      = cs.backgroundColor;
+    const hasBg   = !isTransp(bg);
+    const bw      = parseFloat(cs.borderTopWidth) || 0;
+    const bc      = cs.borderTopColor;
+    const hasBord = bw > 0.05 && !isTransp(bc);
+    const bRadius = parseFloat(cs.borderRadius) || 0;
+
+    let directText = '';
+    el.childNodes.forEach(n => { if (n.nodeType === 3) directText += n.textContent; });
+    directText = directText.trim();
+
+    const hasChildren = el.children.length > 0;
+
+    if (hasBg || hasBord || bRadius > 0 || (directText && !hasChildren)) {
+      els.push({
+        x: Math.round(rect.left),
+        y: Math.round(rect.top),
+        w: Math.round(rect.width),
+        h: Math.round(rect.height),
+        bgColor   : hasBg    ? parseRgb(bg) : null,
+        bgOpacity : hasBg    ? parseOpacity(bg) : 1,
+        color     : parseRgb(cs.color),
+        fontSize  : parseFloat(cs.fontSize) || 14,
+        fontWeight: parseInt(cs.fontWeight) || 400,
+        borderRadius: bRadius,
+        borderWidth : bw,
+        borderColor : hasBord ? parseRgb(bc) : null,
+        hasBorder   : hasBord,
+        text        : directText,
+        hasChildren,
+      });
+    }
+    Array.from(el.children).forEach(c => walk(c, depth + 1));
+  }
+
+  walk(doc.body, 0);
+  return els;
+}
+
+/* ── render one page ── */
+function renderPage(page, index) {
+  return new Promise(resolve => {
+    iframe.onload = () => {
+      setTimeout(() => {
+        try {
+          const els = collectElements(iframe.contentDocument);
+          resolve({name: page.name, title: page.title, width: 375, height: 812, elements: els, index});
+        } catch(e) {
+          resolve({name: page.name, title: page.title, width: 375, height: 812, elements: [], index, error: e.message});
+        }
+      }, 900);   // wait for layout + icon font
+    };
+    iframe.srcdoc = page.html;
+  });
+}
+
+/* ── main flow ── */
+btn.addEventListener('click', () => {
+  btn.disabled = true;
+  logEl.innerHTML = '';
+  log('Figma 연결 중 / 폰트 로드...');
+  parent.postMessage({pluginMessage: {type: 'START'}}, '*');
+});
+
+let frameDoneResolve = null;
+
+window.onmessage = async (ev) => {
+  const msg = ev.data && ev.data.pluginMessage;
+  if (!msg) return;
+
+  if (msg.type === 'FONTS_READY') {
+    log('폰트 준비 완료. HTML 파싱 시작...');
+
+    for (let i = 0; i < PAGES.length; i++) {
+      const page = PAGES[i];
+      log(`⏳ (${i+1}/${PAGES.length}) ${page.title} 파싱 중...`);
+      bar.style.width = `${Math.round(i / PAGES.length * 100)}%`;
+
+      const data = await renderPage(page, i);
+      if (data.error) log(`  ⚠ 파싱 오류: ${data.error}`, 'err');
+
+      parent.postMessage({pluginMessage: {type: 'CREATE_FRAME', ...data}}, '*');
+
+      await new Promise(r => { frameDoneResolve = r; });
+    }
+
+    bar.style.width = '100%';
+    parent.postMessage({pluginMessage: {type: 'ALL_DONE'}}, '*');
+    log('✅ 완료! Figma에서 18개 프레임을 확인하세요.', 'ok');
+    btn.disabled = false;
+  }
+
+  if (msg.type === 'FRAME_DONE') {
+    log(`  ✓ ${msg.name}`, 'ok');
+    frameDoneResolve && frameDoneResolve();
+  }
+
+  if (msg.type === 'FRAME_ERROR') {
+    log(`  ✗ ${msg.name}: ${msg.error}`, 'err');
+    frameDoneResolve && frameDoneResolve();
+  }
+
+  if (msg.type === 'ERROR') {
+    log('오류: ' + msg.error, 'err');
+    btn.disabled = false;
+  }
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 온보딩 3</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.ob-hero { background: var(--brand-deep); padding: 28px var(--px) 22px; display: flex; flex-direction: column; align-items: center; gap: 16px; flex-shrink: 0; }
+.ob-prog { display: flex; gap: 6px; width: 100%; }
+.ob-pd { height: 4px; flex: 1; border-radius: 2px; background: rgba(255,255,255,.2); }
+.ob-pd.on { background: var(--brand-mid); }
+.ob-icon-wrap { width: 72px; height: 72px; background: var(--brand); border-radius: 22px; display: flex; align-items: center; justify-content: center; }
+.ob-icon-wrap i { font-size: 34px; color: #fff; }
+.ob-title { font-size: 22px; font-weight: 700; color: #fff; text-align: center; line-height: 1.2; }
+.ob-desc { font-size: 14px; color: var(--brand-mid); text-align: center; }
+.pref-section { padding: 18px var(--px) 0; flex-shrink: 0; }
+.pref-label { font-size: 12px; font-weight: 600; color: var(--text-tertiary); letter-spacing: .05em; text-transform: uppercase; margin-bottom: 10px; }
+.chip-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.pchip { padding: 8px 16px; border-radius: var(--radius-pill); font-size: 14px; font-weight: 500; border: 0.5px solid var(--border); color: var(--text-secondary); background: var(--bg-primary); cursor: pointer; }
+.pchip.on { background: var(--brand-light); color: var(--brand-dark); border-color: var(--brand-mid); }
+.loc-card { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--bg-secondary); border-radius: var(--radius-card); border: 0.5px solid var(--border); cursor: pointer; }
+.loc-card i { font-size: 20px; color: var(--brand); flex-shrink: 0; }
+.loc-name { font-size: 15px; font-weight: 500; color: var(--text-primary); }
+.loc-sub { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
+.ob-footer { padding: 16px var(--px) 24px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="statusbar dark">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="ob-hero">
+    <div class="ob-prog"><div class="ob-pd"></div><div class="ob-pd"></div><div class="ob-pd on"></div></div>
+    <div class="ob-icon-wrap"><i class="ti ti-adjustments-horizontal"></i></div>
+    <div style="text-align:center;">
+      <div class="ob-title">취향을 알려주세요</div>
+      <div class="ob-desc" style="margin-top:4px;">더 잘 맞는 공연을 추천해드려요</div>
+    </div>
+  </div>
+  <div class="pref-section">
+    <div class="pref-label">좋아하는 장르</div>
+    <div class="chip-wrap">
+      <div class="pchip on">모던 재즈</div>
+      <div class="pchip on">스윙</div>
+      <div class="pchip">보컬</div>
+      <div class="pchip on">프리 재즈</div>
+      <div class="pchip">퓨전</div>
+      <div class="pchip">라틴</div>
+      <div class="pchip">비밥</div>
+    </div>
+    <div class="pref-label">주로 가는 지역</div>
+    <div class="loc-card">
+      <i class="ti ti-map-pin"></i>
+      <div style="flex:1;">
+        <div class="loc-name">서울 홍대 / 마포</div>
+        <div class="loc-sub">현재 위치 기반 자동 설정</div>
+      </div>
+      <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
+    </div>
+  </div>
+  <div class="ob-footer">
+    <div class="btn-primary">시작하기</div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 공연 기록</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.arch-header { display: flex; align-items: flex-end; justify-content: space-between; padding: 16px var(--px) 14px; border-bottom: 0.5px solid var(--border); flex-shrink: 0; }
+.page-title { font-size: 26px; font-weight: 700; color: var(--text-primary); }
+.page-sub { font-size: 13px; color: var(--text-tertiary); margin-top: 2px; }
+.add-btn { font-size: 15px; color: var(--brand); cursor: pointer; }
+.arch-item { display: flex; align-items: flex-start; gap: 14px; padding: 16px var(--px); border-bottom: 0.5px solid var(--border); flex-shrink: 0; }
+.arch-date-col { text-align: center; min-width: 36px; flex-shrink: 0; }
+.arch-month { font-size: 10px; color: var(--text-tertiary); text-transform: uppercase; font-weight: 600; }
+.arch-day { font-size: 22px; font-weight: 700; color: var(--brand); line-height: 1.1; }
+.arch-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+.arch-meta { font-size: 13px; color: var(--text-secondary); }
+.arch-tags { display: flex; gap: 5px; margin-top: 6px; flex-wrap: wrap; }
+.atag { font-size: 12px; padding: 3px 10px; border-radius: var(--radius-pill); background: var(--bg-secondary); color: var(--text-secondary); }
+.arch-note { font-size: 13px; color: var(--text-tertiary); font-style: italic; margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="statusbar">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="arch-header">
+    <div>
+      <div class="page-title">공연 기록</div>
+      <div class="page-sub">총 24개 · 2025년</div>
+    </div>
+    <div class="add-btn">+ 기록 추가</div>
+  </div>
+  <div class="arch-item">
+    <div class="arch-date-col"><div class="arch-month">MAY</div><div class="arch-day">10</div></div>
+    <div style="flex:1;min-width:0;">
+      <div class="arch-title">Jamie Kim Trio</div>
+      <div class="arch-meta">블루문 · 홍대</div>
+      <div class="arch-tags"><span class="atag">모던 재즈</span><span class="atag">트리오</span></div>
+      <div class="arch-note">"최고의 피아노 솔로였다"</div>
+    </div>
+  </div>
+  <div class="arch-item">
+    <div class="arch-date-col"><div class="arch-month">MAY</div><div class="arch-day">3</div></div>
+    <div style="flex:1;min-width:0;">
+      <div class="arch-title">Seoul Jazz Collective</div>
+      <div class="arch-meta">클럽 에반스 · 홍대</div>
+      <div class="arch-tags"><span class="atag">빅밴드</span></div>
+    </div>
+  </div>
+  <div class="arch-item">
+    <div class="arch-date-col"><div class="arch-month">APR</div><div class="arch-day">26</div></div>
+    <div style="flex:1;min-width:0;">
+      <div class="arch-title">Lee Soo Quartet</div>
+      <div class="arch-meta">올댓재즈 · 강남</div>
+      <div class="arch-tags"><span class="atag">스윙</span><span class="atag">쿼텟</span></div>
+      <div class="arch-note">"색소폰이 정말 인상적"</div>
+    </div>
+  </div>
+  <div class="arch-item">
+    <div class="arch-date-col"><div class="arch-month">APR</div><div class="arch-day">18</div></div>
+    <div style="flex:1;min-width:0;">
+      <div class="arch-title">Hyun-A Kim Vocal</div>
+      <div class="arch-meta">재즈바 369 · 이태원</div>
+      <div class="arch-tags"><span class="atag">보컬</span></div>
+    </div>
+  </div>
+  <div class="arch-item">
+    <div class="arch-date-col"><div class="arch-month">APR</div><div class="arch-day">12</div></div>
+    <div style="flex:1;min-width:0;">
+      <div class="arch-title">Park Minjun Solo</div>
+      <div class="arch-meta">올댓재즈 · 강남</div>
+      <div class="arch-tags"><span class="atag">보컬 재즈</span><span class="atag">무료</span></div>
+      <div class="arch-note">"분위기 최고의 공연"</div>
+    </div>
+  </div>
+</div>
+<div class="navbar">
+  <div class="nav-item"><i class="ti ti-home"></i>홈</div>
+  <div class="nav-item"><i class="ti ti-search"></i>검색</div>
+  <div class="nav-item"><i class="ti ti-calendar"></i>캘린더</div>
+  <div class="nav-item"><i class="ti ti-heart"></i>팔로우</div>
+  <div class="nav-item active"><i class="ti ti-user"></i>마이</div>
+</div>
+</body>
+</html>

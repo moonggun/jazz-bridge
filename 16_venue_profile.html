@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>Jazz Bridge — 공연장 프로필</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+.venue-hero { background: var(--brand-deep); padding: 16px var(--px) 20px; flex-shrink: 0; }
+.hero-back { font-size: 13px; color: var(--brand-mid); display: flex; align-items: center; gap: 5px; margin-bottom: 10px; cursor: pointer; }
+.partner-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; background: var(--teal-light); border-radius: var(--radius-pill); font-size: 12px; font-weight: 600; color: #085041; margin-bottom: 8px; }
+.venue-name { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.venue-addr { font-size: 13px; color: var(--brand-mid); display: flex; align-items: center; gap: 4px; margin-bottom: 14px; }
+.venue-stats { display: flex; gap: 8px; }
+.vstat { flex: 1; background: rgba(255,255,255,.1); border-radius: 10px; padding: 10px; text-align: center; }
+.vstat-n { font-size: 17px; font-weight: 700; color: #fff; }
+.vstat-l { font-size: 10px; color: var(--brand-mid); margin-top: 2px; }
+.map-box { margin: 14px var(--px); height: 96px; background: var(--bg-secondary); border-radius: var(--radius-card); border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--text-tertiary); font-size: 15px; flex-shrink: 0; }
+.seg-tabs { display: flex; gap: 1px; margin: 0 var(--px) 12px; flex-shrink: 0; }
+.seg-tab { flex: 1; padding: 11px; background: var(--bg-secondary); text-align: center; font-size: 15px; color: var(--text-secondary); cursor: pointer; }
+.seg-tab:first-child { border-radius: 10px 4px 4px 10px; }
+.seg-tab:last-child { border-radius: 4px 10px 10px 4px; }
+.seg-tab.on { background: var(--brand-light); color: var(--brand-dark); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="statusbar dark">
+  <span class="sb-time">9:41</span>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+</div>
+<div class="content">
+  <div class="venue-hero">
+    <div class="hero-back"><i class="ti ti-arrow-left" style="font-size:14px;"></i> 돌아가기</div>
+    <div class="partner-badge"><i class="ti ti-check" style="font-size:12px;"></i> 파트너 공연장</div>
+    <div class="venue-name">블루문 재즈클럽</div>
+    <div class="venue-addr"><i class="ti ti-map-pin" style="font-size:13px;"></i> 서울 마포구 · 홍대입구역 도보 3분</div>
+    <div class="venue-stats">
+      <div class="vstat"><div class="vstat-n">~80</div><div class="vstat-l">수용 인원</div></div>
+      <div class="vstat"><div class="vstat-n">월~토</div><div class="vstat-l">공연 요일</div></div>
+      <div class="vstat"><div class="vstat-n">4.8</div><div class="vstat-l">평점</div></div>
+    </div>
+  </div>
+  <div class="map-box">
+    <i class="ti ti-map" style="font-size:22px;"></i>
+    <span>지도 보기</span>
+  </div>
+  <div class="seg-tabs">
+    <div class="seg-tab on">공연 일정</div>
+    <div class="seg-tab">공연장 정보</div>
+  </div>
+  <div class="hr"></div>
+  <div class="upcoming-row">
+    <div class="upcoming-date">5/17</div>
+    <div style="flex:1;min-width:0;"><div class="upcoming-name">Jamie Kim Trio</div><div class="upcoming-venue">20:00 · ₩20,000</div></div>
+    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
+  </div>
+  <div class="upcoming-row">
+    <div class="upcoming-date">5/18</div>
+    <div style="flex:1;min-width:0;"><div class="upcoming-name">Seoul Jazz Collective</div><div class="upcoming-venue">19:00 · ₩18,000</div></div>
+    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
+  </div>
+  <div class="upcoming-row">
+    <div class="upcoming-date">5/20</div>
+    <div style="flex:1;min-width:0;"><div class="upcoming-name">Park Minjun Solo</div><div class="upcoming-venue">21:00 · 무료</div></div>
+    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
+  </div>
+</div>
+<div class="navbar">
+  <div class="nav-item"><i class="ti ti-home"></i>홈</div>
+  <div class="nav-item active"><i class="ti ti-search"></i>검색</div>
+  <div class="nav-item"><i class="ti ti-calendar"></i>캘린더</div>
+  <div class="nav-item"><i class="ti ti-heart"></i>팔로우</div>
+  <div class="nav-item"><i class="ti ti-user"></i>마이</div>
+</div>
+</body>
+</html>
