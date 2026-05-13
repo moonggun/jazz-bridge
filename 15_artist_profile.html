@@ -7,38 +7,78 @@
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <style>
-.artist-hero { background: var(--brand-deep); padding: 16px var(--px) 24px; display: flex; flex-direction: column; align-items: center; gap: 12px; flex-shrink: 0; }
-.hero-back { align-self: flex-start; font-size: 13px; color: var(--brand-mid); display: flex; align-items: center; gap: 5px; cursor: pointer; }
-.artist-av { width: 76px; height: 76px; border-radius: 50%; background: var(--brand); display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 700; color: #fff; }
-.artist-name { font-size: 24px; font-weight: 700; color: #fff; }
-.artist-inst { font-size: 14px; color: var(--brand-mid); }
+/* PHOTO HERO */
+.artist-hero { position: relative; height: 300px; flex-shrink: 0; overflow: hidden; }
+.hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.5); }
+.hero-placeholder { position: absolute; inset: 0; background: linear-gradient(160deg, #1a1035 0%, #2d1b69 50%, #0f2a3a 100%); display: flex; align-items: center; justify-content: center; }
+.hero-gradient { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0.55) 65%, rgba(0,0,0,0.88) 100%); }
+.hero-content { position: absolute; inset: 0; padding: 16px var(--px) 22px; display: flex; flex-direction: column; justify-content: space-between; }
+.hero-top { display: flex; align-items: center; justify-content: space-between; padding-top: 44px; }
+.hero-back { font-size: 13px; color: rgba(255,255,255,0.9); display: flex; align-items: center; gap: 5px; cursor: pointer; }
+.hero-action-btn { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 16px; color: #fff; }
+/* 원형 프로필 아바타 (사진 없을 때 이니셜) */
+.artist-av-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.artist-av { width: 72px; height: 72px; border-radius: 50%; background: rgba(83,74,183,0.7); border: 2.5px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; color: #fff; }
+/* ★ 실제 사진 적용 시: artist-av 대신 img 사용
+   .artist-av-img { width:72px; height:72px; border-radius:50%; object-fit:cover; border:2.5px solid rgba(255,255,255,0.3); } */
+.artist-name { font-size: 22px; font-weight: 700; color: #fff; text-align: center; text-shadow: 0 2px 10px rgba(0,0,0,0.4); }
+.artist-inst { font-size: 13px; color: rgba(255,255,255,0.7); text-align: center; }
+.hero-bottom { display: flex; flex-direction: column; align-items: center; gap: 12px; }
 .artist-stats { display: flex; gap: 28px; }
 .astat { text-align: center; }
 .astat-n { font-size: 20px; font-weight: 700; color: #fff; }
-.astat-l { font-size: 11px; color: var(--brand-muted); margin-top: 2px; }
-.follow-btn { padding: 10px 36px; border-radius: var(--radius-pill); background: var(--brand); color: #fff; font-size: 15px; font-weight: 600; border: none; cursor: pointer; }
-.follow-btn.following { background: transparent; border: 1.5px solid var(--brand-mid); color: var(--brand-mid); }
+.astat-l { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+.follow-btn { padding: 10px 36px; border-radius: var(--radius-pill); background: var(--brand); color: #fff; font-size: 14px; font-weight: 600; border: none; cursor: pointer; }
+.follow-btn.following { background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.3); color: rgba(255,255,255,0.85); }
 </style>
 </head>
 <body>
-<div class="statusbar dark">
-  <span class="sb-time">9:41</span>
-  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+<!-- STATUS BAR (사진 위 오버레이) -->
+<div class="statusbar" style="position:absolute;top:0;left:0;right:0;z-index:10;height:44px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 24px 8px;">
+  <span style="font-size:15px;font-weight:600;color:#fff;">9:41</span>
+  <div style="display:flex;gap:6px;align-items:center;color:#fff;font-size:13px;"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
 </div>
+
 <div class="content">
+  <!-- PHOTO HERO -->
   <div class="artist-hero">
-    <div class="hero-back"><i class="ti ti-arrow-left" style="font-size:14px;"></i> 돌아가기</div>
-    <div class="artist-av">JK</div>
-    <div style="text-align:center;">
-      <div class="artist-name">Jamie Kim</div>
-      <div class="artist-inst">피아노 · 모던 재즈</div>
+
+    <!-- ★ 실제 사진 적용 시: hero-placeholder 삭제 후 아래 img 사용 -->
+    <!-- <img class="hero-img" src="https://뮤지션사진URL.jpg" alt="Jamie Kim"> -->
+
+    <!-- 플레이스홀더 -->
+    <div class="hero-placeholder">
+      <svg width="120" height="100" viewBox="0 0 120 100" fill="none" opacity="0.15">
+        <circle cx="60" cy="38" r="22" fill="white"/>
+        <path d="M20 90 Q60 65 100 90" fill="white"/>
+        <text x="60" y="44" text-anchor="middle" fill="#26215C" font-size="16" font-weight="bold" font-family="sans-serif">JK</text>
+      </svg>
     </div>
-    <div class="artist-stats">
-      <div class="astat"><div class="astat-n">128</div><div class="astat-l">팔로워</div></div>
-      <div class="astat"><div class="astat-n">34</div><div class="astat-l">공연</div></div>
-      <div class="astat"><div class="astat-n">12</div><div class="astat-l">클럽</div></div>
+
+    <div class="hero-gradient"></div>
+
+    <div class="hero-content">
+      <div class="hero-top">
+        <div class="hero-back"><i class="ti ti-arrow-left" style="font-size:14px;"></i> 돌아가기</div>
+        <div class="hero-action-btn"><i class="ti ti-share"></i></div>
+      </div>
+      <div class="hero-bottom">
+        <!-- 이니셜 아바타 (사진 없을 때) -->
+        <div class="artist-av-wrap">
+          <div class="artist-av">JK</div>
+          <!-- ★ 사진 있을 때: <img class="artist-av-img" src="프로필사진URL" alt="Jamie Kim"> -->
+          <div class="artist-name">Jamie Kim</div>
+          <div class="artist-inst">피아노 · 모던 재즈</div>
+        </div>
+        <div class="artist-stats">
+          <div class="astat"><div class="astat-n">128</div><div class="astat-l">팔로워</div></div>
+          <div class="astat"><div class="astat-n">34</div><div class="astat-l">공연</div></div>
+          <div class="astat"><div class="astat-n">12</div><div class="astat-l">클럽</div></div>
+        </div>
+        <button class="follow-btn following">팔로우 중</button>
+      </div>
     </div>
-    <button class="follow-btn following">팔로우 중</button>
+
   </div>
   <div class="sec-hd">다가오는 공연</div>
   <div class="hr"></div>

@@ -36,7 +36,7 @@
     flex-direction: column;
   }
 
-  /* STATUS BAR — dark (hero bg) */
+  /* STATUS BAR — transparent (위에 사진이 깔리므로) */
   .statusbar {
     height: 44px;
     display: flex;
@@ -44,32 +44,78 @@
     justify-content: space-between;
     padding: 0 24px 8px;
     flex-shrink: 0;
-    background: var(--brand-deep);
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    z-index: 10;
   }
-  .sb-time { font-size: 15px; font-weight: 600; color: #AFA9EC; }
-  .sb-icons { display: flex; gap: 6px; align-items: center; font-size: 13px; color: #AFA9EC; }
+  .sb-time { font-size: 15px; font-weight: 600; color: #fff; }
+  .sb-icons { display: flex; gap: 6px; align-items: center; font-size: 13px; color: #fff; }
 
-  /* HERO */
+  /* PHOTO HERO */
   .detail-hero {
-    background: var(--brand-deep);
-    padding: 20px var(--px) 24px;
+    position: relative;
+    height: 260px;
     flex-shrink: 0;
+    overflow: hidden;
   }
+  /* 실제 뮤지션 사진 — src를 교체하면 바로 적용 */
+  .hero-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: brightness(0.55);
+  }
+  /* 사진 없을 때 플레이스홀더 */
+  .hero-placeholder {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #1a1035 0%, #2d1b69 40%, #1a3a4a 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  /* 하단 그라디언트 — 텍스트 가독성 */
+  .hero-gradient {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.08) 0%,
+      rgba(0,0,0,0) 25%,
+      rgba(0,0,0,0.45) 65%,
+      rgba(0,0,0,0.82) 100%
+    );
+  }
+  /* 히어로 위 콘텐츠 */
+  .hero-content {
+    position: absolute; inset: 0;
+    padding: 16px var(--px) 20px;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+  }
+  .hero-top { display: flex; align-items: center; justify-content: space-between; padding-top: 44px; }
   .back-btn {
-    font-size: 14px;
-    color: var(--brand-mid);
-    margin-bottom: 12px;
+    font-size: 14px; color: rgba(255,255,255,0.9);
     display: flex; align-items: center; gap: 5px;
     cursor: pointer;
   }
-  .detail-title {
-    font-size: 24px;
-    font-weight: 700;
-    color: #FFFFFF;
-    margin-bottom: 5px;
-    line-height: 1.2;
+  .share-btn {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: #fff;
   }
-  .detail-date { font-size: 14px; color: var(--brand-mid); }
+  .hero-bottom {}
+  .genre-tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 11px; border-radius: var(--radius-pill);
+    background: rgba(255,255,255,0.15);
+    border: 0.5px solid rgba(255,255,255,0.25);
+    font-size: 12px; font-weight: 500; color: #fff;
+    margin-bottom: 8px;
+  }
+  .detail-title {
+    font-size: 26px; font-weight: 700;
+    color: #fff; margin-bottom: 5px; line-height: 1.15;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  }
+  .detail-date { font-size: 14px; color: rgba(255,255,255,0.82); }
 
   /* CONTENT */
   .content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
@@ -161,7 +207,7 @@
 </head>
 <body>
 
-<!-- STATUS BAR -->
+<!-- STATUS BAR (absolute, 사진 위에 오버레이) -->
 <div class="statusbar">
   <span class="sb-time">9:41</span>
   <div class="sb-icons">
@@ -170,14 +216,51 @@
   </div>
 </div>
 
-<!-- HERO -->
+<!-- PHOTO HERO -->
 <div class="detail-hero">
-  <div class="back-btn">
-    <i class="ti ti-arrow-left" style="font-size:15px;"></i>
-    돌아가기
+
+  <!-- ★ 실제 사진 적용 시: 아래 hero-placeholder를 지우고 img 태그 사용 -->
+  <!-- <img class="hero-img" src="https://여기에뮤지션사진URL.jpg" alt="Jamie Kim"> -->
+
+  <!-- 플레이스홀더 (사진 없을 때) -->
+  <div class="hero-placeholder">
+    <svg width="200" height="120" viewBox="0 0 200 120" fill="none" opacity="0.2">
+      <rect x="10" y="30" width="180" height="70" rx="4" fill="white"/>
+      <rect x="28" y="30" width="11" height="42" rx="2" fill="#26215C"/>
+      <rect x="48" y="30" width="11" height="42" rx="2" fill="#26215C"/>
+      <rect x="78" y="30" width="11" height="42" rx="2" fill="#26215C"/>
+      <rect x="98" y="30" width="11" height="42" rx="2" fill="#26215C"/>
+      <rect x="118" y="30" width="11" height="42" rx="2" fill="#26215C"/>
+      <rect x="148" y="30" width="11" height="42" rx="2" fill="#26215C"/>
+      <rect x="168" y="30" width="11" height="42" rx="2" fill="#26215C"/>
+      <text x="100" y="16" text-anchor="middle" fill="white" font-size="11" font-family="sans-serif">뮤지션 사진 영역</text>
+    </svg>
   </div>
-  <div class="detail-title">Jamie Kim Trio</div>
-  <div class="detail-date">5월 17일 (금) · 오후 8시</div>
+
+  <!-- 그라디언트 오버레이 -->
+  <div class="hero-gradient"></div>
+
+  <!-- 텍스트 콘텐츠 -->
+  <div class="hero-content">
+    <div class="hero-top">
+      <div class="back-btn">
+        <i class="ti ti-arrow-left" style="font-size:15px;"></i>
+        돌아가기
+      </div>
+      <div class="share-btn">
+        <i class="ti ti-share"></i>
+      </div>
+    </div>
+    <div class="hero-bottom">
+      <div class="genre-tag">
+        <i class="ti ti-music" style="font-size:12px;"></i>
+        모던 재즈 · 트리오
+      </div>
+      <div class="detail-title">Jamie Kim Trio</div>
+      <div class="detail-date">5월 17일 (금) · 오후 8시</div>
+    </div>
+  </div>
+
 </div>
 
 <!-- CONTENT -->
