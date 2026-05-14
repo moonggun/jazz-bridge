@@ -1,3 +1,5 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
 /* Jazz Bridge — Design Tokens */
 :root {
   /* ── Dark Theme (#151617) ── */
@@ -40,7 +42,7 @@
 
 /* Base */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Pretendard", sans-serif;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg-primary);
   width: 375px;
   height: 812px;
