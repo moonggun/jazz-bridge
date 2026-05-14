@@ -7,32 +7,35 @@
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <style>
+body { background: #151617; }
 .ob-hero {
-  background: var(--brand-deep);
-  padding: 32px var(--px) 28px;
-  display: flex; flex-direction: column; align-items: center; gap: 18px;
-  flex-shrink: 0;
+  background: #26215C;
+  padding: 32px 24px 36px;
+  min-height: 340px;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 20px;
+  flex-shrink: 0; justify-content: center;
 }
-.ob-prog { display: flex; gap: 6px; width: 100%; }
+.ob-prog { display: flex; gap: 6px; width: 100%; align-self: flex-start; margin-top: -8px; }
 .ob-pd { height: 4px; flex: 1; border-radius: 2px; background: rgba(255,255,255,.2); }
-.ob-pd.on { background: var(--brand-mid); }
-.ob-icon-wrap {
-  width: 76px; height: 76px;
-  display: flex; align-items: center; justify-content: center;
-}
-.ob-title { font-size: 22px; font-weight: 700; color: #fff; text-align: center; line-height: 1.3; }
-.ob-desc { font-size: 15px; color: var(--brand-mid); text-align: center; line-height: 1.6; }
-.ob-body { flex: 1; padding: 24px var(--px) 0; display: flex; flex-direction: column; gap: 18px; overflow: hidden; }
-.ob-item { display: flex; align-items: flex-start; gap: 14px; }
+.ob-pd.on { background: rgba(255,255,255,.85); }
+.ob-icon-wrap { width: 76px; height: 76px; display: flex; align-items: center; justify-content: center; }
+.ob-title { font-size: 24px; font-weight: 700; color: #fff; text-align: center; line-height: 1.3; }
+.ob-desc { font-size: 15px; color: rgba(255,255,255,.65); text-align: center; line-height: 1.7; }
+.ob-body { flex: 1; padding: 24px 24px 0; display: flex; flex-direction: column; gap: 20px; }
+.ob-item { display: flex; align-items: center; gap: 16px; }
 .ob-bullet {
-  width: 38px; height: 38px; border-radius: 11px;
-  background: var(--brand-light); flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: 11px;
+  background: rgba(255,255,255,.06);
+  border: 0.5px solid rgba(255,255,255,.1);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-.ob-bullet i { font-size: 20px; color: var(--brand); }
-.ob-item-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
-.ob-item-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.4; }
-.ob-footer { padding: 20px var(--px) 24px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+.ob-bullet i { font-size: 20px; color: #888; }
+.ob-item-title { font-size: 16px; font-weight: 600; color: #F0F0F0; margin-bottom: 3px; }
+.ob-item-desc { font-size: 14px; color: #666; line-height: 1.4; }
+.ob-footer { padding: 20px 24px 24px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+.btn-primary { width: 100%; padding: 17px; background: #4840A8; border-radius: 14px; font-size: 17px; font-weight: 600; color: #fff; text-align: center; border: none; cursor: pointer; }
+.btn-ghost { width: 100%; padding: 12px; font-size: 15px; color: #555; text-align: center; background: none; border: none; cursor: pointer; }
 </style>
 </head>
 <body>
@@ -43,27 +46,29 @@
 <div class="content">
   <div class="ob-hero">
     <div class="ob-prog"><div class="ob-pd on"></div><div class="ob-pd"></div><div class="ob-pd"></div></div>
-    <div class="ob-icon-wrap"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" role="img" aria-label="위치 아이콘">
-      <path d="M24 4C15.716 4 9 10.716 9 19c0 10.5 15 27 15 27s15-16.5 15-27c0-8.284-6.716-15-15-15z" fill="#fff"/>
-      <circle cx="24" cy="19" r="5.5" fill="#26215C"/>
-    </svg></div>
-    <div>
-      <div class="ob-title">SNS에 흩어진 공연,<br>이제 한 번에</div>
-      <div class="ob-desc" style="margin-top:6px;">인스타·블로그에 올라온 재즈 공연을<br>자동으로 모아드려요</div>
+    <div class="ob-icon-wrap">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" role="img" aria-label="위치 아이콘">
+        <path d="M24 4C15.716 4 9 10.716 9 19c0 10.5 15 27 15 27s15-16.5 15-27c0-8.284-6.716-15-15-15z" fill="#fff"/>
+        <circle cx="24" cy="19" r="5.5" fill="#26215C"/>
+      </svg>
+    </div>
+    <div style="text-align:center;">
+      <div class="ob-title">SNS에 흩어진 재즈 공연,<br>이제 한 곳에서</div>
+      <div class="ob-desc" style="margin-top:10px;">인스타그램, 네이버 블로그, 클럽 홈페이지까지<br>전국 재즈 공연 정보를 자동으로 모아드려요</div>
     </div>
   </div>
   <div class="ob-body">
     <div class="ob-item">
       <div class="ob-bullet"><i class="ti ti-calendar"></i></div>
-      <div><div class="ob-item-title">날짜별 공연 캘린더</div><div class="ob-item-desc">오늘, 이번 주 공연을 한눈에 확인</div></div>
+      <div><div class="ob-item-title">날짜별 공연 캘린더</div><div class="ob-item-desc">오늘, 이번 주 공연을 한눈에</div></div>
     </div>
     <div class="ob-item">
       <div class="ob-bullet"><i class="ti ti-map-pin"></i></div>
-      <div><div class="ob-item-title">지역별 필터</div><div class="ob-item-desc">홍대, 이태원, 강남 등 동네별 탐색</div></div>
+      <div><div class="ob-item-title">지역별 필터</div><div class="ob-item-desc">홍대, 이태원, 강남 탐색</div></div>
     </div>
     <div class="ob-item">
       <div class="ob-bullet"><i class="ti ti-music"></i></div>
-      <div><div class="ob-item-title">장르 & 규모 필터</div><div class="ob-item-desc">모던 재즈, 스윙, 보컬 등 취향대로</div></div>
+      <div><div class="ob-item-title">장르 & 규모 필터</div><div class="ob-item-desc">취향에 맞는 공연 발견</div></div>
     </div>
   </div>
   <div class="ob-footer">

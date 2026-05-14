@@ -3,17 +3,17 @@
   /* ── Dark Theme (#151617) ── */
   --bg-primary:     #151617;
   --bg-secondary:   #1e2022;
-  --bg-tertiary:    #252729;
+  --bg-tertiary:    #2e3033;
   --text-primary:   #F0F0F0;
-  --text-secondary: #A0A0A0;
-  --text-tertiary:  #606060;
+  --text-secondary: #B8B8B8;
+  --text-tertiary:  #888888;
   --border:         rgba(255,255,255,0.08);
 
   /* Brand */
-  --brand:          #7F77DD;
+  --brand:          #4840A8;
   --brand-dark:     #AFA9EC;
-  --brand-deep:     #1c1a38;
-  --brand-light:    #26215C;
+  --brand-deep:     #2e2870;
+  --brand-light:    #2e2870;
   --brand-mid:      #AFA9EC;
   --brand-muted:    #534AB7;
 
@@ -233,7 +233,7 @@ body {
 .ecard-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
 .ecard-venue { font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 4px; }
 .etags { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
-.etag { font-size: 12px; padding: 3px 10px; border-radius: var(--radius-pill); background: var(--bg-secondary); color: var(--text-secondary); }
+.etag { font-size: 12px; padding: 4px 11px; border-radius: var(--radius-pill); background: var(--bg-tertiary); color: #D0D0D0; border: 0.5px solid rgba(255,255,255,0.12); }
 
 /* Pills */
 .pill-row { display: flex; gap: 8px; padding: 0 var(--px) 14px; overflow-x: auto; flex-shrink: 0; }
@@ -261,15 +261,15 @@ body {
 :root {
   --bg-primary:     #151617;
   --bg-secondary:   #1e2022;
-  --bg-tertiary:    #252729;
+  --bg-tertiary:    #2e3033;
   --text-primary:   #F0F0F0;
-  --text-secondary: #A0A0A0;
-  --text-tertiary:  #606060;
+  --text-secondary: #B8B8B8;
+  --text-tertiary:  #888888;
   --border:         rgba(255,255,255,0.08);
-  --brand:          #7F77DD;
+  --brand:          #4840A8;
   --brand-dark:     #AFA9EC;
-  --brand-deep:     #1c1a38;
-  --brand-light:    #26215C;
+  --brand-deep:     #221f4a;
+  --brand-light:    #2e2870;
   --brand-mid:      #AFA9EC;
   --brand-muted:    #534AB7;
   --teal:           #1D9E75;

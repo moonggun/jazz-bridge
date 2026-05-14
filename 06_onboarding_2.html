@@ -7,21 +7,35 @@
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <style>
-.ob-hero { background: var(--brand-deep); padding: 32px var(--px) 28px; display: flex; flex-direction: column; align-items: center; gap: 18px; flex-shrink: 0; }
-.ob-prog { display: flex; gap: 6px; width: 100%; }
+body { background: #151617; }
+.ob-hero {
+  background: #0D3537;
+  padding: 32px 24px 36px;
+  min-height: 340px;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 20px;
+  flex-shrink: 0; justify-content: center;
+}
+.ob-prog { display: flex; gap: 6px; width: 100%; align-self: flex-start; margin-top: -8px; }
 .ob-pd { height: 4px; flex: 1; border-radius: 2px; background: rgba(255,255,255,.2); }
-.ob-pd.on { background: var(--brand-mid); }
-.ob-icon-wrap { width: 76px; height: 76px; background: var(--brand); border-radius: 22px; display: flex; align-items: center; justify-content: center; }
-.ob-icon-wrap i { font-size: 36px; color: #fff; }
-.ob-title { font-size: 22px; font-weight: 700; color: #fff; text-align: center; line-height: 1.3; }
-.ob-desc { font-size: 15px; color: var(--brand-mid); text-align: center; line-height: 1.6; margin-top: 6px; }
-.ob-body { flex: 1; padding: 24px var(--px) 0; display: flex; flex-direction: column; gap: 18px; }
-.ob-item { display: flex; align-items: flex-start; gap: 14px; }
-.ob-bullet { width: 38px; height: 38px; border-radius: 11px; background: var(--brand-light); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-.ob-bullet i { font-size: 20px; color: var(--brand); }
-.ob-item-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
-.ob-item-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.4; }
-.ob-footer { padding: 20px var(--px) 24px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+.ob-pd.on { background: rgba(255,255,255,.85); }
+.ob-icon-wrap { width: 76px; height: 76px; display: flex; align-items: center; justify-content: center; }
+.ob-title { font-size: 24px; font-weight: 700; color: #fff; text-align: center; line-height: 1.3; }
+.ob-desc { font-size: 15px; color: rgba(255,255,255,.65); text-align: center; line-height: 1.7; }
+.ob-body { flex: 1; padding: 24px 24px 0; display: flex; flex-direction: column; gap: 20px; }
+.ob-item { display: flex; align-items: center; gap: 16px; }
+.ob-bullet {
+  width: 40px; height: 40px; border-radius: 11px;
+  background: rgba(255,255,255,.06);
+  border: 0.5px solid rgba(255,255,255,.1);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.ob-bullet i { font-size: 20px; color: #888; }
+.ob-item-title { font-size: 16px; font-weight: 600; color: #F0F0F0; margin-bottom: 3px; }
+.ob-item-desc { font-size: 14px; color: #666; line-height: 1.4; }
+.ob-footer { padding: 20px 24px 24px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+.btn-primary { width: 100%; padding: 17px; background: #4840A8; border-radius: 14px; font-size: 17px; font-weight: 600; color: #fff; text-align: center; border: none; cursor: pointer; }
+.btn-ghost { width: 100%; padding: 12px; font-size: 15px; color: #555; text-align: center; background: none; border: none; cursor: pointer; }
 </style>
 </head>
 <body>
@@ -32,13 +46,15 @@
 <div class="content">
   <div class="ob-hero">
     <div class="ob-prog"><div class="ob-pd"></div><div class="ob-pd on"></div><div class="ob-pd"></div></div>
-    <div class="ob-icon-wrap"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" role="img" aria-label="하트 아이콘">
-      <path d="M24 40C24 40 7 28.5 7 17.5C7 12.253 11.253 8 16.5 8C19.5 8 22.2 9.4 24 11.6C25.8 9.4 28.5 8 31.5 8C36.747 8 41 12.253 41 17.5C41 28.5 24 40 24 40Z" fill="#fff"/>
-      <path d="M18 17C18 17 20 14 24 15" stroke="#26215C" stroke-width="2" stroke-linecap="round"/>
-    </svg></div>
-    <div>
-      <div class="ob-title">좋아하는 뮤지션,<br>공연 놓치지 마세요</div>
-      <div class="ob-desc">팔로우하면 새 공연 등록 시<br>바로 알림을 보내드려요</div>
+    <div class="ob-icon-wrap">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" role="img" aria-label="하트 아이콘">
+        <path d="M24 40C24 40 7 28.5 7 17.5C7 12.253 11.253 8 16.5 8C19.5 8 22.2 9.4 24 11.6C25.8 9.4 28.5 8 31.5 8C36.747 8 41 12.253 41 17.5C41 28.5 24 40 24 40Z" fill="#fff"/>
+        <path d="M18 17C18 17 20 14 24 15" stroke="#0D3537" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div style="text-align:center;">
+      <div class="ob-title">좋아하는 뮤지션의<br>공연, 절대 놓치지 마세요</div>
+      <div class="ob-desc" style="margin-top:10px;">팔로우만 하면 새 공연이 등록될 때마다<br>알림으로 바로 알려드려요</div>
     </div>
   </div>
   <div class="ob-body">
