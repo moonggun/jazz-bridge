@@ -4,226 +4,86 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=375, initial-scale=1.0">
 <title>Jazz Bridge — 공연 상세</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --brand:        #534AB7;
-    --brand-dark:   #3C3489;
-    --brand-deep:   #26215C;
-    --brand-light:  #EEEDFE;
-    --brand-mid:    #AFA9EC;
-    --teal:         #1D9E75;
-    --teal-light:   #E1F5EE;
-    --text-primary:   #1A1A1A;
-    --text-secondary: #5C5C5C;
-    --text-tertiary:  #9B9B9B;
-    --bg-primary:   #FFFFFF;
-    --bg-secondary: #F5F5F3;
-    --border:       rgba(0,0,0,0.1);
-    --radius-card:  14px;
-    --radius-pill:  99px;
-    --px:           16px;
-  }
-
-  body {
-    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg-primary);
-    width: 375px;
-    height: 812px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* STATUS BAR — transparent (위에 사진이 깔리므로) */
-  .statusbar {
-    height: 44px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    padding: 0 24px 8px;
-    flex-shrink: 0;
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    z-index: 10;
-  }
-  .sb-time { font-size: 15px; font-weight: 600; color: #fff; }
-  .sb-icons { display: flex; gap: 6px; align-items: center; font-size: 13px; color: #fff; }
-
-  /* PHOTO HERO */
-  .detail-hero {
-    position: relative;
-    height: 260px;
-    flex-shrink: 0;
-    overflow: hidden;
-  }
-  /* 실제 뮤지션 사진 — src를 교체하면 바로 적용 */
-  .hero-img {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    filter: brightness(0.55);
-  }
-  /* 사진 없을 때 플레이스홀더 */
-  .hero-placeholder {
-    position: absolute; inset: 0;
-    background: linear-gradient(135deg, #1a1035 0%, #2d1b69 40%, #1a3a4a 100%);
-    display: flex; align-items: center; justify-content: center;
-  }
-  /* 하단 그라디언트 — 텍스트 가독성 */
-  .hero-gradient {
-    position: absolute; inset: 0;
-    background: linear-gradient(
-      to bottom,
-      rgba(0,0,0,0.08) 0%,
-      rgba(0,0,0,0) 25%,
-      rgba(0,0,0,0.45) 65%,
-      rgba(0,0,0,0.82) 100%
-    );
-  }
-  /* 히어로 위 콘텐츠 */
-  .hero-content {
-    position: absolute; inset: 0;
-    padding: 16px var(--px) 20px;
-    display: flex; flex-direction: column;
-    justify-content: space-between;
-  }
-  .hero-top { display: flex; align-items: center; justify-content: space-between; padding-top: 44px; }
-  .back-btn {
-    font-size: 14px; color: rgba(255,255,255,0.9);
-    display: flex; align-items: center; gap: 5px;
-    cursor: pointer;
-  }
-  .share-btn {
-    width: 32px; height: 32px; border-radius: 50%;
-    background: rgba(255,255,255,0.15);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px; color: #fff;
-  }
-  .hero-bottom {}
-  .genre-tag {
-    display: inline-flex; align-items: center; gap: 5px;
-    padding: 4px 11px; border-radius: var(--radius-pill);
-    background: rgba(255,255,255,0.15);
-    border: 0.5px solid rgba(255,255,255,0.25);
-    font-size: 12px; font-weight: 500; color: #fff;
-    margin-bottom: 8px;
-  }
-  .detail-title {
-    font-size: 26px; font-weight: 700;
-    color: #fff; margin-bottom: 5px; line-height: 1.15;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.4);
-  }
-  .detail-date { font-size: 14px; color: rgba(255,255,255,0.82); }
-
-  /* CONTENT */
-  .content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
-  .detail-body { flex: 1; padding: 20px var(--px) 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-  .detail-body::-webkit-scrollbar { display: none; }
-
-  .drow {
-    display: flex; align-items: flex-start;
-    gap: 12px; margin-bottom: 16px;
-  }
-  .drow-icon {
-    font-size: 20px;
-    color: var(--text-tertiary);
-    margin-top: 1px;
-    flex-shrink: 0;
-    width: 24px;
-    text-align: center;
-  }
-  .drow-label {
-    font-size: 14px; font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 3px;
-  }
-  .drow-val {
-    font-size: 14px; color: var(--text-secondary);
-    line-height: 1.5;
-  }
-
-  /* ARTIST CHIPS */
-  .achips { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 6px; }
-  .achip {
-    display: flex; align-items: center; gap: 6px;
-    padding: 5px 12px 5px 6px;
-    background: var(--bg-secondary);
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius-pill);
-    font-size: 13px; color: var(--text-primary);
-  }
-  .av {
-    width: 24px; height: 24px;
-    border-radius: 50%;
-    background: rgba(127,119,221,0.15);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 9px; font-weight: 700; color: var(--brand-dark);
-  }
-
-  /* BOOKING BAR */
-  .book-bar {
-    padding: 14px var(--px) 16px;
-    border-top: 0.5px solid var(--border);
-    flex-shrink: 0;
-    background: var(--bg-primary);
-  }
-  .book-info {
-    font-size: 13px; color: var(--text-secondary);
-    margin-bottom: 10px;
-  }
-  .book-btn {
-    width: 100%; padding: 17px;
-    background: var(--brand);
-    color: #fff; border: none;
-    border-radius: var(--radius-card);
-    font-size: 17px; font-weight: 600;
-    text-align: center; cursor: pointer;
-  }
-  .source-note {
-    font-size: 12px; color: var(--text-tertiary);
-    margin-top: 10px;
-    display: flex; align-items: center; gap: 4px;
-    justify-content: center;
-  }
-
-  /* NAVBAR */
-  .navbar {
-    height: 83px;
-    border-top: 0.5px solid var(--border);
-    display: flex; padding: 8px 0 0;
-    flex-shrink: 0;
-    background: var(--bg-primary);
-  }
-  .nav-item {
-    flex: 1; display: flex; flex-direction: column;
-    align-items: center; gap: 4px;
-    font-size: 10px; color: var(--text-tertiary);
-    padding-top: 4px; cursor: pointer;
-  }
-  .nav-item.active { color: var(--brand); }
-</style>
+<link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+/* STATUS BAR */
+.statusbar {
+  height: 44px; display: flex; align-items: flex-end;
+  justify-content: space-between; padding: 0 24px 8px;
+  flex-shrink: 0; position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+}
+.sb-time { font-size: 15px; font-weight: 600; color: #fff; }
+.sb-icons { display: flex; gap: 6px; align-items: center; font-size: 13px; color: #fff; }
+
+/* PHOTO HERO */
+.detail-hero { position: relative; height: 260px; flex-shrink: 0; overflow: hidden; }
+.hero-placeholder {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #1a1035 0%, #2d1b69 40%, #1a3a4a 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.hero-gradient {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0) 25%, rgba(0,0,0,0.45) 65%, rgba(0,0,0,0.82) 100%);
+}
+.hero-content {
+  position: absolute; inset: 0; padding: 16px var(--px) 20px;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.hero-top { display: flex; align-items: center; justify-content: space-between; padding-top: 44px; }
+.back-btn { font-size: 14px; color: rgba(255,255,255,0.9); display: flex; align-items: center; gap: 5px; cursor: pointer; }
+.share-btn { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 16px; color: #fff; }
+.genre-tag { display: inline-flex; align-items: center; gap: 5px; padding: 4px 11px; border-radius: var(--radius-pill); background: rgba(255,255,255,0.15); border: 0.5px solid rgba(255,255,255,0.25); font-size: 12px; font-weight: 500; color: #fff; margin-bottom: 8px; }
+.detail-title { font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 5px; line-height: 1.15; text-shadow: 0 2px 12px rgba(0,0,0,0.4); }
+.detail-date { font-size: 14px; color: rgba(255,255,255,0.82); }
+
+/* CONTENT */
+.content { flex: 1; overflow: hidden; display: flex; flex-direction: column; background: var(--bg-primary); }
+.detail-body { flex: 1; padding: 20px var(--px) 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.detail-body::-webkit-scrollbar { display: none; }
+
+/* INFO ROWS */
+.drow { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 18px; }
+.drow-icon { font-size: 20px; color: var(--text-tertiary); margin-top: 1px; flex-shrink: 0; width: 24px; text-align: center; }
+.drow-label { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+.drow-val { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+
+/* ARTIST CHIPS */
+.achips { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 6px; }
+.achip { display: flex; align-items: center; gap: 6px; padding: 5px 12px 5px 6px; background: var(--bg-secondary); border: 0.5px solid var(--border); border-radius: var(--radius-pill); font-size: 13px; color: var(--text-primary); }
+.av { width: 24px; height: 24px; border-radius: 50%; background: rgba(127,119,221,0.2); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #AFA9EC; }
+
+/* 구분선 */
+.divider { height: 0.5px; background: var(--border); margin: 4px 0 18px; }
+
+/* 공연 소개 */
+.desc-text { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+/* BOOKING BAR */
+.book-bar { padding: 14px var(--px) 16px; border-top: 0.5px solid var(--border); flex-shrink: 0; background: var(--bg-primary); }
+.book-info { font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+.book-info-seats { font-size: 13px; font-weight: 600; color: #1D9E75; }
+.book-btn { width: 100%; padding: 17px; background: #4840A8; color: #fff; border: none; border-radius: var(--radius-card); font-size: 17px; font-weight: 600; text-align: center; cursor: pointer; }
+.source-note { font-size: 12px; color: var(--text-tertiary); margin-top: 10px; display: flex; align-items: center; gap: 4px; justify-content: center; }
+
+/* NAVBAR */
+.navbar { height: 83px; border-top: 0.5px solid var(--border); display: flex; padding: 8px 0 0; flex-shrink: 0; background: var(--bg-primary); }
+.nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 10px; color: var(--text-tertiary); padding-top: 4px; cursor: pointer; }
+.nav-item i { font-size: 24px; }
+.nav-item.active { color: var(--brand); }
+</style>
 </head>
 <body>
 
-<!-- STATUS BAR (absolute, 사진 위에 오버레이) -->
 <div class="statusbar">
   <span class="sb-time">9:41</span>
-  <div class="sb-icons">
-    <i class="ti ti-wifi"></i>
-    <i class="ti ti-battery"></i>
-  </div>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
 </div>
 
 <!-- PHOTO HERO -->
 <div class="detail-hero">
-
-  <!-- ★ 실제 사진 적용 시: 아래 hero-placeholder를 지우고 img 태그 사용 -->
-  <!-- <img class="hero-img" src="https://여기에뮤지션사진URL.jpg" alt="Jamie Kim"> -->
-
-  <!-- 플레이스홀더 (사진 없을 때) -->
+  <!-- ★ 실제 사진: <img class="hero-img" src="URL" alt="Jamie Kim"> -->
   <div class="hero-placeholder">
     <svg width="200" height="120" viewBox="0 0 200 120" fill="none" opacity="0.2">
       <rect x="10" y="30" width="180" height="70" rx="4" fill="white"/>
@@ -237,34 +97,20 @@
       <text x="100" y="16" text-anchor="middle" fill="white" font-size="11" font-family="sans-serif">뮤지션 사진 영역</text>
     </svg>
   </div>
-
-  <!-- 그라디언트 오버레이 -->
   <div class="hero-gradient"></div>
-
-  <!-- 텍스트 콘텐츠 -->
   <div class="hero-content">
     <div class="hero-top">
-      <div class="back-btn">
-        <i class="ti ti-arrow-left" style="font-size:15px;"></i>
-        돌아가기
-      </div>
-      <div class="share-btn">
-        <i class="ti ti-share"></i>
-      </div>
+      <div class="back-btn"><i class="ti ti-arrow-left" style="font-size:15px;"></i> 돌아가기</div>
+      <div class="share-btn"><i class="ti ti-share"></i></div>
     </div>
     <div class="hero-bottom">
-      <div class="genre-tag">
-        <i class="ti ti-music" style="font-size:12px;"></i>
-        모던 재즈 · 트리오
-      </div>
+      <div class="genre-tag"><i class="ti ti-music" style="font-size:12px;"></i> 모던 재즈 · 트리오</div>
       <div class="detail-title">Jamie Kim Trio</div>
       <div class="detail-date">5월 17일 (금) · 오후 8시</div>
     </div>
   </div>
-
 </div>
 
-<!-- CONTENT -->
 <div class="content">
   <div class="detail-body">
 
@@ -297,10 +143,10 @@
     </div>
 
     <div class="drow">
-      <i class="ti ti-music drow-icon"></i>
+      <i class="ti ti-clock drow-icon"></i>
       <div>
-        <div class="drow-label">장르</div>
-        <div class="drow-val">모던 재즈 · 트리오</div>
+        <div class="drow-label">공연 시간</div>
+        <div class="drow-val">약 90분 · 인터미션 없음</div>
       </div>
     </div>
 
@@ -308,15 +154,27 @@
       <i class="ti ti-armchair drow-icon"></i>
       <div>
         <div class="drow-label">잔여석</div>
-        <div class="drow-val">12석 남음</div>
+        <div class="drow-val" style="color:#1D9E75;font-weight:600;">12석 남음</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="drow">
+      <i class="ti ti-file-description drow-icon"></i>
+      <div>
+        <div class="drow-label">공연 소개</div>
+        <div class="desc-text" style="margin-top:4px;">서울을 대표하는 모던 재즈 트리오 Jamie Kim Trio의 정기 공연입니다. 피아노, 베이스, 드럼의 완벽한 조화로 재즈의 깊이를 느껴보세요.</div>
       </div>
     </div>
 
   </div>
 
-  <!-- BOOKING BAR -->
   <div class="book-bar">
-    <div class="book-info">₩20,000 / 1인 · 잔여석 12</div>
+    <div class="book-info">
+      <span>₩20,000 / 1인</span>
+      <span class="book-info-seats">잔여석 12</span>
+    </div>
     <div class="book-btn">예매하기</div>
     <div class="source-note">
       <i class="ti ti-brand-instagram" style="font-size:14px;"></i>
@@ -325,23 +183,12 @@
   </div>
 </div>
 
-<!-- NAVBAR -->
 <div class="navbar">
-  <div class="nav-item">
-    <i class="ti ti-home" style="font-size:24px;"></i>홈
-  </div>
-  <div class="nav-item">
-    <i class="ti ti-search" style="font-size:24px;"></i>검색
-  </div>
-  <div class="nav-item">
-    <i class="ti ti-calendar" style="font-size:24px;"></i>캘린더
-  </div>
-  <div class="nav-item">
-    <i class="ti ti-heart" style="font-size:24px;"></i>팔로우
-  </div>
-  <div class="nav-item">
-    <i class="ti ti-user" style="font-size:24px;"></i>마이
-  </div>
+  <div class="nav-item"><i class="ti ti-home"></i>홈</div>
+  <div class="nav-item"><i class="ti ti-search"></i>검색</div>
+  <div class="nav-item"><i class="ti ti-calendar"></i>캘린더</div>
+  <div class="nav-item"><i class="ti ti-heart"></i>팔로우</div>
+  <div class="nav-item"><i class="ti ti-user"></i>마이</div>
 </div>
 
 </body>
