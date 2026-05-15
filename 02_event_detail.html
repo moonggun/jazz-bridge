@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=375, initial-scale=1.0">
 <title>Jazz Bridge — 공연 상세</title>
 <link rel="stylesheet" href="tokens.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <style>
 /* STATUS BAR */
 .statusbar {
@@ -52,7 +51,7 @@
 /* ARTIST CHIPS */
 .achips { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 6px; }
 .achip { display: flex; align-items: center; gap: 6px; padding: 5px 12px 5px 6px; background: var(--bg-secondary); border: 0.5px solid var(--border); border-radius: var(--radius-pill); font-size: 13px; color: var(--text-primary); }
-.av { width: 24px; height: 24px; border-radius: 50%; background: rgba(127,119,221,0.2); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #AFA9EC; }
+.av { width: 24px; height: 24px; border-radius: 50%; background: rgba(0,71,171,0.2); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #B8B8B8; }
 
 /* 구분선 */
 .divider { height: 0.5px; background: var(--border); margin: 4px 0 18px; }
@@ -64,7 +63,7 @@
 .book-bar { padding: 14px var(--px) 16px; border-top: 0.5px solid var(--border); flex-shrink: 0; background: var(--bg-primary); }
 .book-info { font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
 .book-info-seats { font-size: 13px; font-weight: 600; color: #1D9E75; }
-.book-btn { width: 100%; padding: 17px; background: #4840A8; color: #fff; border: none; border-radius: var(--radius-card); font-size: 17px; font-weight: 600; text-align: center; cursor: pointer; }
+.book-btn { width: 100%; padding: 17px; background: #0047AB; color: #fff; border: none; border-radius: var(--radius-card); font-size: 17px; font-weight: 600; text-align: center; cursor: pointer; }
 .source-note { font-size: 12px; color: var(--text-tertiary); margin-top: 10px; display: flex; align-items: center; gap: 4px; justify-content: center; }
 
 /* NAVBAR */
@@ -78,7 +77,7 @@
 
 <div class="statusbar">
   <span class="sb-time">9:41</span>
-  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+  <div class="sb-icons"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.371 8.143c5.858-5.857 15.356-5.857 21.213 0a.75.75 0 0 1-1.06 1.061A13.502 13.502 0 0 0 12 6a13.5 13.5 0 0 0-9.525 3.954.75.75 0 0 1-1.06-1.061h-.001Zm3.182 3.182c4.1-4.1 10.749-4.1 14.85 0a.75.75 0 0 1-1.061 1.061 8.998 8.998 0 0 0-12.728 0 .75.75 0 0 1-1.061-1.06Zm3.204 3.182a6 6 0 0 1 8.486 0 .75.75 0 0 1-1.061 1.061 4.5 4.5 0 0 0-6.364 0 .75.75 0 0 1-1.061-1.06Zm3.182 3.182a3 3 0 0 1 4.243 0 .75.75 0 0 1-1.061 1.061 1.5 1.5 0 0 0-2.122 0 .75.75 0 0 1-1.06-1.061Z" clip-rule="evenodd"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 3.75a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V6.75a3 3 0 0 0-3-3h-15Zm5.25 3a.75.75 0 0 1 .75.75v7.5a.75.75 0 0 1-1.5 0v-7.5a.75.75 0 0 1 .75-.75Zm3 0a.75.75 0 0 1 .75.75v7.5a.75.75 0 0 1-1.5 0v-7.5a.75.75 0 0 1 .75-.75Z"/></svg></div>
 </div>
 
 <!-- PHOTO HERO -->
@@ -87,24 +86,24 @@
   <div class="hero-placeholder">
     <svg width="200" height="120" viewBox="0 0 200 120" fill="none" opacity="0.2">
       <rect x="10" y="30" width="180" height="70" rx="4" fill="white"/>
-      <rect x="28" y="30" width="11" height="42" rx="2" fill="#26215C"/>
-      <rect x="48" y="30" width="11" height="42" rx="2" fill="#26215C"/>
-      <rect x="78" y="30" width="11" height="42" rx="2" fill="#26215C"/>
-      <rect x="98" y="30" width="11" height="42" rx="2" fill="#26215C"/>
-      <rect x="118" y="30" width="11" height="42" rx="2" fill="#26215C"/>
-      <rect x="148" y="30" width="11" height="42" rx="2" fill="#26215C"/>
-      <rect x="168" y="30" width="11" height="42" rx="2" fill="#26215C"/>
+      <rect x="28" y="30" width="11" height="42" rx="2" fill="#002d6e"/>
+      <rect x="48" y="30" width="11" height="42" rx="2" fill="#002d6e"/>
+      <rect x="78" y="30" width="11" height="42" rx="2" fill="#002d6e"/>
+      <rect x="98" y="30" width="11" height="42" rx="2" fill="#002d6e"/>
+      <rect x="118" y="30" width="11" height="42" rx="2" fill="#002d6e"/>
+      <rect x="148" y="30" width="11" height="42" rx="2" fill="#002d6e"/>
+      <rect x="168" y="30" width="11" height="42" rx="2" fill="#002d6e"/>
       <text x="100" y="16" text-anchor="middle" fill="white" font-size="11" font-family="sans-serif">뮤지션 사진 영역</text>
     </svg>
   </div>
   <div class="hero-gradient"></div>
   <div class="hero-content">
     <div class="hero-top">
-      <div class="back-btn"><i class="ti ti-arrow-left" style="font-size:15px;"></i> 돌아가기</div>
-      <div class="share-btn"><i class="ti ti-share"></i></div>
+      <div class="back-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd"/></svg> 돌아가기</div>
+      <div class="share-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z" clip-rule="evenodd"/></svg></div>
     </div>
     <div class="hero-bottom">
-      <div class="genre-tag"><i class="ti ti-music" style="font-size:12px;"></i> 모던 재즈 · 트리오</div>
+      <div class="genre-tag"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M19.952 1.651a.75.75 0 0 1 .298.599V16.303a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.403-4.909l2.311-.66a1.5 1.5 0 0 0 1.088-1.442V6.994l-9 2.572v9.737a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.402-4.909l2.31-.66a1.5 1.5 0 0 0 1.088-1.442V5.25a.75.75 0 0 1 .544-.721l10.5-3a.75.75 0 0 1 .658.122Z" clip-rule="evenodd"/></svg> 모던 재즈 · 트리오</div>
       <div class="detail-title">Jamie Kim Trio</div>
       <div class="detail-date">5월 17일 (금) · 오후 8시</div>
     </div>
@@ -115,7 +114,7 @@
   <div class="detail-body">
 
     <div class="drow">
-      <i class="ti ti-map-pin drow-icon"></i>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-2.079 3.953-5.159 3.953-9.077A8.25 8.25 0 0 0 12 3a8.25 8.25 0 0 0-8.25 8.25c0 3.918 2.009 6.998 3.953 9.077a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd"/></svg>
       <div>
         <div class="drow-label">블루문 재즈클럽</div>
         <div class="drow-val">서울 마포구 · 홍대입구역 도보 3분</div>
@@ -123,7 +122,7 @@
     </div>
 
     <div class="drow">
-      <i class="ti ti-users drow-icon"></i>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM14.25 8.625a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0ZM1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM17.25 19.128l-.001.144a2.25 2.25 0 0 1-.233.96 10.088 10.088 0 0 0 5.06-1.01.75.75 0 0 0 .42-.643 4.875 4.875 0 0 0-6.957-4.611 8.586 8.586 0 0 1 1.71 5.157v.003Z"/></svg>
       <div>
         <div class="drow-label">출연진</div>
         <div class="achips">
@@ -135,7 +134,7 @@
     </div>
 
     <div class="drow">
-      <i class="ti ti-ticket drow-icon"></i>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 6.375c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v3.026a.75.75 0 0 1-.375.65 2.249 2.249 0 0 0 0 3.898.75.75 0 0 1 .375.65v3.026c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 17.625v-3.026a.75.75 0 0 1 .374-.65 2.249 2.249 0 0 0 0-3.898.75.75 0 0 1-.374-.65V6.375Zm15-1.125a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-1.5 0V6a.75.75 0 0 1 .75-.75Zm.75 4.5a.75.75 0 0 0-1.5 0v.75a.75.75 0 0 0 1.5 0v-.75Zm-.75 3a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-1.5 0v-.75a.75.75 0 0 1 .75-.75Zm.75 4.5a.75.75 0 0 0-1.5 0V18a.75.75 0 0 0 1.5 0v-.75ZM6 12a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 0 1.5H6.75A.75.75 0 0 1 6 12Zm.75 2.25a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z" clip-rule="evenodd"/></svg>
       <div>
         <div class="drow-label">입장료</div>
         <div class="drow-val">₩20,000 · 음료 1잔 포함</div>
@@ -143,7 +142,7 @@
     </div>
 
     <div class="drow">
-      <i class="ti ti-clock drow-icon"></i>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z" clip-rule="evenodd"/></svg>
       <div>
         <div class="drow-label">공연 시간</div>
         <div class="drow-val">약 90분 · 인터미션 없음</div>
@@ -151,7 +150,7 @@
     </div>
 
     <div class="drow">
-      <i class="ti ti-armchair drow-icon"></i>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.25 4.533A9.707 9.707 0 0 0 6 3a9.735 9.735 0 0 0-3.25.555.75.75 0 0 0-.5.707v14.25a.75.75 0 0 0 1 .707A8.237 8.237 0 0 1 6 18.75c1.995 0 3.823.707 5.25 1.886V4.533ZM12.75 20.636A8.214 8.214 0 0 1 18 18.75c.966 0 1.89.166 2.75.47a.75.75 0 0 0 1-.708V4.262a.75.75 0 0 0-.5-.707A9.735 9.735 0 0 0 18 3a9.707 9.707 0 0 0-5.25 1.533v16.103Z"/></svg>
       <div>
         <div class="drow-label">잔여석</div>
         <div class="drow-val" style="color:#1D9E75;font-weight:600;">12석 남음</div>
@@ -161,7 +160,7 @@
     <div class="divider"></div>
 
     <div class="drow">
-      <i class="ti ti-file-description drow-icon"></i>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5H5.625ZM7.5 15a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 7.5 15Zm.75 2.25a.75.75 0 0 0 0 1.5H12a.75.75 0 0 0 0-1.5H8.25Z" clip-rule="evenodd"/><path d="M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z"/></svg>
       <div>
         <div class="drow-label">공연 소개</div>
         <div class="desc-text" style="margin-top:4px;">서울을 대표하는 모던 재즈 트리오 Jamie Kim Trio의 정기 공연입니다. 피아노, 베이스, 드럼의 완벽한 조화로 재즈의 깊이를 느껴보세요.</div>
@@ -177,18 +176,18 @@
     </div>
     <div class="book-btn">예매하기</div>
     <div class="source-note">
-      <i class="ti ti-brand-instagram" style="font-size:14px;"></i>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 0 1 1.772 1.153 4.902 4.902 0 0 1 1.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 0 1-1.153 1.772 4.902 4.902 0 0 1-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 0 1-1.772-1.153 4.902 4.902 0 0 1-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 0 1 1.153-1.772A4.902 4.902 0 0 1 5.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63Zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 0 0-.748-1.15 3.098 3.098 0 0 0-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058ZM12 6.865a5.135 5.135 0 1 1 0 10.27 5.135 5.135 0 0 1 0-10.27Zm0 1.802a3.333 3.333 0 1 0 0 6.666 3.333 3.333 0 0 0 0-6.666Zm5.338-3.205a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Z" clip-rule="evenodd"/></svg>
       @bluemoon_jazz 에서 수집
     </div>
   </div>
 </div>
 
 <div class="navbar">
-  <div class="nav-item"><i class="ti ti-home"></i>홈</div>
-  <div class="nav-item"><i class="ti ti-search"></i>검색</div>
-  <div class="nav-item"><i class="ti ti-calendar"></i>캘린더</div>
-  <div class="nav-item"><i class="ti ti-heart"></i>팔로우</div>
-  <div class="nav-item"><i class="ti ti-user"></i>마이</div>
+  <div class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z"/><path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z"/></svg>홈</div>
+  <div class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd"/></svg>검색</div>
+  <div class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"/><path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clip-rule="evenodd"/></svg>캘린더</div>
+  <div class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z"/></svg>팔로우</div>
+  <div class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd"/></svg>마이</div>
 </div>
 
 </body>

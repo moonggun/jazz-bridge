@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=375, initial-scale=1.0">
 <title>Jazz Bridge — 알림</title>
 <link rel="stylesheet" href="tokens.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <style>
 .notif-item{display:flex;align-items:flex-start;gap:12px;padding:14px var(--px);border-bottom:0.5px solid var(--border);}
 .notif-dot{width:8px;height:8px;border-radius:50%;background:var(--brand);flex-shrink:0;margin-top:4px;}
@@ -20,36 +19,36 @@
 <body>
 <div class="statusbar">
   <span class="sb-time">9:41</span>
-  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
+  <div class="sb-icons"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.371 8.143c5.858-5.857 15.356-5.857 21.213 0a.75.75 0 0 1-1.06 1.061A13.502 13.502 0 0 0 12 6a13.5 13.5 0 0 0-9.525 3.954.75.75 0 0 1-1.06-1.061h-.001Zm3.182 3.182c4.1-4.1 10.749-4.1 14.85 0a.75.75 0 0 1-1.061 1.061 8.998 8.998 0 0 0-12.728 0 .75.75 0 0 1-1.061-1.06Zm3.204 3.182a6 6 0 0 1 8.486 0 .75.75 0 0 1-1.061 1.061 4.5 4.5 0 0 0-6.364 0 .75.75 0 0 1-1.061-1.06Zm3.182 3.182a3 3 0 0 1 4.243 0 .75.75 0 0 1-1.061 1.061 1.5 1.5 0 0 0-2.122 0 .75.75 0 0 1-1.06-1.061Z" clip-rule="evenodd"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 3.75a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V6.75a3 3 0 0 0-3-3h-15Zm5.25 3a.75.75 0 0 1 .75.75v7.5a.75.75 0 0 1-1.5 0v-7.5a.75.75 0 0 1 .75-.75Zm3 0a.75.75 0 0 1 .75.75v7.5a.75.75 0 0 1-1.5 0v-7.5a.75.75 0 0 1 .75-.75Z"/></svg></div>
 </div>
 
 <div class="page-header-wrap">
   <div class="page-header-expanded">
     <div class="page-title-lg">알림</div>
-    <div style="font-size:14px;color:var(--brand);cursor:pointer;">모두 읽음</div>
+    <div style="font-size:14px;color:#FFFFFF;cursor:pointer;">모두 읽음</div>
   </div>
   <div class="page-header-shrunk">
     <div class="page-title-sm">알림</div>
-    <div style="font-size:14px;color:var(--brand);cursor:pointer;">모두 읽음</div>
+    <div style="font-size:14px;color:#FFFFFF;cursor:pointer;">모두 읽음</div>
   </div>
 </div>
 
 <div class="content">
   <div class="scroll-content">
-    <div class="notif-item"><div class="notif-dot"></div><div class="notif-icon" style="background:var(--brand-light);"><i class="ti ti-bell" style="color:var(--brand);"></i></div><div><div class="notif-title">Jamie Kim 공연 등록</div><div class="notif-body">5월 24일 올댓재즈 공연이 등록됐어요</div><div class="notif-time">방금 전</div></div></div>
-    <div class="notif-item"><div class="notif-dot"></div><div class="notif-icon" style="background:var(--amber-light);"><i class="ti ti-ticket" style="color:var(--amber);"></i></div><div><div class="notif-title">예매 마감 임박</div><div class="notif-body">Jamie Kim Trio 잔여석 3석 남았어요</div><div class="notif-time">1시간 전</div></div></div>
-    <div class="notif-item"><div class="notif-dot read"></div><div class="notif-icon" style="background:var(--teal-light);"><i class="ti ti-check" style="color:var(--teal);"></i></div><div><div class="notif-title">예매 완료</div><div class="notif-body">Jamie Kim Trio 2인 예매가 완료됐어요</div><div class="notif-time">어제</div></div></div>
-    <div class="notif-item"><div class="notif-dot read"></div><div class="notif-icon" style="background:var(--brand-light);"><i class="ti ti-bell" style="color:var(--brand);"></i></div><div><div class="notif-title">Soo Lee 공연 등록</div><div class="notif-body">5월 21일 올댓재즈 공연이 등록됐어요</div><div class="notif-time">2일 전</div></div></div>
-    <div class="notif-item"><div class="notif-dot read"></div><div class="notif-icon" style="background:var(--bg-secondary);"><i class="ti ti-star" style="color:var(--amber);"></i></div><div><div class="notif-title">이번 주 추천 공연</div><div class="notif-body">취향에 맞는 공연 5개가 등록됐어요</div><div class="notif-time">3일 전</div></div></div>
+    <div class="notif-item"><div class="notif-dot"></div><div class="notif-icon" style="background:var(--brand-light);"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M5.25 9a6.75 6.75 0 0 1 13.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 0 1-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 1 1-7.48 0 24.585 24.585 0 0 1-4.831-1.244.75.75 0 0 1-.298-1.205A8.217 8.217 0 0 0 5.25 9.75V9Zm4.502 8.9a2.25 2.25 0 1 0 4.496 0 25.057 25.057 0 0 1-4.496 0Z" clip-rule="evenodd"/></svg></div><div><div class="notif-title">Jamie Kim 공연 등록</div><div class="notif-body">5월 24일 올댓재즈 공연이 등록됐어요</div><div class="notif-time">방금 전</div></div></div>
+    <div class="notif-item"><div class="notif-dot"></div><div class="notif-icon" style="background:var(--amber-light);"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 6.375c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v3.026a.75.75 0 0 1-.375.65 2.249 2.249 0 0 0 0 3.898.75.75 0 0 1 .375.65v3.026c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 17.625v-3.026a.75.75 0 0 1 .374-.65 2.249 2.249 0 0 0 0-3.898.75.75 0 0 1-.374-.65V6.375Zm15-1.125a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-1.5 0V6a.75.75 0 0 1 .75-.75Zm.75 4.5a.75.75 0 0 0-1.5 0v.75a.75.75 0 0 0 1.5 0v-.75Zm-.75 3a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-1.5 0v-.75a.75.75 0 0 1 .75-.75Zm.75 4.5a.75.75 0 0 0-1.5 0V18a.75.75 0 0 0 1.5 0v-.75ZM6 12a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 0 1.5H6.75A.75.75 0 0 1 6 12Zm.75 2.25a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z" clip-rule="evenodd"/></svg></div><div><div class="notif-title">예매 마감 임박</div><div class="notif-body">Jamie Kim Trio 잔여석 3석 남았어요</div><div class="notif-time">1시간 전</div></div></div>
+    <div class="notif-item"><div class="notif-dot read"></div><div class="notif-icon" style="background:var(--teal-light);"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" clip-rule="evenodd"/></svg></div><div><div class="notif-title">예매 완료</div><div class="notif-body">Jamie Kim Trio 2인 예매가 완료됐어요</div><div class="notif-time">어제</div></div></div>
+    <div class="notif-item"><div class="notif-dot read"></div><div class="notif-icon" style="background:var(--brand-light);"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M5.25 9a6.75 6.75 0 0 1 13.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 0 1-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 1 1-7.48 0 24.585 24.585 0 0 1-4.831-1.244.75.75 0 0 1-.298-1.205A8.217 8.217 0 0 0 5.25 9.75V9Zm4.502 8.9a2.25 2.25 0 1 0 4.496 0 25.057 25.057 0 0 1-4.496 0Z" clip-rule="evenodd"/></svg></div><div><div class="notif-title">Soo Lee 공연 등록</div><div class="notif-body">5월 21일 올댓재즈 공연이 등록됐어요</div><div class="notif-time">2일 전</div></div></div>
+    <div class="notif-item"><div class="notif-dot read"></div><div class="notif-icon" style="background:var(--bg-secondary);"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd"/></svg></div><div><div class="notif-title">이번 주 추천 공연</div><div class="notif-body">취향에 맞는 공연 5개가 등록됐어요</div><div class="notif-time">3일 전</div></div></div>
   </div>
 </div>
 
 <div class="navbar">
-  <div class="nav-item"><i class="ti ti-home"></i>홈</div>
-  <div class="nav-item"><i class="ti ti-search"></i>검색</div>
-  <div class="nav-item"><i class="ti ti-calendar"></i>캘린더</div>
-  <div class="nav-item"><i class="ti ti-heart"></i>팔로우</div>
-  <div class="nav-item active"><i class="ti ti-user"></i>마이</div>
+  <div class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z"/><path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z"/></svg>홈</div>
+  <div class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd"/></svg>검색</div>
+  <div class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"/><path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clip-rule="evenodd"/></svg>캘린더</div>
+  <div class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z"/></svg>팔로우</div>
+  <div class="nav-item active"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd"/></svg>마이</div>
 </div>
 <script>(function(){var s=document.querySelector('.scroll-content');var h=document.querySelector('.page-header-wrap');if(!s||!h)return;s.addEventListener('scroll',function(){h.classList.toggle('shrunk',s.scrollTop>10);},{passive:true});})();</script>
 </body>

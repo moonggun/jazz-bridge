@@ -11,13 +11,13 @@
   --text-tertiary:  #888888;
   --border:         rgba(255,255,255,0.08);
 
-  /* Brand */
-  --brand:          #4840A8;
-  --brand-dark:     #AFA9EC;
-  --brand-deep:     #2e2870;
-  --brand-light:    #2e2870;
-  --brand-mid:      #AFA9EC;
-  --brand-muted:    #534AB7;
+  /* Brand — 코발트 블루 */
+  --brand:          #0047AB;
+  --brand-dark:     #003d99;
+  --brand-deep:     #002d6e;
+  --brand-light:    #001a4a;
+  --brand-mid:      #B8B8B8;
+  --brand-muted:    #FFFFFF;
 
   /* Accent */
   --teal:           #1D9E75;
@@ -81,7 +81,7 @@ body {
   padding-top: 4px; cursor: pointer;
 }
 .nav-item i { font-size: 24px; }
-.nav-item.active { color: var(--brand); }
+.nav-item.active { color: #FFFFFF; }
 
 /* Content */
 .content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
@@ -253,7 +253,7 @@ body {
 
 /* Upcoming row */
 .upcoming-row { display: flex; align-items: center; gap: 12px; padding: 14px var(--px); border-bottom: 0.5px solid var(--border); cursor: pointer; flex-shrink: 0; }
-.upcoming-date { font-size: 13px; font-weight: 600; color: var(--brand); min-width: 40px; }
+.upcoming-date { font-size: 13px; font-weight: 700; color: #F0F0F0; min-width: 40px; }
 .upcoming-name { font-size: 15px; font-weight: 500; color: var(--text-primary); }
 .upcoming-venue { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
 
@@ -268,14 +268,21 @@ body {
   --text-secondary: #B8B8B8;
   --text-tertiary:  #888888;
   --border:         rgba(255,255,255,0.08);
-  --brand:          #4840A8;
-  --brand-dark:     #AFA9EC;
+  --brand:          #0047AB;
+  --brand-dark:     #B8B8B8;
   --brand-deep:     #221f4a;
-  --brand-light:    #2e2870;
-  --brand-mid:      #AFA9EC;
-  --brand-muted:    #534AB7;
+  --brand-light:    #002d6e;
+  --brand-mid:      #B8B8B8;
+  --brand-muted:    #0047AB;
   --teal:           #1D9E75;
   --teal-light:     rgba(29,158,117,0.15);
   --amber:          #EF9F27;
   --amber-light:    rgba(186,117,23,0.2);
 }
+
+/* Heroicons solid */
+svg.hi { display: inline-block; vertical-align: middle; }
+.nav-item svg.hi { width: 24px; height: 24px; }
+.icon-btn svg.hi { width: 20px; height: 20px; }
+.drow-icon svg.hi { width: 20px; height: 20px; }
+svg.hi { width: 20px; height: 20px; }
