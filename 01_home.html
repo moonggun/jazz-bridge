@@ -7,94 +7,278 @@
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <style>
-.tonight {
-  margin: 0 var(--px) 14px;
-  padding: 16px;
-  background: rgba(127,119,221,0.15);
-  border: 0.5px solid rgba(127,119,221,0.4);
-  border-radius: 16px;
+
+/* ── 헤더 ── */
+.app-header-wrap {
+  flex-shrink: 0; overflow: hidden; position: relative;
+  transition: height 0.25s cubic-bezier(0.4,0,0.2,1);
+  background: var(--bg-primary);
 }
-.tonight-label { font-size: 12px; font-weight: 600; color: var(--brand-mid); margin-bottom: 3px; }
-.tonight-num   { font-size: 32px; font-weight: 700; color: #FFFFFF; line-height: 1; }
-.tonight-sub   { font-size: 12px; color: #AFA9EC; margin-top: 4px; }
+.app-header-wrap { height: 80px; }
+.app-header-wrap.shrunk { height: 56px; }
+.header-expanded {
+  padding: 20px var(--px) 10px;
+  display: flex; align-items: flex-end; justify-content: space-between;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.app-header-wrap.shrunk .header-expanded { opacity:0; pointer-events:none; transform:translateY(-8px); }
+.header-shrunk {
+  height: 56px; padding: 0 var(--px);
+  display: flex; align-items: center; justify-content: space-between;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.18s ease;
+  position: absolute; top: 0; left: 0; right: 0;
+}
+.app-header-wrap.shrunk .header-shrunk { opacity:1; pointer-events:auto; }
+.app-header-wrap::after { content:''; display:block; height:0.5px; background:var(--border); opacity:0; transition:opacity .18s; }
+.app-header-wrap.shrunk::after { opacity:1; }
+
+.greeting { font-size: 26px; font-weight: 700; color: #F0F0F0; }
+.greeting-sm { font-size: 17px; font-weight: 700; color: #F0F0F0; }
+.icon-btn { width:36px; height:36px; border-radius:50%; background:var(--bg-secondary); border:0.5px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:18px; color:#B8B8B8; flex-shrink:0; }
+
+/* ── D-day 팝업 카드 ── */
+.dday-card {
+  margin: 0 var(--px) 20px;
+  padding: 16px;
+  background: #1c1e2e;
+  border: 0.5px solid rgba(127,119,221,0.3);
+  border-radius: 16px;
+  display: flex; align-items: center; gap: 16px;
+  position: relative; flex-shrink: 0;
+}
+.dday-close {
+  position: absolute; top: 12px; right: 12px;
+  font-size: 16px; color: #555; cursor: pointer;
+}
+.dday-left { text-align: center; flex-shrink: 0; }
+.dday-label { font-size: 11px; color: #7F77DD; font-weight: 600; letter-spacing: .04em; }
+.dday-num { font-size: 36px; font-weight: 700; color: #fff; line-height: 1; }
+.dday-title { font-size: 15px; font-weight: 700; color: #F0F0F0; margin-bottom: 4px; }
+.dday-info { font-size: 13px; color: #888; margin-bottom: 10px; }
+.dday-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 7px 14px; background: #4840A8; border-radius: 8px;
+  font-size: 13px; font-weight: 600; color: #fff; cursor: pointer;
+}
+
+/* ── 섹션 헤더 ── */
+.sec-header { display: flex; align-items: center; justify-content: space-between; padding: 4px var(--px) 12px; flex-shrink: 0; }
+.sec-title { font-size: 17px; font-weight: 700; color: #F0F0F0; display: flex; align-items: center; gap: 6px; }
+.sec-more { font-size: 13px; color: #555; }
+
+/* ── 공연 카드 (가로 스크롤) ── */
+.card-scroll { display: flex; gap: 12px; padding: 0 var(--px) 20px; overflow-x: auto; flex-shrink: 0; }
+.card-scroll::-webkit-scrollbar { display: none; }
+.concert-card {
+  width: 160px; flex-shrink: 0; border-radius: 14px; overflow: hidden;
+  background: var(--bg-secondary); position: relative; cursor: pointer;
+}
+.concert-img {
+  width: 160px; height: 180px; object-fit: cover;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.concert-img-ph {
+  width: 160px; height: 180px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.concert-location {
+  position: absolute; top: 8px; left: 8px;
+  display: flex; align-items: center; gap: 4px;
+  padding: 3px 8px; background: rgba(0,0,0,0.55); backdrop-filter: blur(4px);
+  border-radius: 99px; font-size: 11px; font-weight: 600; color: #fff;
+}
+.concert-info { padding: 10px 10px 12px; }
+.concert-name { font-size: 13px; font-weight: 700; color: #F0F0F0; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.concert-desc { font-size: 11px; color: #666; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* ── 음악 추천 카드 ── */
+.album-scroll { display: flex; gap: 12px; padding: 0 var(--px) 20px; overflow-x: auto; flex-shrink: 0; }
+.album-scroll::-webkit-scrollbar { display: none; }
+.album-card { width: 130px; flex-shrink: 0; cursor: pointer; }
+.album-cover {
+  width: 130px; height: 130px; border-radius: 12px; overflow: hidden;
+  background: var(--bg-secondary); position: relative;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 8px;
+}
+.album-new {
+  position: absolute; top: 7px; left: 7px;
+  padding: 2px 7px; background: #E8372A; border-radius: 4px;
+  font-size: 10px; font-weight: 700; color: #fff; letter-spacing: .04em;
+}
+.album-title { font-size: 12px; font-weight: 600; color: #F0F0F0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.album-artist { font-size: 11px; color: #666; margin-top: 2px; }
+
+/* ── 날씨 추천 카드 ── */
+.weather-card {
+  margin: 0 var(--px) 20px; border-radius: 16px; overflow: hidden;
+  position: relative; flex-shrink: 0; cursor: pointer; min-height: 200px;
+  background: #1e2022; display: flex; flex-direction: column; justify-content: flex-end;
+}
+.weather-img-ph {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.weather-gradient { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,.8) 100%); }
+.weather-arrow {
+  position: absolute; top: 50%; right: 16px; transform: translateY(-50%);
+  width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,.15);
+  display: flex; align-items: center; justify-content: center; font-size: 18px; color: #fff;
+}
+.weather-content { position: relative; z-index: 1; padding: 16px; }
+.weather-loc { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; background: rgba(127,119,221,.4); border-radius: 99px; font-size: 11px; font-weight: 600; color: #AFA9EC; margin-bottom: 8px; }
+.weather-name { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.weather-desc { font-size: 13px; color: rgba(255,255,255,.65); line-height: 1.5; }
+
+.scroll-content { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 16px; }
+.scroll-content::-webkit-scrollbar { display: none; }
 </style>
 </head>
 <body>
-
 <div class="statusbar">
   <span class="sb-time">9:41</span>
   <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
 </div>
 
-<!-- 확장/축소 헤더 -->
-<div class="app-header-wrap" style="--header-expanded:120px;">
-  <!-- 확장 상태 -->
+<!-- 헤더 -->
+<div class="app-header-wrap">
   <div class="header-expanded">
-    <div>
-      <div class="app-name">Jazz <span>Bridge</span></div>
-      <div class="app-loc"><i class="ti ti-map-pin" style="font-size:13px;"></i> 서울 · 오늘</div>
-    </div>
-    <div class="header-icons">
-      <div class="icon-btn"><i class="ti ti-bell"></i></div>
-      <div class="icon-btn"><i class="ti ti-search"></i></div>
-    </div>
+    <div class="greeting">lilo.stitch님!</div>
+    <div class="icon-btn"><i class="ti ti-search"></i></div>
   </div>
-  <!-- 축소 상태 -->
   <div class="header-shrunk">
-    <div class="header-shrunk-title">Jazz <span>Bridge</span></div>
-    <div class="header-icons">
-      <div class="icon-btn"><i class="ti ti-bell"></i></div>
-      <div class="icon-btn"><i class="ti ti-search"></i></div>
-    </div>
+    <div class="greeting-sm">Jazz Bridge</div>
+    <div class="icon-btn"><i class="ti ti-search"></i></div>
   </div>
 </div>
 
 <div class="content">
-  <!-- 필 필터 (헤더 아래 고정) -->
-  <div class="pill-row" style="padding-top:10px;">
-    <div class="pill active">오늘</div>
-    <div class="pill">내일</div>
-    <div class="pill">이번 주</div>
-    <div class="pill">이번 달</div>
-  </div>
-
-  <!-- 스크롤 영역 -->
   <div class="scroll-content">
-    <div class="tonight">
-      <div class="tonight-label">오늘 밤 공연</div>
-      <div class="tonight-num">7개</div>
-      <div class="tonight-sub">서울 전체 · 티켓 있음 3개</div>
+
+    <!-- D-day 팝업 카드 -->
+    <div class="dday-card">
+      <div class="dday-close"><i class="ti ti-x"></i></div>
+      <div class="dday-left">
+        <div class="dday-label">D-day</div>
+        <div class="dday-num">21</div>
+      </div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:12px;color:#7F77DD;font-weight:600;margin-bottom:4px;">예매하신 공연이 21일 남았습니다!</div>
+        <div class="dday-title">Jamie Kim Trio</div>
+        <div class="dday-info">2025년 5월 17일 저녁 8시</div>
+        <div class="dday-btn"><i class="ti ti-map-pin" style="font-size:13px;"></i> 공연장 위치 확인하기</div>
+      </div>
     </div>
-    <div class="ecard">
-      <div class="ecard-time">오늘 20:00</div>
-      <div class="ecard-title">Jamie Kim Trio</div>
-      <div class="ecard-venue"><i class="ti ti-map-pin" style="font-size:13px;"></i> 블루문 재즈클럽 · 홍대</div>
-      <div class="etags"><span class="etag">모던 재즈</span><span class="etag">트리오</span><span class="etag">₩20,000</span></div>
+
+    <!-- 추천 공연 -->
+    <div class="sec-header">
+      <div class="sec-title">🎷 lilo님을 위한 공연 정보</div>
+      <div class="sec-more">더보기</div>
     </div>
-    <div class="ecard">
-      <div class="ecard-time">오늘 21:30</div>
-      <div class="ecard-title">Lee Soo Quartet</div>
-      <div class="ecard-venue"><i class="ti ti-map-pin" style="font-size:13px;"></i> 재즈바 퀀텀 · 이태원</div>
-      <div class="etags"><span class="etag">스윙</span><span class="etag">₩15,000</span></div>
+    <div class="card-scroll">
+      <!-- 카드 1 -->
+      <div class="concert-card">
+        <div class="concert-img-ph" style="background:linear-gradient(135deg,#2d1b0e,#5c3317);">
+          <i class="ti ti-music" style="font-size:48px;color:rgba(255,255,255,.15);"></i>
+          <div class="concert-location"><i class="ti ti-map-pin" style="font-size:10px;"></i>서울</div>
+        </div>
+        <div class="concert-info">
+          <div class="concert-name">Jamie Kim Trio</div>
+          <div class="concert-desc">Sounds from the Ancestors</div>
+        </div>
+      </div>
+      <!-- 카드 2 -->
+      <div class="concert-card">
+        <div class="concert-img-ph" style="background:linear-gradient(135deg,#1a1a3e,#2d2d6e);">
+          <i class="ti ti-music" style="font-size:48px;color:rgba(255,255,255,.15);"></i>
+          <div class="concert-location"><i class="ti ti-map-pin" style="font-size:10px;"></i>홍대</div>
+        </div>
+        <div class="concert-info">
+          <div class="concert-name">Seoul Jazz Collective</div>
+          <div class="concert-desc">We are the Golden Ones</div>
+        </div>
+      </div>
+      <!-- 카드 3 -->
+      <div class="concert-card">
+        <div class="concert-img-ph" style="background:linear-gradient(135deg,#0d2e1a,#1a5c3a);">
+          <i class="ti ti-music" style="font-size:48px;color:rgba(255,255,255,.15);"></i>
+          <div class="concert-location"><i class="ti ti-map-pin" style="font-size:10px;"></i>이태원</div>
+        </div>
+        <div class="concert-info">
+          <div class="concert-name">Hyun-A Kim Vocal</div>
+          <div class="concert-desc">The Power chords</div>
+        </div>
+      </div>
+      <!-- 카드 4 -->
+      <div class="concert-card">
+        <div class="concert-img-ph" style="background:linear-gradient(135deg,#2e1a0d,#6e3d1a);">
+          <i class="ti ti-music" style="font-size:48px;color:rgba(255,255,255,.15);"></i>
+          <div class="concert-location"><i class="ti ti-map-pin" style="font-size:10px;"></i>강남</div>
+        </div>
+        <div class="concert-info">
+          <div class="concert-name">Lee Soo Quartet</div>
+          <div class="concert-desc">Midnight Sessions Vol.2</div>
+        </div>
+      </div>
     </div>
-    <div class="ecard" style="background:var(--bg-secondary);">
-      <div class="ecard-time">오늘 22:00</div>
-      <div class="ecard-title">Park Minjun Solo</div>
-      <div class="ecard-venue"><i class="ti ti-map-pin" style="font-size:13px;"></i> 올댓재즈 · 강남</div>
-      <div class="etags"><span class="etag">보컬</span><span class="etag">무료</span></div>
+
+    <!-- 음악 추천 -->
+    <div class="sec-header">
+      <div class="sec-title">🎵 오늘 이런 음악 어때요?</div>
+      <div class="sec-more">더보기</div>
     </div>
-    <div class="ecard">
-      <div class="ecard-time">오늘 22:30</div>
-      <div class="ecard-title">Hyun-A Kim Vocal</div>
-      <div class="ecard-venue"><i class="ti ti-map-pin" style="font-size:13px;"></i> 재즈바 369 · 이태원</div>
-      <div class="etags"><span class="etag">보컬 재즈</span><span class="etag">₩10,000</span></div>
+    <div class="album-scroll">
+      <div class="album-card">
+        <div class="album-cover" style="background:linear-gradient(135deg,#1a1a1a,#3a3a3a);">
+          <div class="album-new">NEW</div>
+          <i class="ti ti-vinyl" style="font-size:52px;color:rgba(255,255,255,.2);"></i>
+        </div>
+        <div class="album-title">Moanin'</div>
+        <div class="album-artist">Art Blakey</div>
+      </div>
+      <div class="album-card">
+        <div class="album-cover" style="background:linear-gradient(135deg,#0a1628,#1a3a6e);">
+          <i class="ti ti-vinyl" style="font-size:52px;color:rgba(255,255,255,.2);"></i>
+        </div>
+        <div class="album-title">Midnight Blue</div>
+        <div class="album-artist">Kenny Burrell</div>
+      </div>
+      <div class="album-card">
+        <div class="album-cover" style="background:linear-gradient(135deg,#2e0a0a,#8b1a1a);">
+          <i class="ti ti-vinyl" style="font-size:52px;color:rgba(255,255,255,.2);"></i>
+        </div>
+        <div class="album-title">Monk's Dream</div>
+        <div class="album-artist">Thelonious Monk</div>
+      </div>
+      <div class="album-card">
+        <div class="album-cover" style="background:linear-gradient(135deg,#0d2e1a,#1a6e3a);">
+          <i class="ti ti-vinyl" style="font-size:52px;color:rgba(255,255,255,.2);"></i>
+        </div>
+        <div class="album-title">Kind of Blue</div>
+        <div class="album-artist">Miles Davis</div>
+      </div>
     </div>
-    <div class="ecard">
-      <div class="ecard-time">오늘 23:00</div>
-      <div class="ecard-title">Seoul Jazz Collective</div>
-      <div class="ecard-venue"><i class="ti ti-map-pin" style="font-size:13px;"></i> 클럽 에반스 · 홍대</div>
-      <div class="etags"><span class="etag">빅밴드</span><span class="etag">₩18,000</span></div>
+
+    <!-- 날씨 기반 추천 -->
+    <div class="sec-header">
+      <div class="sec-title">🌂 비 오는 오늘, 여기 가볼까요?</div>
     </div>
+    <div class="weather-card">
+      <div class="weather-img-ph">
+        <i class="ti ti-building" style="font-size:64px;color:rgba(255,255,255,.08);"></i>
+      </div>
+      <div class="weather-gradient"></div>
+      <div class="weather-arrow"><i class="ti ti-chevron-right"></i></div>
+      <div class="weather-content">
+        <div class="weather-loc"><i class="ti ti-map-pin" style="font-size:10px;"></i> 서울, 이태원동</div>
+        <div class="weather-name">부기 우기 (Boogie Woogie)</div>
+        <div class="weather-desc">자유로운 분위기에서 춤도 추면서 관객과<br>뮤지션이 교감할 수 있는 경리단길의 작은 클럽</div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -108,12 +292,12 @@
 
 <script>
 (function(){
-  var s=document.querySelector('.scroll-content');
-  var h=document.querySelector('.app-header-wrap');
-  if(!s||!h)return;
-  s.addEventListener('scroll',function(){
-    h.classList.toggle('shrunk',s.scrollTop>10);
-  },{passive:true});
+  var s = document.querySelector('.scroll-content');
+  var h = document.querySelector('.app-header-wrap');
+  if(!s||!h) return;
+  s.addEventListener('scroll', function(){
+    h.classList.toggle('shrunk', s.scrollTop > 10);
+  }, {passive:true});
 })();
 </script>
 </body>
