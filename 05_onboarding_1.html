@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=375, initial-scale=1.0">
 <title>Jazz Bridge — 온보딩 1</title>
 <link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <style>
 body { background: #151617; }
 .ob-hero {
@@ -29,7 +30,7 @@ body { background: #151617; }
   border: 0.5px solid rgba(255,255,255,.1);
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-.ob-bullet i { font-size: 20px; color: #888; }
+.ob-bullet svg { width: 20px; height: 20px; color: #888; }
 .ob-item-title { font-size: 16px; font-weight: 600; color: #F0F0F0; margin-bottom: 3px; }
 .ob-item-desc { font-size: 14px; color: #666; line-height: 1.4; }
 .ob-footer { padding: 20px 24px 24px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
@@ -40,7 +41,7 @@ body { background: #151617; }
 <body>
 <div class="statusbar dark">
   <span class="sb-time">9:41</span>
-  <div class="sb-icons"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.371 8.143c5.858-5.857 15.356-5.857 21.213 0a.75.75 0 0 1-1.06 1.061A13.502 13.502 0 0 0 12 6a13.5 13.5 0 0 0-9.525 3.954.75.75 0 0 1-1.06-1.061h-.001Zm3.182 3.182c4.1-4.1 10.749-4.1 14.85 0a.75.75 0 0 1-1.061 1.061 8.998 8.998 0 0 0-12.728 0 .75.75 0 0 1-1.061-1.06Zm3.204 3.182a6 6 0 0 1 8.486 0 .75.75 0 0 1-1.061 1.061 4.5 4.5 0 0 0-6.364 0 .75.75 0 0 1-1.061-1.06Zm3.182 3.182a3 3 0 0 1 4.243 0 .75.75 0 0 1-1.061 1.061 1.5 1.5 0 0 0-2.122 0 .75.75 0 0 1-1.06-1.061Z" clip-rule="evenodd"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 3.75a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V6.75a3 3 0 0 0-3-3h-15Zm5.25 3a.75.75 0 0 1 .75.75v7.5a.75.75 0 0 1-1.5 0v-7.5a.75.75 0 0 1 .75-.75Zm3 0a.75.75 0 0 1 .75.75v7.5a.75.75 0 0 1-1.5 0v-7.5a.75.75 0 0 1 .75-.75Z"/></svg></div>
+  <div class="sb-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div>
 </div>
 <div class="content">
   <div class="ob-hero">
@@ -58,15 +59,15 @@ body { background: #151617; }
   </div>
   <div class="ob-body">
     <div class="ob-item">
-      <div class="ob-bullet"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"/><path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clip-rule="evenodd"/></svg></div>
+      <div class="ob-bullet"><i class="ti ti-calendar"></i></div>
       <div><div class="ob-item-title">날짜별 공연 캘린더</div><div class="ob-item-desc">오늘, 이번 주 공연을 한눈에</div></div>
     </div>
     <div class="ob-item">
-      <div class="ob-bullet"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-2.079 3.953-5.159 3.953-9.077A8.25 8.25 0 0 0 12 3a8.25 8.25 0 0 0-8.25 8.25c0 3.918 2.009 6.998 3.953 9.077a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd"/></svg></div>
+      <div class="ob-bullet"><i class="ti ti-map-pin"></i></div>
       <div><div class="ob-item-title">지역별 필터</div><div class="ob-item-desc">홍대, 이태원, 강남 탐색</div></div>
     </div>
     <div class="ob-item">
-      <div class="ob-bullet"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M19.952 1.651a.75.75 0 0 1 .298.599V16.303a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.403-4.909l2.311-.66a1.5 1.5 0 0 0 1.088-1.442V6.994l-9 2.572v9.737a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.402-4.909l2.31-.66a1.5 1.5 0 0 0 1.088-1.442V5.25a.75.75 0 0 1 .544-.721l10.5-3a.75.75 0 0 1 .658.122Z" clip-rule="evenodd"/></svg></div>
+      <div class="ob-bullet"><i class="ti ti-music"></i></div>
       <div><div class="ob-item-title">장르 & 규모 필터</div><div class="ob-item-desc">취향에 맞는 공연 발견</div></div>
     </div>
   </div>

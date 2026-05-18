@@ -280,9 +280,4 @@ body {
   --amber-light:    rgba(186,117,23,0.2);
 }
 
-/* Heroicons solid */
-svg.hi { display: inline-block; vertical-align: middle; }
-.nav-item svg.hi { width: 24px; height: 24px; }
-.icon-btn svg.hi { width: 20px; height: 20px; }
-.drow-icon svg.hi { width: 20px; height: 20px; }
-svg.hi { width: 20px; height: 20px; }
+
