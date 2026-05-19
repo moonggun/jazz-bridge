@@ -7,14 +7,14 @@
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <style>
-.notif-item{display:flex;align-items:flex-start;gap:12px;padding:14px var(--px);border-bottom:0.5px solid var(--border);}
-.notif-dot{width:8px;height:8px;border-radius:50%;background:var(--brand);flex-shrink:0;margin-top:4px;}
-.notif-dot.read{background:var(--border);}
-.notif-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.notif-icon i{font-size:19px;}
-.notif-title{font-size:15px;font-weight:600;color:var(--text-primary);margin-bottom:3px;}
-.notif-body{font-size:14px;color:var(--text-secondary);line-height:1.4;}
-.notif-time{font-size:12px;color:var(--text-tertiary);margin-top:4px;}
+.notif-item { display:flex; align-items:flex-start; gap:12px; padding:16px var(--px); border-bottom:0.5px solid var(--border); flex-shrink:0; }
+.notif-dot { width:8px; height:8px; border-radius:50%; background:#0047AB; flex-shrink:0; margin-top:6px; }
+.notif-dot.read { background:transparent; }
+.notif-icon { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.notif-icon i { font-size:22px; color:#fff; }
+.notif-title { font-size:15px; font-weight:600; color:var(--text-primary); margin-bottom:3px; }
+.notif-body { font-size:14px; color:var(--text-secondary); line-height:1.4; }
+.notif-time { font-size:12px; color:var(--text-tertiary); margin-top:4px; }
 </style>
 </head>
 <body>
@@ -36,11 +36,31 @@
 
 <div class="content">
   <div class="scroll-content">
-    <div class="notif-item"><div class="notif-dot"></div><div class="notif-icon" style="background:var(--brand-light);"><i class="ti ti-bell"></i></div><div><div class="notif-title">Jamie Kim 공연 등록</div><div class="notif-body">5월 24일 올댓재즈 공연이 등록됐어요</div><div class="notif-time">방금 전</div></div></div>
-    <div class="notif-item"><div class="notif-dot"></div><div class="notif-icon" style="background:var(--amber-light);"><i class="ti ti-ticket"></i></div><div><div class="notif-title">예매 마감 임박</div><div class="notif-body">Jamie Kim Trio 잔여석 3석 남았어요</div><div class="notif-time">1시간 전</div></div></div>
-    <div class="notif-item"><div class="notif-dot read"></div><div class="notif-icon" style="background:var(--teal-light);"><i class="ti ti-check"></i></div><div><div class="notif-title">예매 완료</div><div class="notif-body">Jamie Kim Trio 2인 예매가 완료됐어요</div><div class="notif-time">어제</div></div></div>
-    <div class="notif-item"><div class="notif-dot read"></div><div class="notif-icon" style="background:var(--brand-light);"><i class="ti ti-bell"></i></div><div><div class="notif-title">Soo Lee 공연 등록</div><div class="notif-body">5월 21일 올댓재즈 공연이 등록됐어요</div><div class="notif-time">2일 전</div></div></div>
-    <div class="notif-item"><div class="notif-dot read"></div><div class="notif-icon" style="background:var(--bg-secondary);"><i class="ti ti-star"></i></div><div><div class="notif-title">이번 주 추천 공연</div><div class="notif-body">취향에 맞는 공연 5개가 등록됐어요</div><div class="notif-time">3일 전</div></div></div>
+    <div class="notif-item">
+      <div class="notif-dot"></div>
+      <div class="notif-icon" style="background:#0047AB;"><i class="ti ti-bell"></i></div>
+      <div><div class="notif-title">Jamie Kim 공연 등록</div><div class="notif-body">5월 24일 올댓재즈 공연이 등록됐어요</div><div class="notif-time">방금 전</div></div>
+    </div>
+    <div class="notif-item">
+      <div class="notif-dot"></div>
+      <div class="notif-icon" style="background:#BA7517;"><i class="ti ti-ticket"></i></div>
+      <div><div class="notif-title">예매 마감 임박</div><div class="notif-body">Jamie Kim Trio 잔여석 3석 남았어요</div><div class="notif-time">1시간 전</div></div>
+    </div>
+    <div class="notif-item">
+      <div class="notif-dot read"></div>
+      <div class="notif-icon" style="background:#1D9E75;"><i class="ti ti-check"></i></div>
+      <div><div class="notif-title">예매 완료</div><div class="notif-body">Jamie Kim Trio 2인 예매가 완료됐어요</div><div class="notif-time">어제</div></div>
+    </div>
+    <div class="notif-item">
+      <div class="notif-dot read"></div>
+      <div class="notif-icon" style="background:#0047AB;"><i class="ti ti-bell"></i></div>
+      <div><div class="notif-title">Soo Lee 공연 등록</div><div class="notif-body">5월 21일 올댓재즈 공연이 등록됐어요</div><div class="notif-time">2일 전</div></div>
+    </div>
+    <div class="notif-item">
+      <div class="notif-dot read"></div>
+      <div class="notif-icon" style="background:#2d4a7a;"><i class="ti ti-star"></i></div>
+      <div><div class="notif-title">이번 주 추천 공연</div><div class="notif-body">취향에 맞는 공연 5개가 등록됐어요</div><div class="notif-time">3일 전</div></div>
+    </div>
   </div>
 </div>
 

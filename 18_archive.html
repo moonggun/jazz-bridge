@@ -7,16 +7,15 @@
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <style>
-.arch-header-extra{font-size:13px;color:var(--text-tertiary);margin-top:2px;}
-.arch-item{display:flex;align-items:flex-start;gap:14px;padding:16px var(--px);border-bottom:0.5px solid var(--border);}
-.arch-date-col{text-align:center;min-width:36px;flex-shrink:0;}
-.arch-month{font-size:10px;color:var(--text-tertiary);text-transform:uppercase;font-weight:600;}
-.arch-day{font-size:22px;font-weight:700;color:var(--brand);line-height:1.1;}
-.arch-title{font-size:16px;font-weight:600;color:var(--text-primary);margin-bottom:2px;}
-.arch-meta{font-size:13px;color:var(--text-secondary);}
-.arch-tags{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap;}
-.atag{font-size:12px;padding:3px 10px;border-radius:var(--radius-pill);background:var(--bg-secondary);color:var(--text-secondary);}
-.arch-note{font-size:13px;color:var(--text-tertiary);font-style:italic;margin-top:4px;}
+.arch-header-sub { font-size:13px; color:var(--text-tertiary); margin-top:2px; }
+.arch-item { display:flex; align-items:flex-start; gap:16px; padding:16px var(--px); border-bottom:0.5px solid var(--border); }
+.arch-date-col { text-align:center; min-width:36px; flex-shrink:0; }
+.arch-month { font-size:11px; color:var(--text-tertiary); font-weight:600; }
+.arch-day { font-size:24px; font-weight:700; color:#0047AB; line-height:1.1; }
+.arch-title { font-size:16px; font-weight:600; color:var(--text-primary); margin-bottom:2px; }
+.arch-meta { font-size:13px; color:var(--text-secondary); }
+.arch-tags { display:flex; gap:6px; margin-top:6px; flex-wrap:wrap; }
+.atag { font-size:12px; padding:3px 10px; border-radius:var(--radius-pill); background:var(--bg-secondary); color:var(--text-secondary); }
 </style>
 </head>
 <body>
@@ -27,22 +26,20 @@
 
 <div class="page-header-wrap" style="--page-header-expanded:88px;">
   <div class="page-header-expanded" style="align-items:flex-start;padding-top:20px;">
-    <div><div class="page-title-lg">공연 기록</div><div class="arch-header-extra">총 24개 · 2025년</div></div>
-    
+    <div><div class="page-title-lg">공연 기록</div><div class="arch-header-sub">총 24개 · 2025년</div></div>
   </div>
   <div class="page-header-shrunk">
-    <div><div class="page-title-sm">공연 기록</div></div>
-    <div style="font-size:14px;color:var(--brand);cursor:pointer;">+ 추가</div>
+    <div class="page-title-sm">공연 기록</div>
   </div>
 </div>
 
 <div class="content">
   <div class="scroll-content">
-    <div class="arch-item"><div class="arch-date-col"><div class="arch-month">5월</div><div class="arch-day">10</div></div><div style="flex:1;min-width:0;"><div class="arch-title">Jamie Kim Trio</div><div class="arch-meta">블루문 · 홍대</div><div class="arch-tags"><span class="atag">모던 재즈</span><span class="atag">트리오</span></div><div class="arch-note">"최고의 피아노 솔로였다"</div></div></div>
+    <div class="arch-item"><div class="arch-date-col"><div class="arch-month">5월</div><div class="arch-day">10</div></div><div style="flex:1;min-width:0;"><div class="arch-title">Jamie Kim Trio</div><div class="arch-meta">블루문 · 홍대</div><div class="arch-tags"><span class="atag">모던 재즈</span><span class="atag">트리오</span></div></div></div>
     <div class="arch-item"><div class="arch-date-col"><div class="arch-month">5월</div><div class="arch-day">3</div></div><div style="flex:1;min-width:0;"><div class="arch-title">Seoul Jazz Collective</div><div class="arch-meta">클럽 에반스 · 홍대</div><div class="arch-tags"><span class="atag">빅밴드</span></div></div></div>
-    <div class="arch-item"><div class="arch-date-col"><div class="arch-month">4월</div><div class="arch-day">26</div></div><div style="flex:1;min-width:0;"><div class="arch-title">Lee Soo Quartet</div><div class="arch-meta">올댓재즈 · 강남</div><div class="arch-tags"><span class="atag">스윙</span><span class="atag">쿼텟</span></div><div class="arch-note">"색소폰이 정말 인상적"</div></div></div>
+    <div class="arch-item"><div class="arch-date-col"><div class="arch-month">4월</div><div class="arch-day">26</div></div><div style="flex:1;min-width:0;"><div class="arch-title">Lee Soo Quartet</div><div class="arch-meta">올댓재즈 · 강남</div><div class="arch-tags"><span class="atag">스윙</span><span class="atag">쿼텟</span></div></div></div>
     <div class="arch-item"><div class="arch-date-col"><div class="arch-month">4월</div><div class="arch-day">18</div></div><div style="flex:1;min-width:0;"><div class="arch-title">Hyun-A Kim Vocal</div><div class="arch-meta">재즈바 369 · 이태원</div><div class="arch-tags"><span class="atag">보컬</span></div></div></div>
-    <div class="arch-item"><div class="arch-date-col"><div class="arch-month">4월</div><div class="arch-day">12</div></div><div style="flex:1;min-width:0;"><div class="arch-title">Park Minjun Solo</div><div class="arch-meta">올댓재즈 · 강남</div><div class="arch-tags"><span class="atag">보컬 재즈</span><span class="atag">무료</span></div><div class="arch-note">"분위기 최고의 공연"</div></div></div>
+    <div class="arch-item"><div class="arch-date-col"><div class="arch-month">4월</div><div class="arch-day">12</div></div><div style="flex:1;min-width:0;"><div class="arch-title">Park Minjun Solo</div><div class="arch-meta">올댓재즈 · 강남</div><div class="arch-tags"><span class="atag">보컬 재즈</span><span class="atag">무료</span></div></div></div>
   </div>
 </div>
 

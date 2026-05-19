@@ -7,16 +7,17 @@
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <style>
-.success-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; gap: 18px; }
-.success-circle { width: 76px; height: 76px; border-radius: 50%; background: rgba(29,158,117,0.2); display: flex; align-items: center; justify-content: center; }
-.success-circle i { font-size: 34px; color: var(--teal); }
-.success-title { font-size: 26px; font-weight: 700; color: var(--text-primary); text-align: center; }
-.success-sub { font-size: 15px; color: var(--text-secondary); text-align: center; line-height: 1.6; }
-.ticket-card { width: 100%; background: var(--bg-secondary); border-radius: 18px; padding: 20px; border: 0.5px solid var(--border); }
-.ticket-title { font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 5px; }
-.ticket-meta { font-size: 14px; color: var(--text-secondary); margin-bottom: 3px; }
-.ticket-code { display: inline-block; font-size: 15px; font-weight: 700; font-family: monospace; color: var(--brand); margin-top: 12px; padding: 7px 14px; background: rgba(0,71,171,0.15); border-radius: 8px; }
-.action-btns { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+.success-wrap { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:32px 24px; gap:16px; }
+.success-circle { width:72px; height:72px; border-radius:50%; background:#1D9E75; display:flex; align-items:center; justify-content:center; }
+.success-circle i { font-size:34px; color:#fff; }
+.success-title { font-size:26px; font-weight:700; color:var(--text-primary); text-align:center; }
+.success-sub { font-size:15px; color:var(--text-secondary); text-align:center; line-height:1.6; }
+.ticket-card { width:100%; background:var(--bg-secondary); border-radius:18px; padding:20px; border:0.5px solid var(--border); }
+.ticket-title { font-size:18px; font-weight:700; color:var(--text-primary); margin-bottom:5px; }
+.ticket-meta { font-size:14px; color:var(--text-secondary); margin-bottom:2px; }
+.ticket-code { display:inline-block; font-size:15px; font-weight:700; font-family:monospace; color:#0047AB; margin-top:12px; padding:7px 14px; background:rgba(0,71,171,0.1); border-radius:8px; border:1px solid rgba(0,71,171,0.2); }
+.action-btns { width:100%; display:flex; flex-direction:column; gap:10px; }
+.btn-outline { width:100%; padding:15px; background:transparent; color:var(--text-primary); border:0.5px solid var(--border); border-radius:var(--radius-card); font-size:15px; font-weight:500; text-align:center; cursor:pointer; }
 </style>
 </head>
 <body>
@@ -36,7 +37,7 @@
       <div class="ticket-code">JB-20250517-4829</div>
     </div>
     <div class="action-btns">
-      <div class="btn-primary">캘린더에 추가</div>
+      <div class="btn-primary" style="background:#0047AB;">캘린더에 추가</div>
       <div class="btn-outline">홈으로</div>
     </div>
   </div>
