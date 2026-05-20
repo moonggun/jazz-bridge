@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jazz Bridge — Design Guide</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── BASE ── */
+:root {
+  --bg:        #0e0f10;
+  --surface:   #151617;
+  --surface2:  #1e2022;
+  --surface3:  #2e3033;
+  --text1:     #F0F0F0;
+  --text2:     #B8B8B8;
+  --text3:     #888888;
+  --border:    rgba(255,255,255,0.08);
+  --brand:     #0047AB;
+  --teal:      #1D9E75;
+  --amber:     #EF9F27;
+  --red:       #E24B4A;
+  --max:       1080px;
+}
+
+body {
+  font-family: "Pretendard", -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text1);
+  line-height: 1.5;
+}
+
+/* ── NAV ── */
+.guide-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 56px; border-bottom: 0.5px solid var(--border);
+  background: rgba(14,15,16,0.92); backdrop-filter: blur(12px);
+  display: flex; align-items: center; padding: 0 32px;
+  justify-content: space-between;
+}
+.nav-logo { font-size: 16px; font-weight: 700; color: var(--text1); display: flex; align-items: center; gap: 10px; }
+.nav-logo span { color: var(--brand); }
+.nav-links { display: flex; gap: 24px; }
+.nav-links a { font-size: 13px; color: var(--text3); text-decoration: none; transition: color .15s; }
+.nav-links a:hover { color: var(--text1); }
+
+/* ── LAYOUT ── */
+.guide-wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px 120px; padding-top: 56px; }
+
+/* ── HERO ── */
+.guide-hero {
+  padding: 80px 0 64px;
+  border-bottom: 0.5px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; gap: 40px;
+}
+.hero-text h1 { font-size: 52px; font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 16px; }
+.hero-text h1 span { color: var(--brand); }
+.hero-text p { font-size: 16px; color: var(--text3); max-width: 480px; line-height: 1.7; }
+.hero-meta { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+.hero-tag { font-size: 12px; padding: 5px 12px; border-radius: 99px; border: 0.5px solid var(--border); color: var(--text3); }
+.hero-wave { flex-shrink: 0; }
+
+/* ── SECTION ── */
+.guide-section { padding: 72px 0 0; }
+.section-label {
+  font-size: 11px; font-weight: 600; color: var(--brand);
+  letter-spacing: .1em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+}
+.section-label::before { content:''; width:20px; height:1px; background:var(--brand); }
+.section-title { font-size: 32px; font-weight: 700; letter-spacing: -.5px; margin-bottom: 8px; }
+.section-desc { font-size: 15px; color: var(--text3); margin-bottom: 40px; line-height: 1.7; }
+.section-divider { height: 0.5px; background: var(--border); margin-top: 72px; }
+
+/* ── CARDS ── */
+.card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 16px; overflow: hidden; }
+.card-header { padding: 16px 20px; border-bottom: 0.5px solid var(--border); font-size: 12px; font-weight: 600; color: var(--text3); letter-spacing: .06em; text-transform: uppercase; }
+.card-body { padding: 24px 20px; }
+
+/* ── COLOR SYSTEM ── */
+.color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-bottom: 32px; }
+.color-chip { border-radius: 12px; overflow: hidden; border: 0.5px solid var(--border); }
+.color-swatch { height: 72px; }
+.color-info { padding: 10px 12px; background: var(--surface2); }
+.color-name { font-size: 13px; font-weight: 600; color: var(--text1); margin-bottom: 2px; }
+.color-hex  { font-size: 12px; color: var(--text3); font-family: monospace; }
+.color-role { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+/* 브랜드 컬러 메인 */
+.brand-main { display: flex; gap: 12px; margin-bottom: 32px; }
+.brand-hero { flex: 2; border-radius: 16px; overflow: hidden; border: 0.5px solid var(--border); }
+.brand-hero-swatch { height: 120px; background: #0047AB; display: flex; align-items: center; justify-content: center; }
+.brand-hero-info { padding: 14px 16px; background: var(--surface2); }
+.brand-hero-name { font-size: 16px; font-weight: 700; color: var(--text1); }
+.brand-hero-hex  { font-size: 13px; color: var(--text3); font-family: monospace; margin-top: 2px; }
+.brand-hero-desc { font-size: 12px; color: var(--text3); margin-top: 6px; line-height: 1.5; }
+.brand-shades { flex: 3; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.brand-shade { border-radius: 12px; overflow: hidden; border: 0.5px solid var(--border); }
+.brand-shade-sw { height: 72px; }
+.brand-shade-info { padding: 8px 10px; background: var(--surface2); }
+
+/* ── TYPOGRAPHY ── */
+.type-table { width: 100%; border-collapse: collapse; }
+.type-table th { font-size: 11px; font-weight: 600; color: var(--text3); letter-spacing: .06em; text-transform: uppercase; padding: 10px 16px; border-bottom: 0.5px solid var(--border); text-align: left; }
+.type-table td { padding: 14px 16px; border-bottom: 0.5px solid var(--border); vertical-align: middle; }
+.type-table tr:last-child td { border-bottom: none; }
+.type-role { font-size: 12px; color: var(--text3); }
+.type-spec { font-size: 12px; font-family: monospace; color: var(--brand); background: rgba(0,71,171,0.1); padding: 2px 8px; border-radius: 4px; }
+
+/* ── SPACING ── */
+.spacing-row { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; }
+.spacing-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.spacing-bar { background: var(--brand); border-radius: 4px; opacity: 0.7; width: 32px; }
+.spacing-label { font-size: 11px; color: var(--text3); font-family: monospace; }
+.spacing-val { font-size: 12px; font-weight: 600; color: var(--text1); }
+
+/* ── RADIUS ── */
+.radius-grid { display: flex; gap: 16px; flex-wrap: wrap; }
+.radius-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.radius-box { width: 80px; height: 60px; background: rgba(0,71,171,0.2); border: 1.5px solid var(--brand); }
+.radius-label { font-size: 12px; color: var(--text3); font-family: monospace; text-align: center; }
+
+/* ── COMPONENT ── */
+.comp-row { display: flex; gap: 12px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 20px; }
+.comp-group { display: flex; flex-direction: column; gap: 8px; }
+.comp-label { font-size: 11px; color: var(--text3); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 4px; }
+
+/* Button */
+.btn-primary-demo { padding: 14px 28px; background: #0047AB; color: #fff; border: none; border-radius: 14px; font-size: 15px; font-weight: 600; font-family: inherit; cursor: pointer; white-space: nowrap; }
+.btn-outline-demo  { padding: 13px 28px; background: transparent; color: #0047AB; border: 1.5px solid #0047AB; border-radius: 14px; font-size: 15px; font-weight: 500; font-family: inherit; cursor: pointer; white-space: nowrap; }
+.btn-ghost-demo    { padding: 13px 28px; background: transparent; color: #888; border: none; font-size: 14px; font-family: inherit; cursor: pointer; white-space: nowrap; }
+
+/* Chip */
+.chip-demo      { display: inline-flex; padding: 7px 16px; border-radius: 99px; font-size: 14px; font-weight: 500; border: 0.5px solid rgba(255,255,255,0.08); color: #B8B8B8; background: #1e2022; }
+.chip-demo.on   { background: #0047AB; color: #fff; border-color: #0047AB; font-weight: 600; }
+.etag-demo      { display: inline-flex; font-size: 12px; padding: 4px 11px; border-radius: 99px; background: #2e3033; color: #D0D0D0; border: 0.5px solid rgba(255,255,255,0.12); }
+
+/* Card */
+.ecard-demo { background: #1e2022; border: 0.5px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 14px 16px; width: 100%; max-width: 320px; }
+.ecard-time-d { font-size: 12px; color: #888; margin-bottom: 3px; }
+.ecard-title-d { font-size: 16px; font-weight: 600; color: #F0F0F0; margin-bottom: 3px; }
+.ecard-venue-d { font-size: 13px; color: #B8B8B8; }
+.etags-d { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+
+/* Icon btn */
+.icon-btn-demo { width: 36px; height: 36px; border-radius: 50%; background: #1e2022; border: 0.5px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-size: 18px; color: #B8B8B8; cursor: pointer; }
+
+/* Input */
+.input-demo { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: #1e2022; border-radius: 12px; border: 0.5px solid rgba(255,255,255,0.08); width: 100%; max-width: 320px; color: #888; font-size: 15px; font-family: inherit; }
+
+/* Navbar demo */
+.navbar-demo { display: flex; background: #151617; border-top: 0.5px solid rgba(255,255,255,0.08); border-radius: 0 0 16px 16px; padding: 10px 0 0; }
+.ni-d { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 10px; color: #555; padding-top: 2px; font-family: inherit; }
+.ni-d.on { color: #FFFFFF; }
+.ni-icon { font-size: 22px; }
+
+/* Progress */
+.prog-demo { display: flex; gap: 6px; }
+.prog-dot { height: 3px; flex: 1; border-radius: 2px; background: rgba(255,255,255,.2); max-width: 80px; }
+.prog-dot.on { background: #fff; }
+
+/* Notification */
+.notif-demo { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; background: #1e2022; border-radius: 14px; max-width: 340px; border: 0.5px solid rgba(255,255,255,0.08); }
+.notif-icon-d { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #fff; flex-shrink: 0; }
+.notif-title-d { font-size: 14px; font-weight: 600; color: #F0F0F0; margin-bottom: 2px; }
+.notif-body-d  { font-size: 13px; color: #B8B8B8; line-height: 1.4; }
+.notif-time-d  { font-size: 11px; color: #666; margin-top: 3px; }
+
+/* ── GRID ── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+/* ── DO/DONT ── */
+.do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.do-card { border-radius: 14px; overflow: hidden; border: 0.5px solid rgba(29,158,117,0.4); }
+.dont-card { border-radius: 14px; overflow: hidden; border: 0.5px solid rgba(226,75,74,0.4); }
+.do-label   { padding: 8px 14px; background: rgba(29,158,117,0.15); font-size: 12px; font-weight: 600; color: #1D9E75; display: flex; align-items: center; gap: 6px; }
+.dont-label { padding: 8px 14px; background: rgba(226,75,74,0.15); font-size: 12px; font-weight: 600; color: #E24B4A; display: flex; align-items: center; gap: 6px; }
+.dd-body { padding: 16px; background: var(--surface2); }
+.dd-text { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+/* ── ONBOARDING HERO ── */
+.ob-demo { border-radius: 16px; overflow: hidden; border: 0.5px solid var(--border); max-width: 180px; }
+.ob-hero-d { background: #0047AB; padding: 20px 16px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.ob-prog-d { display: flex; gap: 5px; width: 100%; }
+.ob-pd-d { height: 3px; flex: 1; border-radius: 2px; background: rgba(255,255,255,.25); }
+.ob-pd-d.on { background: #fff; }
+
+/* ── MOTION ── */
+.motion-row { display: flex; gap: 16px; flex-wrap: wrap; }
+.motion-item { padding: 16px 20px; background: var(--surface2); border-radius: 12px; border: 0.5px solid var(--border); min-width: 180px; }
+.motion-name { font-size: 13px; font-weight: 600; color: var(--text1); margin-bottom: 4px; }
+.motion-val  { font-size: 12px; font-family: monospace; color: var(--brand); }
+.motion-desc { font-size: 12px; color: var(--text3); margin-top: 4px; }
+
+/* ── ACCESSIBILITY ── */
+.a11y-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 12px; }
+.a11y-item { padding: 16px; border-radius: 12px; border: 0.5px solid var(--border); background: var(--surface2); }
+.a11y-swatch { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.a11y-box { width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; }
+.a11y-ratio { font-size: 18px; font-weight: 700; margin-bottom: 2px; }
+.a11y-grade { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 99px; display: inline-block; margin-bottom: 6px; }
+.aaa { background: rgba(29,158,117,0.15); color: #1D9E75; }
+.aa  { background: rgba(0,71,171,0.15); color: #4d8fe0; }
+.a11y-pair { font-size: 12px; color: var(--text3); }
+
+@media (max-width: 768px) {
+  .guide-hero { flex-direction: column; }
+  .two-col, .three-col, .do-dont { grid-template-columns: 1fr; }
+  .brand-main { flex-direction: column; }
+  .brand-shades { grid-template-columns: repeat(2,1fr); }
+  .guide-nav { padding: 0 16px; }
+  .guide-wrap { padding-left: 16px; padding-right: 16px; }
+  .nav-links { display: none; }
+  .hero-text h1 { font-size: 36px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="guide-nav">
+  <div class="nav-logo">
+    <svg width="22" height="16" viewBox="0 0 72 52" fill="none">
+      <line x1="4" y1="26" x2="4" y2="26" stroke="#0047AB" stroke-width="3" stroke-linecap="round"/>
+      <line x1="12" y1="19" x2="12" y2="33" stroke="#0047AB" stroke-width="3" stroke-linecap="round"/>
+      <line x1="20" y1="11" x2="20" y2="41" stroke="#0047AB" stroke-width="3" stroke-linecap="round"/>
+      <line x1="28" y1="5" x2="28" y2="47" stroke="#B8B8B8" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="36" y1="2" x2="36" y2="50" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+      <line x1="44" y1="5" x2="44" y2="47" stroke="#B8B8B8" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="52" y1="11" x2="52" y2="41" stroke="#0047AB" stroke-width="3" stroke-linecap="round"/>
+      <line x1="60" y1="19" x2="60" y2="33" stroke="#0047AB" stroke-width="3" stroke-linecap="round"/>
+      <line x1="68" y1="26" x2="68" y2="26" stroke="#0047AB" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    Jazz <span>Bridge</span> — Design Guide
+  </div>
+  <div class="nav-links">
+    <a href="#colors">컬러</a>
+    <a href="#typography">타이포</a>
+    <a href="#spacing">간격</a>
+    <a href="#components">컴포넌트</a>
+    <a href="#patterns">패턴</a>
+    <a href="#accessibility">접근성</a>
+  </div>
+</nav>
+
+<div class="guide-wrap">
+
+  <!-- HERO -->
+  <div class="guide-hero">
+    <div class="hero-text">
+      <h1>Jazz Bridge<br><span>Design</span> Guide</h1>
+      <p>재즈 공연 통합 플랫폼 Jazz Bridge의 디자인 시스템입니다. 컬러, 타이포그래피, 컴포넌트, 접근성 가이드라인을 포함합니다.</p>
+      <div class="hero-meta">
+        <span class="hero-tag">Dark Theme</span>
+        <span class="hero-tag">375 × 812px</span>
+        <span class="hero-tag">Pretendard</span>
+        <span class="hero-tag">WCAG 2.1 AA</span>
+        <span class="hero-tag">Tabler Icons</span>
+      </div>
+    </div>
+    <div class="hero-wave">
+      <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+        <rect width="120" height="120" rx="28" fill="#0047AB"/>
+        <!-- 9개 라인, x: 15~105, 간격 11.25px, 중앙 x=60 -->
+        <line x1="15"   y1="60" x2="15"   y2="60" stroke="rgba(255,255,255,0.30)" stroke-width="4" stroke-linecap="round"/>
+        <line x1="26.25" y1="52" x2="26.25" y2="68" stroke="rgba(255,255,255,0.50)" stroke-width="4" stroke-linecap="round"/>
+        <line x1="37.5"  y1="42" x2="37.5"  y2="78" stroke="rgba(255,255,255,0.70)" stroke-width="4" stroke-linecap="round"/>
+        <line x1="48.75" y1="30" x2="48.75" y2="90" stroke="#B8B8B8" stroke-width="4" stroke-linecap="round"/>
+        <line x1="60"    y1="20" x2="60"    y2="100" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+        <line x1="71.25" y1="30" x2="71.25" y2="90" stroke="#B8B8B8" stroke-width="4" stroke-linecap="round"/>
+        <line x1="82.5"  y1="42" x2="82.5"  y2="78" stroke="rgba(255,255,255,0.70)" stroke-width="4" stroke-linecap="round"/>
+        <line x1="93.75" y1="52" x2="93.75" y2="68" stroke="rgba(255,255,255,0.50)" stroke-width="4" stroke-linecap="round"/>
+        <line x1="105"   y1="60" x2="105"   y2="60" stroke="rgba(255,255,255,0.30)" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       01. COLOR SYSTEM
+  ══════════════════════════════════════ -->
+  <div class="guide-section" id="colors">
+    <div class="section-label">01</div>
+    <h2 class="section-title">컬러 시스템</h2>
+    <p class="section-desc">코발트 블루를 핵심 브랜드 컬러로, 다크 배경 위에서 명확한 계층 구조를 만드는 색상 시스템입니다.</p>
+
+    <!-- 브랜드 컬러 -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-header">Brand Color — 코발트 블루</div>
+      <div class="card-body">
+        <div class="brand-main">
+          <div class="brand-hero">
+            <div class="brand-hero-swatch"></div>
+            <div class="brand-hero-info">
+              <div class="brand-hero-name">Cobalt Blue</div>
+              <div class="brand-hero-hex">#0047AB</div>
+              <div class="brand-hero-desc">Jazz Bridge의 핵심 포인트 컬러. 버튼, 활성 상태, 강조 요소에 사용.</div>
+            </div>
+          </div>
+          <div class="brand-shades">
+            <div class="brand-shade">
+              <div class="brand-shade-sw" style="background:#003d99;"></div>
+              <div class="brand-shade-info">
+                <div style="font-size:12px;font-weight:600;color:#F0F0F0;">Dark</div>
+                <div style="font-size:11px;color:#888;font-family:monospace;">#003d99</div>
+              </div>
+            </div>
+            <div class="brand-shade">
+              <div class="brand-shade-sw" style="background:#002d6e;"></div>
+              <div class="brand-shade-info">
+                <div style="font-size:12px;font-weight:600;color:#F0F0F0;">Deep</div>
+                <div style="font-size:11px;color:#888;font-family:monospace;">#002d6e</div>
+              </div>
+            </div>
+            <div class="brand-shade">
+              <div class="brand-shade-sw" style="background:#001a4a;"></div>
+              <div class="brand-shade-info">
+                <div style="font-size:12px;font-weight:600;color:#F0F0F0;">Light</div>
+                <div style="font-size:11px;color:#888;font-family:monospace;">#001a4a</div>
+              </div>
+            </div>
+            <div class="brand-shade">
+              <div class="brand-shade-sw" style="background:rgba(0,71,171,0.15);border:0.5px solid rgba(255,255,255,0.08);"></div>
+              <div class="brand-shade-info">
+                <div style="font-size:12px;font-weight:600;color:#F0F0F0;">Tint 15%</div>
+                <div style="font-size:11px;color:#888;font-family:monospace;">rgba(0,71,171,0.15)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 배경 컬러 -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-header">Background — 다크 테마 배경 계층</div>
+      <div class="card-body">
+        <div class="color-grid">
+          <div class="color-chip">
+            <div class="color-swatch" style="background:#0e0f10; border-bottom:0.5px solid rgba(255,255,255,0.06);"></div>
+            <div class="color-info">
+              <div class="color-name">App BG</div>
+              <div class="color-hex">#0e0f10</div>
+              <div class="color-role">앱 최상단 배경</div>
+            </div>
+          </div>
+          <div class="color-chip">
+            <div class="color-swatch" style="background:#151617;"></div>
+            <div class="color-info">
+              <div class="color-name">BG Primary</div>
+              <div class="color-hex">#151617</div>
+              <div class="color-role">화면 기본 배경</div>
+            </div>
+          </div>
+          <div class="color-chip">
+            <div class="color-swatch" style="background:#1e2022;"></div>
+            <div class="color-info">
+              <div class="color-name">BG Secondary</div>
+              <div class="color-hex">#1e2022</div>
+              <div class="color-role">카드, 입력창 배경</div>
+            </div>
+          </div>
+          <div class="color-chip">
+            <div class="color-swatch" style="background:#2e3033;"></div>
+            <div class="color-info">
+              <div class="color-name">BG Tertiary</div>
+              <div class="color-hex">#2e3033</div>
+              <div class="color-role">뱃지, 보조 배경</div>
+            </div>
+          </div>
+          <div class="color-chip">
+            <div class="color-swatch" style="background:rgba(255,255,255,0.08); border: 0.5px solid rgba(255,255,255,0.1);"></div>
+            <div class="color-info">
+              <div class="color-name">Border</div>
+              <div class="color-hex">rgba(255,255,255, 0.08)</div>
+              <div class="color-role">구분선, 테두리</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 텍스트 컬러 -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-header">Text — 3단계 텍스트 계층</div>
+      <div class="card-body">
+        <div class="color-grid">
+          <div class="color-chip">
+            <div class="color-swatch" style="background:#F0F0F0; display:flex;align-items:center;justify-content:center;"><span style="font-size:20px;font-weight:700;color:#151617;">Aa</span></div>
+            <div class="color-info">
+              <div class="color-name">Text Primary</div>
+              <div class="color-hex">#F0F0F0</div>
+              <div class="color-role">제목, 중요 텍스트</div>
+            </div>
+          </div>
+          <div class="color-chip">
+            <div class="color-swatch" style="background:#B8B8B8; display:flex;align-items:center;justify-content:center;"><span style="font-size:20px;font-weight:700;color:#151617;">Aa</span></div>
+            <div class="color-info">
+              <div class="color-name">Text Secondary</div>
+              <div class="color-hex">#B8B8B8</div>
+              <div class="color-role">보조 정보, 설명</div>
+            </div>
+          </div>
+          <div class="color-chip">
+            <div class="color-swatch" style="background:#888888; display:flex;align-items:center;justify-content:center;"><span style="font-size:20px;font-weight:700;color:#151617;">Aa</span></div>
+            <div class="color-info">
+              <div class="color-name">Text Tertiary</div>
+              <div class="color-hex">#888888</div>
+              <div class="color-role">힌트, 비활성 텍스트</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 액센트 컬러 -->
+    <div class="card">
+      <div class="card-header">Accent Colors — 상태 및 강조</div>
+      <div class="card-body">
+        <div class="color-grid">
+          <div class="color-chip">
+            <div class="color-swatch" style="background:#1D9E75;"></div>
+            <div class="color-info">
+              <div class="color-name">Teal</div>
+              <div class="color-hex">#1D9E75</div>
+              <div class="color-role">성공, 활성 필터</div>
+            </div>
+          </div>
+          <div class="color-chip">
+            <div class="color-swatch" style="background:#EF9F27;"></div>
+            <div class="color-info">
+              <div class="color-name">Amber</div>
+              <div class="color-hex">#EF9F27</div>
+              <div class="color-role">경고, 임박 알림</div>
+            </div>
+          </div>
+          <div class="color-chip">
+            <div class="color-swatch" style="background:#E24B4A;"></div>
+            <div class="color-info">
+              <div class="color-name">Red</div>
+              <div class="color-hex">#E24B4A</div>
+              <div class="color-role">잔여석 부족, 오류</div>
+            </div>
+          </div>
+          <div class="color-chip">
+            <div class="color-swatch" style="background:#26215C;"></div>
+            <div class="color-info">
+              <div class="color-name">Onboarding 1</div>
+              <div class="color-hex">#26215C</div>
+              <div class="color-role">온보딩 1 히어로</div>
+            </div>
+          </div>
+          <div class="color-chip">
+            <div class="color-swatch" style="background:#0D3537;"></div>
+            <div class="color-info">
+              <div class="color-name">Onboarding 2</div>
+              <div class="color-hex">#0D3537</div>
+              <div class="color-role">온보딩 2 히어로</div>
+            </div>
+          </div>
+          <div class="color-chip">
+            <div class="color-swatch" style="background:#18325F;"></div>
+            <div class="color-info">
+              <div class="color-name">Onboarding 3</div>
+              <div class="color-hex">#18325F</div>
+              <div class="color-role">온보딩 3 히어로</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════════════════════════
+       02. TYPOGRAPHY
+  ══════════════════════════════════════ -->
+  <div class="guide-section" id="typography">
+    <div class="section-label">02</div>
+    <h2 class="section-title">타이포그래피</h2>
+    <p class="section-desc">Pretendard를 기반으로 한 명확한 타입 스케일. 모바일 375px 기준으로 정의됩니다.</p>
+
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-header">Typeface — Pretendard</div>
+      <div class="card-body" style="display:flex;align-items:center;gap:32px;flex-wrap:wrap;">
+        <div>
+          <div style="font-size:64px;font-weight:700;color:#F0F0F0;line-height:1;letter-spacing:-2px;">Aa</div>
+          <div style="font-size:13px;color:#888;margin-top:8px;">Pretendard Variable</div>
+        </div>
+        <div style="flex:1;min-width:200px;">
+          <div style="font-size:14px;color:#F0F0F0;margin-bottom:12px;line-height:1.8;">
+            <span style="font-weight:300;margin-right:12px;">Light 300</span>
+            <span style="font-weight:400;margin-right:12px;">Regular 400</span>
+            <span style="font-weight:500;margin-right:12px;">Medium 500</span>
+            <span style="font-weight:600;margin-right:12px;">SemiBold 600</span>
+            <span style="font-weight:700;">Bold 700</span>
+          </div>
+          <div style="font-size:13px;color:#888;line-height:1.6;">
+            한글 최적화 폰트. CDN: cdn.jsdelivr.net/gh/orioncactus/pretendard
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Type Scale — 모바일 기준</div>
+      <div class="card-body" style="padding:0;">
+        <table class="type-table">
+          <thead>
+            <tr>
+              <th>역할</th>
+              <th>미리보기</th>
+              <th>스펙</th>
+              <th>사용처</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="type-role">Display</div></td>
+              <td><div style="font-size:32px;font-weight:700;color:#F0F0F0;line-height:1;">Jazz Bridge</div></td>
+              <td><span class="type-spec">32px / 700</span></td>
+              <td><div style="font-size:13px;color:#888;">스플래시, 히어로 타이틀</div></td>
+            </tr>
+            <tr>
+              <td><div class="type-role">Heading 1</div></td>
+              <td><div style="font-size:26px;font-weight:700;color:#F0F0F0;line-height:1.1;">페이지 제목</div></td>
+              <td><span class="type-spec">26px / 700</span></td>
+              <td><div style="font-size:13px;color:#888;">검색, 팔로우, 마이 헤더</div></td>
+            </tr>
+            <tr>
+              <td><div class="type-role">Heading 2</div></td>
+              <td><div style="font-size:22px;font-weight:700;color:#F0F0F0;line-height:1.2;">섹션 제목</div></td>
+              <td><span class="type-spec">22px / 700</span></td>
+              <td><div style="font-size:13px;color:#888;">온보딩 타이틀</div></td>
+            </tr>
+            <tr>
+              <td><div class="type-role">Subtitle</div></td>
+              <td><div style="font-size:17px;font-weight:700;color:#F0F0F0;">축소 헤더 제목</div></td>
+              <td><span class="type-spec">17px / 700</span></td>
+              <td><div style="font-size:13px;color:#888;">Shrunk 헤더, 섹션 타이틀</div></td>
+            </tr>
+            <tr>
+              <td><div class="type-role">Body L</div></td>
+              <td><div style="font-size:16px;font-weight:600;color:#F0F0F0;">공연 제목</div></td>
+              <td><span class="type-spec">16px / 600</span></td>
+              <td><div style="font-size:13px;color:#888;">카드 제목, 리스트 아이템</div></td>
+            </tr>
+            <tr>
+              <td><div class="type-role">Body M</div></td>
+              <td><div style="font-size:15px;font-weight:400;color:#B8B8B8;">공연 장소 · 시간</div></td>
+              <td><span class="type-spec">15px / 400</span></td>
+              <td><div style="font-size:13px;color:#888;">본문, 설명 텍스트</div></td>
+            </tr>
+            <tr>
+              <td><div class="type-role">Body S</div></td>
+              <td><div style="font-size:13px;font-weight:400;color:#888;">보조 정보</div></td>
+              <td><span class="type-spec">13px / 400</span></td>
+              <td><div style="font-size:13px;color:#888;">장소, 날짜, 메타 정보</div></td>
+            </tr>
+            <tr>
+              <td><div class="type-role">Caption</div></td>
+              <td><div style="font-size:12px;font-weight:500;color:#888;">₩20,000</div></td>
+              <td><span class="type-spec">12px / 500</span></td>
+              <td><div style="font-size:13px;color:#888;">뱃지, 라벨, 캡션</div></td>
+            </tr>
+            <tr>
+              <td><div class="type-role">Label</div></td>
+              <td><div style="font-size:11px;font-weight:600;color:#888;letter-spacing:.06em;text-transform:uppercase;">SECTION</div></td>
+              <td><span class="type-spec">11px / 600 / uppercase</span></td>
+              <td><div style="font-size:13px;color:#888;">섹션 헤더 라벨</div></td>
+            </tr>
+            <tr>
+              <td><div class="type-role">Nav</div></td>
+              <td><div style="font-size:10px;font-weight:400;color:#888;">홈</div></td>
+              <td><span class="type-spec">10px / 400</span></td>
+              <td><div style="font-size:13px;color:#888;">하단 네비게이션</div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════════════════════════
+       03. SPACING & RADIUS
+  ══════════════════════════════════════ -->
+  <div class="guide-section" id="spacing">
+    <div class="section-label">03</div>
+    <h2 class="section-title">간격 & 모서리</h2>
+    <p class="section-desc">4px 베이스 그리드 기반의 간격 시스템과 레이어별 Border Radius 정의입니다.</p>
+
+    <div class="two-col" style="margin-bottom:16px;">
+      <div class="card">
+        <div class="card-header">Spacing Scale</div>
+        <div class="card-body">
+          <div class="spacing-row">
+            <div class="spacing-item"><div class="spacing-bar" style="height:4px;"></div><div class="spacing-val">4</div><div class="spacing-label">px</div></div>
+            <div class="spacing-item"><div class="spacing-bar" style="height:8px;"></div><div class="spacing-val">8</div><div class="spacing-label">px</div></div>
+            <div class="spacing-item"><div class="spacing-bar" style="height:12px;"></div><div class="spacing-val">12</div><div class="spacing-label">px</div></div>
+            <div class="spacing-item"><div class="spacing-bar" style="height:16px;opacity:1;background:#0047AB;"></div><div class="spacing-val">16</div><div class="spacing-label">--px ★</div></div>
+            <div class="spacing-item"><div class="spacing-bar" style="height:20px;"></div><div class="spacing-val">20</div><div class="spacing-label">px</div></div>
+            <div class="spacing-item"><div class="spacing-bar" style="height:24px;"></div><div class="spacing-val">24</div><div class="spacing-label">px</div></div>
+            <div class="spacing-item"><div class="spacing-bar" style="height:32px;"></div><div class="spacing-val">32</div><div class="spacing-label">px</div></div>
+            <div class="spacing-item"><div class="spacing-bar" style="height:44px;opacity:1;background:#888;"></div><div class="spacing-val">44</div><div class="spacing-label">statusbar</div></div>
+            <div class="spacing-item"><div class="spacing-bar" style="height:83px;opacity:1;background:#888;"></div><div class="spacing-val">83</div><div class="spacing-label">navbar</div></div>
+          </div>
+          <div style="margin-top:16px;font-size:12px;color:#888;">★ --px: 16px — 화면 좌우 기본 여백</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">Border Radius</div>
+        <div class="card-body">
+          <div class="radius-grid">
+            <div class="radius-item">
+              <div class="radius-box" style="border-radius:8px;"></div>
+              <div class="radius-label">8px<br>소형 버튼</div>
+            </div>
+            <div class="radius-item">
+              <div class="radius-box" style="border-radius:12px;"></div>
+              <div class="radius-label">12px<br>입력창</div>
+            </div>
+            <div class="radius-item">
+              <div class="radius-box" style="border-radius:14px;"></div>
+              <div class="radius-label">14px<br>--radius-card</div>
+            </div>
+            <div class="radius-item">
+              <div class="radius-box" style="border-radius:16px;"></div>
+              <div class="radius-label">16px<br>--radius-lg</div>
+            </div>
+            <div class="radius-item">
+              <div class="radius-box" style="border-radius:99px;width:60px;"></div>
+              <div class="radius-label">99px<br>--radius-pill</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 레이아웃 스펙 -->
+    <div class="card">
+      <div class="card-header">Layout Spec — 375 × 812px</div>
+      <div class="card-body">
+        <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;">
+          <!-- 폰 다이어그램 -->
+          <div style="flex-shrink:0;">
+            <div style="width:160px;background:#1e2022;border-radius:24px;border:1.5px solid rgba(255,255,255,0.12);overflow:hidden;">
+              <div style="height:32px;background:#0047AB;display:flex;align-items:center;justify-content:center;font-size:10px;color:rgba(255,255,255,0.7);">Status Bar 44px</div>
+              <div style="height:200px;background:#151617;display:flex;align-items:center;justify-content:center;border-top:0.5px solid rgba(255,255,255,0.06);border-bottom:0.5px solid rgba(255,255,255,0.06);">
+                <div style="font-size:11px;color:#888;text-align:center;">Content Area<br><span style="color:#0047AB;font-weight:600;">flex:1</span><br><span style="font-size:10px;">오버플로우 스크롤</span></div>
+              </div>
+              <div style="height:48px;background:#151617;display:flex;align-items:center;justify-content:center;border-top:0.5px solid rgba(255,255,255,0.08);">
+                <div style="font-size:10px;color:#888;">Nav Bar 83px</div>
+              </div>
+            </div>
+            <div style="font-size:11px;color:#888;text-align:center;margin-top:8px;">375 × 812px</div>
+          </div>
+          <!-- 스펙 표 -->
+          <div style="flex:1;min-width:200px;">
+            <table style="width:100%;border-collapse:collapse;">
+              <tr style="border-bottom:0.5px solid rgba(255,255,255,0.08);">
+                <td style="padding:10px 0;font-size:13px;color:#888;">화면 크기</td>
+                <td style="padding:10px 0;font-size:13px;font-weight:600;color:#F0F0F0;font-family:monospace;">375 × 812px</td>
+              </tr>
+              <tr style="border-bottom:0.5px solid rgba(255,255,255,0.08);">
+                <td style="padding:10px 0;font-size:13px;color:#888;">상태바 높이</td>
+                <td style="padding:10px 0;font-size:13px;font-weight:600;color:#F0F0F0;font-family:monospace;">44px</td>
+              </tr>
+              <tr style="border-bottom:0.5px solid rgba(255,255,255,0.08);">
+                <td style="padding:10px 0;font-size:13px;color:#888;">네비바 높이</td>
+                <td style="padding:10px 0;font-size:13px;font-weight:600;color:#F0F0F0;font-family:monospace;">83px</td>
+              </tr>
+              <tr style="border-bottom:0.5px solid rgba(255,255,255,0.08);">
+                <td style="padding:10px 0;font-size:13px;color:#888;">좌우 여백 (--px)</td>
+                <td style="padding:10px 0;font-size:13px;font-weight:600;color:#0047AB;font-family:monospace;">16px</td>
+              </tr>
+              <tr style="border-bottom:0.5px solid rgba(255,255,255,0.08);">
+                <td style="padding:10px 0;font-size:13px;color:#888;">카드 간격</td>
+                <td style="padding:10px 0;font-size:13px;font-weight:600;color:#F0F0F0;font-family:monospace;">8–12px</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 0;font-size:13px;color:#888;">섹션 간격</td>
+                <td style="padding:10px 0;font-size:13px;font-weight:600;color:#F0F0F0;font-family:monospace;">14–20px</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════════════════════════
+       04. COMPONENTS
+  ══════════════════════════════════════ -->
+  <div class="guide-section" id="components">
+    <div class="section-label">04</div>
+    <h2 class="section-title">컴포넌트</h2>
+    <p class="section-desc">재사용 가능한 UI 컴포넌트 라이브러리입니다.</p>
+
+    <!-- 버튼 -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-header">Buttons</div>
+      <div class="card-body">
+        <div class="comp-row" style="margin-bottom:20px;">
+          <div class="comp-group">
+            <div class="comp-label">Primary</div>
+            <button class="btn-primary-demo">예매하기</button>
+          </div>
+          <div class="comp-group">
+            <div class="comp-label">Outline</div>
+            <button class="btn-outline-demo">홈으로</button>
+          </div>
+          <div class="comp-group">
+            <div class="comp-label">Ghost</div>
+            <button class="btn-ghost-demo">건너뛰기</button>
+          </div>
+          <div class="comp-group">
+            <div class="comp-label">Icon Btn</div>
+            <div class="icon-btn-demo"><i class="ti ti-bell" style="font-size:18px;"></i></div>
+          </div>
+        </div>
+        <div class="do-dont">
+          <div class="do-card">
+            <div class="do-label"><i class="ti ti-check"></i> Do</div>
+            <div class="dd-body"><div class="dd-text">Primary 버튼은 화면당 하나만 사용. 가장 중요한 액션(예매하기, 다음, 시작하기)에만 적용.</div></div>
+          </div>
+          <div class="dont-card">
+            <div class="dont-label"><i class="ti ti-x"></i> Don't</div>
+            <div class="dd-body"><div class="dd-text">같은 화면에 Primary 버튼을 2개 이상 사용하거나, 덜 중요한 액션에 Primary를 사용하지 않기.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 칩 & 뱃지 -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-header">Chips & Tags</div>
+      <div class="card-body">
+        <div class="comp-row" style="margin-bottom:16px;">
+          <div class="comp-group">
+            <div class="comp-label">Filter Chip — 비활성</div>
+            <div class="chip-demo">이태원</div>
+          </div>
+          <div class="comp-group">
+            <div class="comp-label">Filter Chip — 활성</div>
+            <div class="chip-demo on">서울</div>
+          </div>
+          <div class="comp-group">
+            <div class="comp-label">Event Tag</div>
+            <div style="display:flex;gap:6px;">
+              <span class="etag-demo">모던 재즈</span>
+              <span class="etag-demo">₩20,000</span>
+            </div>
+          </div>
+        </div>
+        <div style="padding:12px;background:rgba(255,255,255,0.03);border-radius:10px;font-size:13px;color:#888;line-height:1.6;">
+          Filter Chip 활성 상태: <code style="color:#0047AB;">background:#0047AB; color:#fff; font-weight:600</code><br>
+          Event Tag: <code style="color:#0047AB;">background:#2e3033; color:#D0D0D0; border: 0.5px solid rgba(255,255,255,0.12)</code>
+        </div>
+      </div>
+    </div>
+
+    <!-- 공연 카드 -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-header">Event Card</div>
+      <div class="card-body">
+        <div class="comp-row">
+          <div class="ecard-demo">
+            <div class="ecard-time-d">5/18 (토) 19:00</div>
+            <div class="ecard-title-d">Seoul Jazz Collective</div>
+            <div class="ecard-venue-d"><i class="ti ti-map-pin" style="font-size:13px;margin-right:3px;"></i>클럽 에반스 · 홍대</div>
+            <div class="etags-d">
+              <span class="etag-demo">모던 재즈</span>
+              <span class="etag-demo">₩18,000</span>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:16px;padding:12px;background:rgba(255,255,255,0.03);border-radius:10px;font-size:13px;color:#888;line-height:1.6;">
+          배경: <code style="color:#0047AB;">#1e2022</code> · 테두리: <code style="color:#0047AB;">rgba(255,255,255,0.08)</code> · 반경: <code style="color:#0047AB;">14px</code> · 패딩: <code style="color:#0047AB;">14px 16px</code>
+        </div>
+      </div>
+    </div>
+
+    <!-- 입력 -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-header">Input / Search</div>
+      <div class="card-body">
+        <div class="comp-row">
+          <div class="input-demo"><i class="ti ti-search" style="font-size:18px;margin-right:6px;color:#888;"></i>공연, 뮤지션, 공연장</div>
+        </div>
+        <div style="margin-top:12px;font-size:13px;color:#888;">배경: #1e2022 · 반경: 12px · 패딩: 12px 14px · placeholder 색상: #888</div>
+      </div>
+    </div>
+
+    <!-- 알림 -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-header">Notification Item</div>
+      <div class="card-body">
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="notif-demo">
+            <div class="notif-icon-d" style="background:#0047AB;"><i class="ti ti-bell" style="font-size:20px;color:#fff;"></i></div>
+            <div>
+              <div class="notif-title-d">Jamie Kim 공연 등록</div>
+              <div class="notif-body-d">5월 24일 올댓재즈 공연이 등록됐어요</div>
+              <div class="notif-time-d">방금 전</div>
+            </div>
+          </div>
+          <div class="notif-demo" style="opacity:0.6;">
+            <div class="notif-icon-d" style="background:#BA7517;"><i class="ti ti-ticket" style="font-size:20px;color:#fff;"></i></div>
+            <div>
+              <div class="notif-title-d">예매 마감 임박</div>
+              <div class="notif-body-d">Jamie Kim Trio 잔여석 3석 남았어요</div>
+              <div class="notif-time-d">1시간 전</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:16px;font-size:13px;color:#888;line-height:1.7;">
+          아이콘 배경색: 공연등록 <span style="color:#0047AB;">■ #0047AB</span> · 마감임박 <span style="color:#BA7517;">■ #BA7517</span> · 완료 <span style="color:#1D9E75;">■ #1D9E75</span> · 추천 <span style="color:#2d4a7a;">■ #2d4a7a</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 네비게이션 -->
+    <div class="card">
+      <div class="card-header">Bottom Navigation</div>
+      <div class="card-body">
+        <div class="navbar-demo" style="max-width:320px;border-radius:16px;border:0.5px solid rgba(255,255,255,0.08);">
+          <div class="ni-d on"><i class="ti ti-home" style="font-size:22px;"></i>홈</div>
+          <div class="ni-d"><i class="ti ti-search" style="font-size:22px;"></i>검색</div>
+          <div class="ni-d"><i class="ti ti-calendar" style="font-size:22px;"></i>캘린더</div>
+          <div class="ni-d"><i class="ti ti-heart" style="font-size:22px;"></i>팔로우</div>
+          <div class="ni-d"><i class="ti ti-user" style="font-size:22px;"></i>마이</div>
+        </div>
+        <div style="margin-top:14px;font-size:13px;color:#888;line-height:1.7;">
+          높이: 83px · 활성 색상: <span style="color:#fff;">■ #FFFFFF</span> · 비활성: <span style="color:#555;">■ #555555</span> · 아이콘: 24px · 라벨: 10px
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════════════════════════
+       05. PATTERNS
+  ══════════════════════════════════════ -->
+  <div class="guide-section" id="patterns">
+    <div class="section-label">05</div>
+    <h2 class="section-title">UI 패턴</h2>
+    <p class="section-desc">Jazz Bridge에서 반복적으로 사용되는 UI 패턴 가이드입니다.</p>
+
+    <div class="two-col" style="margin-bottom:16px;">
+      <!-- 온보딩 히어로 -->
+      <div class="card">
+        <div class="card-header">Onboarding Hero</div>
+        <div class="card-body" style="display:flex;gap:16px;flex-wrap:wrap;">
+          <div class="ob-demo">
+            <div class="ob-hero-d" style="background:#0047AB;">
+              <div class="ob-prog-d"><div class="ob-pd-d on"></div><div class="ob-pd-d"></div><div class="ob-pd-d"></div></div>
+              <i class="ti ti-map-pin" style="font-size:32px;color:#fff;"></i>
+              <div style="font-size:13px;font-weight:700;color:#fff;text-align:center;line-height:1.3;">SNS에 흩어진 재즈 공연</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);text-align:center;">이제 한 곳에서</div>
+            </div>
+            <div style="padding:10px;background:#151617;">
+              <div style="font-size:10px;color:#888;margin-bottom:4px;">온보딩 1 — #0047AB</div>
+            </div>
+          </div>
+          <div style="flex:1;min-width:160px;font-size:13px;color:#888;line-height:1.8;">
+            ・ 3화면 모두 동일한 레이아웃<br>
+            ・ 상태바 배경 = 히어로 배경<br>
+            ・ 프로그레스 바: 활성 <code style="color:#F0F0F0;">#fff</code> / 비활성 <code>rgba(255,255,255,.3)</code><br>
+            ・ 히어로 최소 높이: 320px<br>
+            ・ 버튼 항상 <code style="color:#0047AB;">#0047AB</code> 유지
+          </div>
+        </div>
+      </div>
+
+      <!-- Shrinking Header -->
+      <div class="card">
+        <div class="card-header">Shrinking Header Pattern</div>
+        <div class="card-body">
+          <div style="display:flex;gap:12px;margin-bottom:14px;">
+            <div style="flex:1;background:#1e2022;border-radius:12px;padding:12px;border:0.5px solid rgba(255,255,255,0.08);">
+              <div style="font-size:10px;color:#888;margin-bottom:6px;">기본 상태 (120px)</div>
+              <div style="font-size:20px;font-weight:700;color:#F0F0F0;">Jazz Bridge</div>
+              <div style="font-size:11px;color:#888;margin-top:2px;">서울 · 오늘</div>
+            </div>
+            <div style="display:flex;align-items:center;color:#888;">→</div>
+            <div style="flex:1;background:#1e2022;border-radius:12px;padding:12px;border:0.5px solid rgba(255,255,255,0.08);">
+              <div style="font-size:10px;color:#888;margin-bottom:6px;">스크롤 후 (56px)</div>
+              <div style="font-size:14px;font-weight:700;color:#F0F0F0;">Jazz Bridge</div>
+            </div>
+          </div>
+          <div style="font-size:13px;color:#888;line-height:1.7;">
+            기본: <code style="color:#0047AB;">height: 120px</code> → 스크롤 시: <code style="color:#0047AB;">56px</code><br>
+            전환: <code style="color:#0047AB;">0.25s cubic-bezier(0.4,0,0.2,1)</code>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 포토 히어로 -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-header">Photo Hero Pattern — 공연 상세 / 뮤지션 / 공연장</div>
+      <div class="card-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+          <div style="background:linear-gradient(160deg,#1a1035,#2d1b69);border-radius:12px;height:100px;display:flex;align-items:flex-end;padding:10px;position:relative;overflow:hidden;">
+            <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,0.8) 100%);"></div>
+            <div style="position:relative;z-index:1;">
+              <div style="font-size:12px;font-weight:700;color:#fff;">Jamie Kim Trio</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.7);">5월 17일 · 오후 8시</div>
+            </div>
+          </div>
+          <div style="font-size:13px;color:#888;line-height:1.8;">
+            ・ 그라디언트 오버레이 필수<br>
+            ・ <code style="color:#0047AB;">rgba(0,0,0,0) → rgba(0,0,0,0.82)</code><br>
+            ・ 텍스트는 항상 하단 배치<br>
+            ・ 뒤로가기 / 공유 버튼 상단
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 인터랙션 모션 -->
+    <div class="card">
+      <div class="card-header">Motion & Interaction</div>
+      <div class="card-body">
+        <div class="motion-row">
+          <div class="motion-item">
+            <div class="motion-name">Header Collapse</div>
+            <div class="motion-val">0.25s ease</div>
+            <div class="motion-desc">헤더 축소 전환</div>
+          </div>
+          <div class="motion-item">
+            <div class="motion-name">Fade Transition</div>
+            <div class="motion-val">0.18s ease</div>
+            <div class="motion-desc">요소 페이드 인/아웃</div>
+          </div>
+          <div class="motion-item">
+            <div class="motion-name">Easing</div>
+            <div class="motion-val">cubic-bezier(0.4,0,0.2,1)</div>
+            <div class="motion-desc">Material 표준 easing</div>
+          </div>
+          <div class="motion-item">
+            <div class="motion-name">Scroll</div>
+            <div class="motion-val">-webkit-overflow-scrolling: touch</div>
+            <div class="motion-desc">iOS 모멘텀 스크롤</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════════════════════════
+       06. ACCESSIBILITY
+  ══════════════════════════════════════ -->
+  <div class="guide-section" id="accessibility">
+    <div class="section-label">06</div>
+    <h2 class="section-title">접근성 가이드</h2>
+    <p class="section-desc">WCAG 2.1 기준 색상 대비 체크 결과입니다. 전체 20개 항목 AA 이상 통과.</p>
+
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-header">Color Contrast Ratios</div>
+      <div class="card-body">
+        <div class="a11y-row">
+          <div class="a11y-item">
+            <div class="a11y-swatch">
+              <div class="a11y-box" style="background:#151617;color:#F0F0F0;">#F</div>
+              <div>
+                <div class="a11y-ratio" style="color:#F0F0F0;">15.90:1</div>
+                <span class="a11y-grade aaa">AAA</span>
+              </div>
+            </div>
+            <div class="a11y-pair">#F0F0F0 on #151617<br>본문 텍스트</div>
+          </div>
+          <div class="a11y-item">
+            <div class="a11y-swatch">
+              <div class="a11y-box" style="background:#151617;color:#B8B8B8;">#B</div>
+              <div>
+                <div class="a11y-ratio" style="color:#F0F0F0;">9.13:1</div>
+                <span class="a11y-grade aaa">AAA</span>
+              </div>
+            </div>
+            <div class="a11y-pair">#B8B8B8 on #151617<br>보조 텍스트</div>
+          </div>
+          <div class="a11y-item">
+            <div class="a11y-swatch">
+              <div class="a11y-box" style="background:#151617;color:#888888;">#8</div>
+              <div>
+                <div class="a11y-ratio" style="color:#F0F0F0;">5.11:1</div>
+                <span class="a11y-grade aa">AA</span>
+              </div>
+            </div>
+            <div class="a11y-pair">#888888 on #151617<br>3차 텍스트</div>
+          </div>
+          <div class="a11y-item">
+            <div class="a11y-swatch">
+              <div class="a11y-box" style="background:#0047AB;color:#FFFFFF;">W</div>
+              <div>
+                <div class="a11y-ratio" style="color:#F0F0F0;">8.44:1</div>
+                <span class="a11y-grade aaa">AAA</span>
+              </div>
+            </div>
+            <div class="a11y-pair">#FFFFFF on #0047AB<br>버튼 텍스트</div>
+          </div>
+          <div class="a11y-item">
+            <div class="a11y-swatch">
+              <div class="a11y-box" style="background:#1e2022;color:#F0F0F0;">#F</div>
+              <div>
+                <div class="a11y-ratio" style="color:#F0F0F0;">14.34:1</div>
+                <span class="a11y-grade aaa">AAA</span>
+              </div>
+            </div>
+            <div class="a11y-pair">#F0F0F0 on #1e2022<br>카드 제목</div>
+          </div>
+          <div class="a11y-item">
+            <div class="a11y-swatch">
+              <div class="a11y-box" style="background:#2e3033;color:#D0D0D0;">#D</div>
+              <div>
+                <div class="a11y-ratio" style="color:#F0F0F0;">8.58:1</div>
+                <span class="a11y-grade aaa">AAA</span>
+              </div>
+            </div>
+            <div class="a11y-pair">#D0D0D0 on #2e3033<br>뱃지 텍스트</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">접근성 체크리스트</div>
+      <div class="card-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="display:flex;align-items:flex-start;gap:8px;padding:12px;background:rgba(29,158,117,0.08);border-radius:10px;border:0.5px solid rgba(29,158,117,0.2);">
+            <i class="ti ti-check" style="font-size:16px;color:#1D9E75;flex-shrink:0;"></i>
+            <div style="font-size:13px;color:#B8B8B8;line-height:1.5;">모든 텍스트 AA 기준 이상<br><span style="color:#888;">대비비 4.5:1 충족</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:8px;padding:12px;background:rgba(29,158,117,0.08);border-radius:10px;border:0.5px solid rgba(29,158,117,0.2);">
+            <i class="ti ti-check" style="font-size:16px;color:#1D9E75;flex-shrink:0;"></i>
+            <div style="font-size:13px;color:#B8B8B8;line-height:1.5;">버튼 최소 터치 영역<br><span style="color:#888;">44 × 44px 이상</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:8px;padding:12px;background:rgba(29,158,117,0.08);border-radius:10px;border:0.5px solid rgba(29,158,117,0.2);">
+            <i class="ti ti-check" style="font-size:16px;color:#1D9E75;flex-shrink:0;"></i>
+            <div style="font-size:13px;color:#B8B8B8;line-height:1.5;">색상에만 의존하지 않는 상태 표현<br><span style="color:#888;">아이콘, 텍스트 병행 사용</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:8px;padding:12px;background:rgba(29,158,117,0.08);border-radius:10px;border:0.5px solid rgba(29,158,117,0.2);">
+            <i class="ti ti-check" style="font-size:16px;color:#1D9E75;flex-shrink:0;"></i>
+            <div style="font-size:13px;color:#B8B8B8;line-height:1.5;">Pretendard — 한글 최적화<br><span style="color:#888;">가독성 최우선 폰트</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:8px;padding:12px;background:rgba(29,158,117,0.08);border-radius:10px;border:0.5px solid rgba(29,158,117,0.2);">
+            <i class="ti ti-check" style="font-size:16px;color:#1D9E75;flex-shrink:0;"></i>
+            <div style="font-size:13px;color:#B8B8B8;line-height:1.5;">aria-label 적용<br><span style="color:#888;">스크린리더 지원</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:8px;padding:12px;background:rgba(29,158,117,0.08);border-radius:10px;border:0.5px solid rgba(29,158,117,0.2);">
+            <i class="ti ti-check" style="font-size:16px;color:#1D9E75;flex-shrink:0;"></i>
+            <div style="font-size:13px;color:#B8B8B8;line-height:1.5;">포커스 상태 시각적 표시<br><span style="color:#888;">키보드 접근성 지원</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 푸터 -->
+  <div style="margin-top:80px;padding:32px 0;border-top:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <svg width="20" height="14" viewBox="0 0 72 52" fill="none">
+        <line x1="36" y1="2" x2="36" y2="50" stroke="#0047AB" stroke-width="4" stroke-linecap="round"/>
+        <line x1="28" y1="5" x2="28" y2="47" stroke="#B8B8B8" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="44" y1="5" x2="44" y2="47" stroke="#B8B8B8" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="20" y1="11" x2="20" y2="41" stroke="#555" stroke-width="3" stroke-linecap="round"/>
+        <line x1="52" y1="11" x2="52" y2="41" stroke="#555" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <span style="font-size:14px;color:#888;">Jazz Bridge Design Guide v1.0</span>
+    </div>
+    <div style="font-size:13px;color:#555;">Designed with Claude · 2025</div>
+  </div>
+
+</div>
+
+</body>
+</html>
