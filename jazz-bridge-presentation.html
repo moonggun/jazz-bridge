@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jazz Bridge — Claude와 함께한 앱 제작 현황</title>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -29,7 +30,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--ink);
   color: var(--white);
   overflow-x: hidden;
@@ -331,13 +332,15 @@ section:nth-child(even) { background: rgba(255,255,255,0.02); }
 <!-- NAV -->
 <nav>
   <div class="nav-logo">
-    <svg width="28" height="28" viewBox="0 0 64 64" fill="none">
-      <rect width="64" height="64" rx="14" fill="#534AB7"/>
-      <path d="M12 40 Q32 20 52 40" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
-      <line x1="12" y1="40" x2="12" y2="48" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
-      <line x1="52" y1="40" x2="52" y2="48" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
-      <circle cx="32" cy="30" r="5" fill="#AFA9EC"/>
-      <line x1="32" y1="35" x2="32" y2="48" stroke="#AFA9EC" stroke-width="2.5" stroke-linecap="round"/>
+    <svg width="28" height="28" viewBox="0 0 64 64" fill="none" role="img" aria-label="Jazz Bridge 로고">
+      <rect width="64" height="64" rx="16" fill="#4840A8"/>
+      <line x1="8"  y1="32" x2="8"  y2="32" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+      <line x1="16" y1="24" x2="16" y2="40" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+      <line x1="24" y1="16" x2="24" y2="48" stroke="#AFA9EC" stroke-width="3" stroke-linecap="round"/>
+      <line x1="32" y1="12" x2="32" y2="52" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="40" y1="16" x2="40" y2="48" stroke="#AFA9EC" stroke-width="3" stroke-linecap="round"/>
+      <line x1="48" y1="22" x2="48" y2="42" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+      <line x1="56" y1="28" x2="56" y2="36" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
     </svg>
     Jazz Bridge
   </div>
@@ -346,7 +349,8 @@ section:nth-child(even) { background: rgba(255,255,255,0.02); }
     <a href="#solution">솔루션</a>
     <a href="#deliverables">결과물</a>
     <a href="#roadmap">로드맵</a>
-    <a href="#workflow">워크플로우</a>
+    <a href="#workflow">디자인 프로세스</a>
+    <a href="#design-system">디자인 시스템</a>
   </div>
   <div class="nav-badge">Claude로 제작</div>
 </nav>
@@ -364,7 +368,7 @@ section:nth-child(even) { background: rgba(255,255,255,0.02); }
       <div class="hero-meta">
         <div class="meta-item">📅 <strong>2025년 5월</strong> 제작</div>
         <div class="meta-item">🤖 <strong>Claude Sonnet 4.6</strong></div>
-        <div class="meta-item">👤 <strong>moonggun</strong></div>
+        <div class="meta-item">👤 <strong>lilo.stitch</strong></div>
       </div>
     </div>
     <div class="hero-visual">
@@ -430,68 +434,124 @@ section:nth-child(even) { background: rgba(255,255,255,0.02); }
       <h2 class="section-title">Jazz Bridge가<br>해결하는 방법</h2>
       <p class="section-desc">SNS 자동 수집 + AI 파싱 파이프라인으로 공연 정보를 자동화하고, 통합 예매까지 연결합니다.</p>
     </div>
-    <div class="solution-grid fade-up">
-      <div class="solution-list">
-        <div class="solution-item active">
-          <div class="sol-icon">🤖</div>
-          <div>
-            <div class="sol-title">SNS 자동 수집 + AI 파싱</div>
-            <div class="sol-desc">네이버 블로그·공식 홈페이지 크롤링 후 Claude Haiku로 날짜·장소·뮤지션 자동 추출. 건당 약 ₩1~3원.</div>
-          </div>
-        </div>
-        <div class="solution-item">
-          <div class="sol-icon">🗓</div>
-          <div>
-            <div class="sol-title">날짜 / 지역 / 뮤지션 필터</div>
-            <div class="sol-desc">오늘 밤 공연부터 이번 달까지, 홍대·이태원·강남 지역별, 팔로우 뮤지션별로 즉시 탐색.</div>
-          </div>
-        </div>
-        <div class="solution-item">
-          <div class="sol-icon">🔔</div>
-          <div>
-            <div class="sol-title">뮤지션 팔로우 & 알림</div>
-            <div class="sol-desc">좋아하는 뮤지션을 팔로우하면 새 공연 등록 시 푸시 알림. 핵심 리텐션 기능.</div>
-          </div>
-        </div>
-        <div class="solution-item">
-          <div class="sol-icon">💳</div>
-          <div>
-            <div class="sol-title">통합 예매</div>
-            <div class="sol-desc">파트너 공연장 대상 인앱 결제. 토스페이먼츠 연동, 수수료 3~5% 수익 모델.</div>
-          </div>
-        </div>
+    <!-- 핵심 기능 4개 -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px;" class="fade-up">
+      <div style="padding:24px 20px;background:rgba(0,71,171,0.12);border:0.5px solid rgba(0,71,171,0.35);border-radius:16px;">
+        <div style="font-size:24px;margin-bottom:12px;">🤖</div>
+        <div style="font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:8px;line-height:1.3;">SNS 자동 수집<br>+ AI 파싱</div>
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">블로그·홈페이지 크롤링 후 Claude Haiku로 날짜·장소·뮤지션 자동 추출. 건당 ₩1~3원.</div>
       </div>
+      <div style="padding:24px 20px;background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:16px;">
+        <div style="font-size:24px;margin-bottom:12px;">🗓</div>
+        <div style="font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:8px;line-height:1.3;">날짜 / 지역<br>/ 뮤지션 필터</div>
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">오늘 밤부터 이번 달까지, 홍대·이태원·강남 지역별, 팔로우 뮤지션별 즉시 탐색.</div>
+      </div>
+      <div style="padding:24px 20px;background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:16px;">
+        <div style="font-size:24px;margin-bottom:12px;">🔔</div>
+        <div style="font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:8px;line-height:1.3;">뮤지션 팔로우<br>& 알림</div>
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">팔로우한 뮤지션의 새 공연 등록 시 푸시 알림. 핵심 리텐션 기능.</div>
+      </div>
+      <div style="padding:24px 20px;background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:16px;">
+        <div style="font-size:24px;margin-bottom:12px;">💳</div>
+        <div style="font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:8px;line-height:1.3;">통합 예매</div>
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">파트너 공연장 인앱 결제. 토스페이먼츠 연동, 수수료 3~5% 수익 모델.</div>
+      </div>
+    </div>
+
+    <!-- 기술 스택 / DB / 수익 3단 -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" class="fade-up">
+
+      <!-- 기술 스택 -->
       <div class="tech-stack">
         <div class="tech-title">기술 스택</div>
         <div class="tech-items">
-          <div class="tech-item">
-            <span class="tech-name">크롤러 (requests + BeautifulSoup)</span>
-            <span class="tech-badge recommended">권장</span>
-          </div>
-          <div class="tech-item">
-            <span class="tech-name">JS 렌더링 (Playwright)</span>
-            <span class="tech-badge core">보조</span>
-          </div>
-          <div class="tech-item">
-            <span class="tech-name">AI 파싱 (Claude Haiku)</span>
-            <span class="tech-badge recommended">권장</span>
-          </div>
-          <div class="tech-item">
-            <span class="tech-name">DB (PostgreSQL)</span>
-            <span class="tech-badge core">핵심</span>
-          </div>
-          <div class="tech-item">
-            <span class="tech-name">스케줄러 (APScheduler)</span>
-            <span class="tech-badge core">핵심</span>
-          </div>
-          <div class="tech-item">
-            <span class="tech-name">인스타그램 직접 크롤링</span>
-            <span class="tech-badge caution">약관 주의</span>
-          </div>
-          <div class="tech-item">
-            <span class="tech-name">결제 (토스페이먼츠)</span>
-            <span class="tech-badge core">4단계</span>
-          </div>
+          <div class="tech-item"><span class="tech-name">크롤러 (requests + BS4)</span><span class="tech-badge recommended">권장</span></div>
+          <div class="tech-item"><span class="tech-name">JS 렌더링 (Playwright)</span><span class="tech-badge core">보조</span></div>
+          <div class="tech-item"><span class="tech-name">AI 파싱 (Claude Haiku)</span><span class="tech-badge recommended">권장</span></div>
+          <div class="tech-item"><span class="tech-name">DB (PostgreSQL)</span><span class="tech-badge core">핵심</span></div>
+          <div class="tech-item"><span class="tech-name">스케줄러 (APScheduler)</span><span class="tech-badge core">핵심</span></div>
+          <div class="tech-item"><span class="tech-name">인스타그램 직접 크롤링</span><span class="tech-badge caution">약관 주의</span></div>
+          <div class="tech-item"><span class="tech-name">결제 (토스페이먼츠)</span><span class="tech-badge core">4단계</span></div>
+        </div>
+      </div>
+
+      <!-- DB 핵심 테이블 -->
+      <div class="tech-stack">
+        <div class="tech-title">DB 핵심 테이블</div>
+        <div class="tech-items">
+          <div class="tech-item"><span class="tech-name">event (공연)</span><span class="tech-badge core">핵심</span></div>
+          <div class="tech-item"><span class="tech-name">venue (공연장)</span><span class="tech-badge core">핵심</span></div>
+          <div class="tech-item"><span class="tech-name">artist (뮤지션)</span><span class="tech-badge core">핵심</span></div>
+          <div class="tech-item"><span class="tech-name">event_artist (출연진)</span><span class="tech-badge recommended">중간</span></div>
+          <div class="tech-item"><span class="tech-name">user (사용자)</span><span class="tech-badge recommended">중간</span></div>
+          <div class="tech-item"><span class="tech-name">user_artist_follow</span><span class="tech-badge recommended">중간</span></div>
+          <div class="tech-item"><span class="tech-name">booking (예매)</span><span class="tech-badge caution">4단계</span></div>
+        </div>
+      </div>
+
+      <!-- 수익 모델 -->
+      <div class="tech-stack">
+        <div class="tech-title">수익 모델</div>
+        <div class="tech-items">
+          <div class="tech-item"><span class="tech-name">예매 수수료</span><span class="tech-badge recommended">3~5%</span></div>
+          <div class="tech-item"><span class="tech-name">공연장 구독 (B2B)</span><span class="tech-badge core">월정액</span></div>
+          <div class="tech-item"><span class="tech-name">프리미엄 노출</span><span class="tech-badge caution">추후</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- DELIVERABLES -->
+<section id="roadmap">
+  <div class="max-w">
+    <div class="fade-up">
+      <div class="section-eyebrow">03 — MVP 로드맵</div>
+      <h2 class="section-title">20주 안에<br>출시까지</h2>
+      <p class="section-desc">크롤러 구축부터 예매 수익화까지, 4단계로 나눈 현실적인 MVP 로드맵입니다.</p>
+    </div>
+    <div class="fade-up" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px;">
+      <div style="padding:24px 20px;background:rgba(0,71,171,0.12);border:0.5px solid rgba(0,71,171,0.35);border-radius:16px;">
+        <div style="font-size:11px;font-weight:600;color:#4d8fe0;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;">1단계 · 1~4주</div>
+        <div style="font-size:16px;font-weight:700;color:#F0F0F0;margin-bottom:10px;">크롤러 + DB</div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <div style="font-size:13px;color:rgba(255,255,255,0.6);">✓ 크롤러 파이프라인 구축</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.6);">✓ Claude Haiku 파싱 연동</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.6);">✓ PostgreSQL DB 구축</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.6);">✓ APScheduler 자동화</div>
+        </div>
+      </div>
+      <div style="padding:24px 20px;background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:16px;">
+        <div style="font-size:11px;font-weight:600;color:#888;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;">2단계 · 5~8주</div>
+        <div style="font-size:16px;font-weight:700;color:#F0F0F0;margin-bottom:10px;">MVP 앱</div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <div style="font-size:13px;color:rgba(255,255,255,0.6);">✓ 홈 / 검색 / 캘린더</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.6);">✓ 뮤지션 팔로우 & 알림</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.6);">✓ 공연장 / 아티스트 프로필</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.6);">✓ 앱스토어 배포</div>
+        </div>
+      </div>
+      <div style="padding:24px 20px;background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:16px;">
+        <div style="font-size:11px;font-weight:600;color:#888;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;">3단계 · 9~14주</div>
+        <div style="font-size:16px;font-weight:700;color:#F0F0F0;margin-bottom:10px;">베타 + B2B</div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <div style="font-size:13px;color:rgba(255,255,255,0.6);">✓ 베타 테스트 (50개 클럽)</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.6);">✓ 공연장 파트너십 체결</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.6);">✓ 공연 등록 직접 입력</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.6);">✓ 피드백 반영 개선</div>
+        </div>
+      </div>
+      <div style="padding:24px 20px;background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:16px;">
+        <div style="font-size:11px;font-weight:600;color:#888;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;">4단계 · 15~20주</div>
+        <div style="font-size:16px;font-weight:700;color:#F0F0F0;margin-bottom:10px;">정식 출시</div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <div style="font-size:13px;color:rgba(255,255,255,0.6);">✓ 토스페이먼츠 예매 연동</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.6);">✓ 수수료 수익화 시작</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.6);">✓ B2B 구독 모델 런칭</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.6);">✓ 전국 확장</div>
         </div>
       </div>
     </div>
@@ -500,11 +560,10 @@ section:nth-child(even) { background: rgba(255,255,255,0.02); }
 
 <div class="section-divider"></div>
 
-<!-- DELIVERABLES -->
 <section id="deliverables">
   <div class="max-w">
     <div class="fade-up">
-      <div class="section-eyebrow">03 — 결과물</div>
+      <div class="section-eyebrow">04 — 결과물</div>
       <h2 class="section-title">Claude와 함께<br>만든 것들</h2>
       <p class="section-desc">브레인스토밍부터 HTML 코드 추출, GitHub 배포까지 Claude 단독으로 수행한 결과물 전체입니다.</p>
     </div>
@@ -559,145 +618,318 @@ section:nth-child(even) { background: rgba(255,255,255,0.02); }
 <div class="section-divider"></div>
 
 <!-- ROADMAP -->
-<section id="roadmap">
+<!-- WORKFLOW -->
+
+
+<section id="workflow">
   <div class="max-w">
     <div class="fade-up">
-      <div class="section-eyebrow">04 — MVP 로드맵</div>
-      <h2 class="section-title">0 → 서비스 출시까지<br>20주 계획</h2>
-      <p class="section-desc">데이터가 먼저, 앱은 그 다음. 크롤러와 DB 구축을 선행하고 단계적으로 기능을 붙여나가는 전략입니다.</p>
+      <div class="section-eyebrow">05 — 디자인 프로세스</div>
+      <h2 class="section-title">Claude → GitHub →<br>Figma → 코드</h2>
+      <p class="section-desc">프롬프트 한 줄에서 시작해 실제 배포 가능한 HTML까지. AI와 협업한 새로운 디자인 워크플로우입니다.</p>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;">
-      <div class="roadmap fade-up">
-        <div class="road-item">
-          <div class="road-left"><div class="road-dot done"></div><div class="road-line"></div></div>
-          <div class="road-body">
-            <div class="road-phase">1단계 · 주 1~4</div>
-            <div class="road-title">기반 구축</div>
-            <div class="road-items">
-              <span class="road-tag done">클럽 소스 목록 수집</span>
-              <span class="road-tag done">크롤러 개발</span>
-              <span class="road-tag done">AI 파싱 파이프라인</span>
-              <span class="road-tag done">DB 스키마 설계</span>
-              <span class="road-tag done">스케줄러 설정</span>
-            </div>
+
+    <!-- 프로세스 플로우 -->
+    <div class="fade-up">
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-radius:20px;overflow:hidden;border:0.5px solid rgba(255,255,255,0.08);">
+
+        <!-- STEP 1 -->
+        <div style="padding:36px 24px;background:rgba(0,71,171,0.18);border-right:0.5px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;gap:16px;">
+          <div>
+            <div style="font-size:11px;font-weight:600;color:#4d8fe0;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;">STEP 01</div>
+            <div style="width:36px;height:2px;background:#0047AB;border-radius:1px;"></div>
+          </div>
+          <div style="font-size:32px;font-weight:700;line-height:1;">💬</div>
+          <div>
+            <div style="font-size:18px;font-weight:700;color:#F0F0F0;margin-bottom:8px;line-height:1.2;">Claude로<br>디자인</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;">프롬프트로 18개 화면 UI 목업, 브랜드 시스템, 디자인 토큰 완성</div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:auto;">
+            <span style="font-size:11px;padding:3px 9px;border-radius:99px;background:rgba(0,71,171,0.35);color:#80aee8;border:0.5px solid rgba(0,71,171,0.5);">18개 화면</span>
+            <span style="font-size:11px;padding:3px 9px;border-radius:99px;background:rgba(0,71,171,0.35);color:#80aee8;border:0.5px solid rgba(0,71,171,0.5);">디자인 토큰</span>
           </div>
         </div>
-        <div class="road-item">
-          <div class="road-left"><div class="road-dot now"></div><div class="road-line"></div></div>
-          <div class="road-body">
-            <div class="road-phase">2단계 · 주 5~8</div>
-            <div class="road-title">MVP 앱 개발</div>
-            <div class="road-items">
-              <span class="road-tag now">공연 목록 & 캘린더</span>
-              <span class="road-tag now">날짜 / 지역 필터</span>
-              <span class="road-tag now">공연 상세 페이지</span>
-              <span class="road-tag now">검수 대시보드</span>
-            </div>
+
+        <!-- STEP 2 -->
+        <div style="padding:36px 24px;background:rgba(255,255,255,0.03);border-right:0.5px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;gap:16px;">
+          <div>
+            <div style="font-size:11px;font-weight:600;color:#555;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;">STEP 02</div>
+            <div style="width:36px;height:2px;background:rgba(255,255,255,0.15);border-radius:1px;"></div>
+          </div>
+          <div style="font-size:32px;font-weight:700;line-height:1;">🚀</div>
+          <div>
+            <div style="font-size:18px;font-weight:700;color:#F0F0F0;margin-bottom:8px;line-height:1.2;">GitHub에<br>배포</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;">GitHub Pages로 배포해 브라우저에서 확인 가능한 실제 URL 생성</div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:auto;">
+            <span style="font-size:11px;padding:3px 9px;border-radius:99px;background:rgba(255,255,255,0.06);color:#888;border:0.5px solid rgba(255,255,255,0.1);">HTML/CSS</span>
+            <span style="font-size:11px;padding:3px 9px;border-radius:99px;background:rgba(255,255,255,0.06);color:#888;border:0.5px solid rgba(255,255,255,0.1);">Pages</span>
           </div>
         </div>
-        <div class="road-item">
-          <div class="road-left"><div class="road-dot next"></div><div class="road-line"></div></div>
-          <div class="road-body">
-            <div class="road-phase">3단계 · 주 9~14</div>
-            <div class="road-title">베타 출시</div>
-            <div class="road-items">
-              <span class="road-tag">뮤지션 팔로우 & 알림</span>
-              <span class="road-tag">크롤러 확장</span>
-              <span class="road-tag">베타 유저 300명</span>
-              <span class="road-tag">B2B 파트너십</span>
-            </div>
+
+        <!-- STEP 3 -->
+        <div style="padding:36px 24px;background:rgba(255,255,255,0.03);border-right:0.5px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;gap:16px;">
+          <div>
+            <div style="font-size:11px;font-weight:600;color:#555;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;">STEP 03</div>
+            <div style="width:36px;height:2px;background:rgba(255,255,255,0.15);border-radius:1px;"></div>
+          </div>
+          <div style="font-size:32px;font-weight:700;line-height:1;">🎨</div>
+          <div>
+            <div style="font-size:18px;font-weight:700;color:#F0F0F0;margin-bottom:8px;line-height:1.2;">Figma로<br>불러오기</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;">HTML to Design 플러그인으로 URL을 Figma 캔버스에 임포트</div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:auto;">
+            <span style="font-size:11px;padding:3px 9px;border-radius:99px;background:rgba(255,255,255,0.06);color:#888;border:0.5px solid rgba(255,255,255,0.1);">HTML to Design</span>
           </div>
         </div>
-        <div class="road-item">
-          <div class="road-left"><div class="road-dot next"></div></div>
-          <div class="road-body">
-            <div class="road-phase">4단계 · 주 15~20</div>
-            <div class="road-title">정식 출시 & 수익화</div>
-            <div class="road-items">
-              <span class="road-tag">인앱 예매 & 결제</span>
-              <span class="road-tag">앱스토어 등록</span>
-              <span class="road-tag">MAU 1,000+</span>
-              <span class="road-tag">첫 수익 발생</span>
-            </div>
+
+        <!-- STEP 4 -->
+        <div style="padding:36px 24px;background:rgba(255,255,255,0.03);border-right:0.5px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;gap:16px;">
+          <div>
+            <div style="font-size:11px;font-weight:600;color:#555;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;">STEP 04</div>
+            <div style="width:36px;height:2px;background:rgba(255,255,255,0.15);border-radius:1px;"></div>
+          </div>
+          <div style="font-size:32px;font-weight:700;line-height:1;">✏️</div>
+          <div>
+            <div style="font-size:18px;font-weight:700;color:#F0F0F0;margin-bottom:8px;line-height:1.2;">Figma에서<br>디자인 수정</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;">컬러, 레이아웃, 텍스트 등 디테일 직접 조정 및 완성도 향상</div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:auto;">
+            <span style="font-size:11px;padding:3px 9px;border-radius:99px;background:rgba(255,255,255,0.06);color:#888;border:0.5px solid rgba(255,255,255,0.1);">디자인 수정</span>
           </div>
         </div>
+
+        <!-- STEP 5 -->
+        <div style="padding:36px 24px;background:rgba(0,71,171,0.18);display:flex;flex-direction:column;gap:16px;">
+          <div>
+            <div style="font-size:11px;font-weight:600;color:#4d8fe0;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;">STEP 05</div>
+            <div style="width:36px;height:2px;background:#0047AB;border-radius:1px;"></div>
+          </div>
+          <div style="font-size:32px;font-weight:700;line-height:1;">🔄</div>
+          <div>
+            <div style="font-size:18px;font-weight:700;color:#F0F0F0;margin-bottom:8px;line-height:1.2;">Claude로<br>재코딩</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;">Figma 스크린샷을 Claude에 업로드해 변경사항을 HTML/CSS에 반영</div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:auto;">
+            <span style="font-size:11px;padding:3px 9px;border-radius:99px;background:rgba(0,71,171,0.35);color:#80aee8;border:0.5px solid rgba(0,71,171,0.5);">이미지 → 코드</span>
+            <span style="font-size:11px;padding:3px 9px;border-radius:99px;background:rgba(0,71,171,0.35);color:#80aee8;border:0.5px solid rgba(0,71,171,0.5);">반복 개선</span>
+          </div>
+        </div>
+
       </div>
-      <div class="fade-up">
-        <div class="tech-stack" style="margin-bottom:16px;">
-          <div class="tech-title">DB 핵심 테이블</div>
-          <div class="tech-items">
-            <div class="tech-item"><span class="tech-name">event (공연)</span><span class="tech-badge core">핵심</span></div>
-            <div class="tech-item"><span class="tech-name">venue (공연장)</span><span class="tech-badge core">핵심</span></div>
-            <div class="tech-item"><span class="tech-name">artist (뮤지션)</span><span class="tech-badge core">핵심</span></div>
-            <div class="tech-item"><span class="tech-name">event_artist (출연진)</span><span class="tech-badge recommended">중간</span></div>
-            <div class="tech-item"><span class="tech-name">user (사용자)</span><span class="tech-badge recommended">중간</span></div>
-            <div class="tech-item"><span class="tech-name">user_artist_follow</span><span class="tech-badge recommended">중간</span></div>
-            <div class="tech-item"><span class="tech-name">booking (예매)</span><span class="tech-badge caution">4단계</span></div>
-          </div>
+
+      <!-- 순환 루프 표시 -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:20px;">
+        <div style="height:1px;flex:1;background:linear-gradient(to right,transparent,rgba(0,71,171,0.4));"></div>
+        <div style="font-size:13px;color:#555;display:flex;align-items:center;gap:8px;">
+          <span style="color:#4d8fe0;font-weight:600;">STEP 01</span>
+          <span>→ 03 → 04 →</span>
+          <span style="color:#4d8fe0;font-weight:600;">STEP 05</span>
+          <span style="color:#555;">반복하며 완성도 향상</span>
         </div>
-        <div class="tech-stack">
-          <div class="tech-title">수익 모델</div>
-          <div class="tech-items">
-            <div class="tech-item"><span class="tech-name">예매 수수료</span><span class="tech-badge recommended">3~5%</span></div>
-            <div class="tech-item"><span class="tech-name">공연장 구독 (B2B)</span><span class="tech-badge core">월정액</span></div>
-            <div class="tech-item"><span class="tech-name">프리미엄 노출</span><span class="tech-badge caution">추후</span></div>
-          </div>
-        </div>
+        <div style="height:1px;flex:1;background:linear-gradient(to left,transparent,rgba(0,71,171,0.4));"></div>
       </div>
     </div>
+
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- WORKFLOW -->
-<section id="workflow">
+<section id="design-system">
   <div class="max-w">
     <div class="fade-up">
-      <div class="section-eyebrow">05 — 워크플로우</div>
-      <h2 class="section-title">Claude와 함께한<br>작업 방식</h2>
-      <p class="section-desc">이번 프로젝트에서 Claude를 활용한 방식입니다. 기획 → 디자인 → 코드 추출까지 전 과정을 대화 형태로 진행했습니다.</p>
+      <div class="section-eyebrow">06 — 디자인 시스템</div>
+      <h2 class="section-title">18개 화면과<br>완성된 디자인 시스템</h2>
+      <p class="section-desc">컬러 토큰, 타이포그래피, 컴포넌트, 접근성 가이드까지 — 실제 서비스에 바로 적용 가능한 수준의 디자인 시스템을 함께 구축했습니다.</p>
     </div>
-    <div class="workflow-grid fade-up">
-      <div class="wf-card">
-        <div class="wf-num">01</div>
-        <div class="wf-title">브레인스토밍 & 기획</div>
-        <div class="wf-desc">문제 정의부터 핵심 기능, 차별화 포인트, MVP 우선순위까지 대화로 구조화.</div>
-        <div class="wf-tags"><span class="wf-tag">문제 정의</span><span class="wf-tag">기능 설계</span><span class="wf-tag">로드맵</span></div>
+
+    <!-- 디자인 토큰 요약 -->
+    <div class="fade-up" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:40px;">
+      <div style="padding:20px;background:rgba(255,255,255,0.03);border-radius:14px;border:0.5px solid rgba(255,255,255,0.08);text-align:center;">
+        <div style="font-size:28px;font-weight:700;color:#0047AB;margin-bottom:6px;">18</div>
+        <div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:3px;">화면</div>
+        <div style="font-size:12px;color:var(--text-muted);">완성된 UI 화면 수</div>
       </div>
-      <div class="wf-card">
-        <div class="wf-num">02</div>
-        <div class="wf-title">기술 설계</div>
-        <div class="wf-desc">SNS 크롤링 파이프라인, AI 파싱 방식, DB 스키마, 수익 모델까지 설계 완료.</div>
-        <div class="wf-tags"><span class="wf-tag">크롤링</span><span class="wf-tag">DB 설계</span><span class="wf-tag">ERD</span></div>
+      <div style="padding:20px;background:rgba(255,255,255,0.03);border-radius:14px;border:0.5px solid rgba(255,255,255,0.08);text-align:center;">
+        <div style="font-size:28px;font-weight:700;color:#0047AB;margin-bottom:6px;">6</div>
+        <div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:3px;">컬러 계층</div>
+        <div style="font-size:12px;color:var(--text-muted);">Background ~ Accent</div>
       </div>
-      <div class="wf-card">
-        <div class="wf-num">03</div>
-        <div class="wf-title">UI 목업 & 브랜드</div>
-        <div class="wf-desc">375×812px 기준 18개 화면 목업 + 로고, 컬러 시스템, 타이포그래피 시스템 완성.</div>
-        <div class="wf-tags"><span class="wf-tag">목업</span><span class="wf-tag">브랜드</span><span class="wf-tag">디자인 토큰</span></div>
+      <div style="padding:20px;background:rgba(255,255,255,0.03);border-radius:14px;border:0.5px solid rgba(255,255,255,0.08);text-align:center;">
+        <div style="font-size:28px;font-weight:700;color:#0047AB;margin-bottom:6px;">10</div>
+        <div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:3px;">타입 스케일</div>
+        <div style="font-size:12px;color:var(--text-muted);">Display ~ Nav</div>
       </div>
-      <div class="wf-card">
-        <div class="wf-num">04</div>
-        <div class="wf-title">HTML 코드 추출</div>
-        <div class="wf-desc">모든 화면을 독립 실행 가능한 HTML 파일로 추출. 공통 토큰 CSS 분리 구조.</div>
-        <div class="wf-tags"><span class="wf-tag">HTML</span><span class="wf-tag">CSS</span><span class="wf-tag">375×812</span></div>
-      </div>
-      <div class="wf-card">
-        <div class="wf-num">05</div>
-        <div class="wf-title">GitHub 배포</div>
-        <div class="wf-desc">Git 초기화부터 Personal Access Token 인증, 푸시까지 Claude Code와 함께 완료.</div>
-        <div class="wf-tags"><span class="wf-tag">Git</span><span class="wf-tag">GitHub Pages</span><span class="wf-tag">배포</span></div>
-      </div>
-      <div class="wf-card">
-        <div class="wf-num">06</div>
-        <div class="wf-title">Figma 연동 시도</div>
-        <div class="wf-desc">Figma MCP 서버 연결 완료. HTML to Design 플러그인으로 캔버스 반입 시도 중.</div>
-        <div class="wf-tags"><span class="wf-tag">Figma MCP</span><span class="wf-tag">진행 중</span></div>
+      <div style="padding:20px;background:rgba(255,255,255,0.03);border-radius:14px;border:0.5px solid rgba(255,255,255,0.08);text-align:center;">
+        <div style="font-size:28px;font-weight:700;color:#0047AB;margin-bottom:6px;">AA+</div>
+        <div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:3px;">접근성</div>
+        <div style="font-size:12px;color:var(--text-muted);">WCAG 2.1 전항목 통과</div>
       </div>
     </div>
+
+    <!-- 화면 갤러리 -->
+    <div class="fade-up" style="margin-bottom:40px;">
+      <div style="font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px;">완성된 화면</div>
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px;">
+        <!-- 각 화면 썸네일 -->
+        <a href="https://moonggun.github.io/jazz-bridge/01_home.html" target="_blank" style="text-decoration:none;">
+          <div style="background:#1e2022;border-radius:12px;overflow:hidden;border:0.5px solid rgba(255,255,255,0.08);transition:border-color .15s;" onmouseover="this.style.borderColor='#0047AB'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+            <div style="height:100px;background:linear-gradient(160deg,#151617,#1e2022);display:flex;align-items:center;justify-content:center;padding:10px;">
+              <div style="width:100%;"><div style="font-size:9px;font-weight:700;color:#F0F0F0;margin-bottom:4px;">lilo.stitch님!</div><div style="height:3px;background:rgba(0,71,171,0.6);border-radius:2px;margin-bottom:3px;width:80%;"></div><div style="height:32px;background:#0d2d6e;border-radius:6px;border:0.5px solid rgba(0,71,171,0.4);margin-bottom:3px;"></div><div style="display:flex;gap:3px;"><div style="height:40px;flex:1;background:#2d1b0e;border-radius:4px;"></div><div style="height:40px;flex:1;background:#1a1a3e;border-radius:4px;"></div></div></div>
+            </div>
+            <div style="padding:6px 8px;font-size:10px;color:#888;">홈</div>
+          </div>
+        </a>
+        <a href="https://moonggun.github.io/jazz-bridge/02_event_detail.html" target="_blank" style="text-decoration:none;">
+          <div style="background:#1e2022;border-radius:12px;overflow:hidden;border:0.5px solid rgba(255,255,255,0.08);" onmouseover="this.style.borderColor='#0047AB'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+            <div style="height:100px;background:linear-gradient(160deg,#1a1035,#2d1b69);display:flex;align-items:flex-end;padding:8px;">
+              <div style="width:100%;"><div style="font-size:8px;color:rgba(255,255,255,0.6);margin-bottom:1px;">모던 재즈</div><div style="font-size:10px;font-weight:700;color:#fff;">Jamie Kim Trio</div><div style="font-size:8px;color:rgba(255,255,255,0.6);">5월 17일 · 오후 8시</div></div>
+            </div>
+            <div style="padding:6px 8px;font-size:10px;color:#888;">공연 상세</div>
+          </div>
+        </a>
+        <a href="https://moonggun.github.io/jazz-bridge/03_calendar.html" target="_blank" style="text-decoration:none;">
+          <div style="background:#1e2022;border-radius:12px;overflow:hidden;border:0.5px solid rgba(255,255,255,0.08);" onmouseover="this.style.borderColor='#0047AB'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+            <div style="height:100px;background:#151617;display:flex;align-items:center;justify-content:center;padding:8px;">
+              <div style="width:100%;"><div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px;">
+                <div style="font-size:7px;color:#888;text-align:center;">일</div><div style="font-size:7px;color:#888;text-align:center;">월</div><div style="font-size:7px;color:#888;text-align:center;">화</div><div style="font-size:7px;color:#888;text-align:center;">수</div><div style="font-size:7px;color:#888;text-align:center;">목</div><div style="font-size:7px;color:#888;text-align:center;">금</div><div style="font-size:7px;color:#888;text-align:center;">토</div>
+                <div style="font-size:7px;color:#888;text-align:center;"></div><div style="font-size:7px;color:#888;text-align:center;"></div><div style="font-size:7px;color:#888;text-align:center;"></div><div style="font-size:7px;color:#888;text-align:center;"></div><div style="font-size:7px;color:#888;text-align:center;"></div><div style="font-size:7px;color:#888;text-align:center;">1</div><div style="font-size:7px;color:#888;text-align:center;">2</div>
+                <div style="font-size:7px;color:#888;text-align:center;">4</div><div style="font-size:7px;color:#888;text-align:center;">5</div><div style="font-size:7px;color:#888;text-align:center;">6</div><div style="font-size:7px;color:#888;text-align:center;">7</div><div style="font-size:7px;color:#888;text-align:center;">8</div><div style="font-size:7px;color:#888;text-align:center;">9</div><div style="font-size:7px;color:#888;text-align:center;">10</div>
+                <div style="font-size:7px;color:#888;text-align:center;">11</div><div style="font-size:7px;color:#888;text-align:center;">12</div><div style="font-size:7px;color:#888;text-align:center;">13</div><div style="font-size:7px;color:#888;text-align:center;">14</div><div style="font-size:7px;color:#888;text-align:center;">15</div><div style="font-size:7px;color:#888;text-align:center;">16</div><div style="font-size:7px;font-weight:700;color:#fff;text-align:center;background:#0047AB;border-radius:50%;width:12px;height:12px;line-height:12px;margin:0 auto;">17</div>
+              </div></div>
+            </div>
+            <div style="padding:6px 8px;font-size:10px;color:#888;">캘린더</div>
+          </div>
+        </a>
+        <a href="https://moonggun.github.io/jazz-bridge/09_search.html" target="_blank" style="text-decoration:none;">
+          <div style="background:#1e2022;border-radius:12px;overflow:hidden;border:0.5px solid rgba(255,255,255,0.08);" onmouseover="this.style.borderColor='#0047AB'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+            <div style="height:100px;background:#151617;padding:8px;">
+              <div style="font-size:10px;font-weight:700;color:#F0F0F0;margin-bottom:6px;">검색</div>
+              <div style="height:14px;background:#1e2022;border-radius:4px;margin-bottom:5px;border:0.5px solid rgba(255,255,255,0.08);"></div>
+              <div style="display:flex;gap:3px;margin-bottom:4px;"><div style="font-size:8px;padding:2px 6px;background:#0047AB;border-radius:99px;color:#fff;">서울</div><div style="font-size:8px;padding:2px 6px;background:#1e2022;border-radius:99px;color:#888;">홍대</div></div>
+              <div style="display:flex;gap:3px;"><div style="font-size:8px;padding:2px 6px;background:#0047AB;border-radius:99px;color:#fff;">모던 재즈</div><div style="font-size:8px;padding:2px 6px;background:#1e2022;border-radius:99px;color:#888;">스윙</div></div>
+            </div>
+            <div style="padding:6px 8px;font-size:10px;color:#888;">검색</div>
+          </div>
+        </a>
+        <a href="https://moonggun.github.io/jazz-bridge/10_follow.html" target="_blank" style="text-decoration:none;">
+          <div style="background:#1e2022;border-radius:12px;overflow:hidden;border:0.5px solid rgba(255,255,255,0.08);" onmouseover="this.style.borderColor='#0047AB'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+            <div style="height:100px;background:#151617;padding:8px;">
+              <div style="font-size:10px;font-weight:700;color:#F0F0F0;margin-bottom:6px;">팔로우</div>
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:4px;padding-bottom:4px;border-bottom:0.5px solid rgba(255,255,255,0.06);"><div style="width:18px;height:18px;border-radius:50%;background:#2a2a2a;display:flex;align-items:center;justify-content:center;font-size:6px;color:#888;flex-shrink:0;">JK</div><div style="flex:1;"><div style="font-size:8px;font-weight:600;color:#F0F0F0;">Jamie Kim</div><div style="font-size:7px;color:#888;">피아노</div></div><div style="font-size:7px;font-weight:700;color:#F0F0F0;">오늘</div></div>
+              <div style="display:flex;align-items:center;gap:5px;padding-bottom:4px;border-bottom:0.5px solid rgba(255,255,255,0.06);"><div style="width:18px;height:18px;border-radius:50%;background:#2a2a2a;display:flex;align-items:center;justify-content:center;font-size:6px;color:#888;flex-shrink:0;">SL</div><div style="flex:1;"><div style="font-size:8px;font-weight:600;color:#F0F0F0;">Soo Lee</div><div style="font-size:7px;color:#888;">색소폰</div></div><div style="font-size:7px;font-weight:700;color:#F0F0F0;">5/21</div></div>
+            </div>
+            <div style="padding:6px 8px;font-size:10px;color:#888;">팔로우</div>
+          </div>
+        </a>
+        <a href="https://moonggun.github.io/jazz-bridge/14_booking_complete.html" target="_blank" style="text-decoration:none;">
+          <div style="background:#1e2022;border-radius:12px;overflow:hidden;border:0.5px solid rgba(255,255,255,0.08);" onmouseover="this.style.borderColor='#0047AB'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+            <div style="height:100px;background:#151617;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;">
+              <div style="width:24px;height:24px;border-radius:50%;background:#1D9E75;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;">✓</div>
+              <div style="font-size:9px;font-weight:700;color:#F0F0F0;">예매 완료!</div>
+              <div style="font-size:7px;color:#888;">공연 당일 입구에서</div>
+            </div>
+            <div style="padding:6px 8px;font-size:10px;color:#888;">예매 완료</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 2번째 줄 -->
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:10px;">
+        <a href="https://moonggun.github.io/jazz-bridge/04_splash.html" target="_blank" style="text-decoration:none;">
+          <div style="background:#1e2022;border-radius:12px;overflow:hidden;border:0.5px solid rgba(255,255,255,0.08);" onmouseover="this.style.borderColor='#0047AB'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+            <div style="height:100px;background:linear-gradient(160deg,#0047AB,#1a1a6e,#6b2fa0);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
+              <svg width="24" height="18" viewBox="0 0 72 52" fill="none"><line x1="36" y1="2" x2="36" y2="50" stroke="#fff" stroke-width="5" stroke-linecap="round"/><line x1="28" y1="6" x2="28" y2="46" stroke="rgba(255,255,255,0.7)" stroke-width="4" stroke-linecap="round"/><line x1="44" y1="6" x2="44" y2="46" stroke="rgba(255,255,255,0.7)" stroke-width="4" stroke-linecap="round"/><line x1="20" y1="12" x2="20" y2="40" stroke="rgba(255,255,255,0.45)" stroke-width="3.5" stroke-linecap="round"/><line x1="52" y1="12" x2="52" y2="40" stroke="rgba(255,255,255,0.45)" stroke-width="3.5" stroke-linecap="round"/></svg>
+              <div style="font-size:9px;font-weight:700;color:#fff;">Jazz Bridge</div>
+            </div>
+            <div style="padding:6px 8px;font-size:10px;color:#888;">스플래시</div>
+          </div>
+        </a>
+        <a href="https://moonggun.github.io/jazz-bridge/05_onboarding_1.html" target="_blank" style="text-decoration:none;">
+          <div style="background:#1e2022;border-radius:12px;overflow:hidden;border:0.5px solid rgba(255,255,255,0.08);" onmouseover="this.style.borderColor='#0047AB'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+            <div style="height:100px;background:#0047AB;display:flex;align-items:flex-end;padding:8px;">
+              <div><div style="font-size:9px;font-weight:700;color:#fff;margin-bottom:2px;">SNS에 흩어진 재즈</div><div style="font-size:8px;color:rgba(255,255,255,0.7);">이제 한 곳에서</div></div>
+            </div>
+            <div style="padding:6px 8px;font-size:10px;color:#888;">온보딩 1</div>
+          </div>
+        </a>
+        <a href="https://moonggun.github.io/jazz-bridge/15_artist_profile.html" target="_blank" style="text-decoration:none;">
+          <div style="background:#1e2022;border-radius:12px;overflow:hidden;border:0.5px solid rgba(255,255,255,0.08);" onmouseover="this.style.borderColor='#0047AB'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+            <div style="height:100px;background:linear-gradient(160deg,#2d1a10,#5c3317);display:flex;align-items:flex-end;padding:8px;">
+              <div><div style="font-size:10px;font-weight:700;color:#fff;">Jamie Kim</div><div style="font-size:8px;color:rgba(255,255,255,0.7);">피아노 · 모던 재즈</div><div style="margin-top:4px;display:inline-block;padding:2px 8px;background:#0047AB;border-radius:99px;font-size:7px;color:#fff;">팔로우 중</div></div>
+            </div>
+            <div style="padding:6px 8px;font-size:10px;color:#888;">뮤지션 프로필</div>
+          </div>
+        </a>
+        <a href="https://moonggun.github.io/jazz-bridge/16_venue_profile.html" target="_blank" style="text-decoration:none;">
+          <div style="background:#1e2022;border-radius:12px;overflow:hidden;border:0.5px solid rgba(255,255,255,0.08);" onmouseover="this.style.borderColor='#0047AB'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+            <div style="height:100px;background:linear-gradient(160deg,#1a0a0a,#3d1a0a);display:flex;align-items:flex-end;padding:8px;">
+              <div><div style="font-size:10px;font-weight:700;color:#fff;">블루문 재즈클럽</div><div style="font-size:8px;color:rgba(255,255,255,0.7);">홍대입구역 도보 3분</div></div>
+            </div>
+            <div style="padding:6px 8px;font-size:10px;color:#888;">공연장 프로필</div>
+          </div>
+        </a>
+        <a href="https://moonggun.github.io/jazz-bridge/17_notifications.html" target="_blank" style="text-decoration:none;">
+          <div style="background:#1e2022;border-radius:12px;overflow:hidden;border:0.5px solid rgba(255,255,255,0.08);" onmouseover="this.style.borderColor='#0047AB'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+            <div style="height:100px;background:#151617;padding:8px;">
+              <div style="font-size:10px;font-weight:700;color:#F0F0F0;margin-bottom:6px;">알림</div>
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:4px;"><div style="width:20px;height:20px;border-radius:6px;background:#0047AB;display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0;">🔔</div><div style="font-size:8px;color:#F0F0F0;">Jamie Kim 공연 등록</div></div>
+              <div style="display:flex;align-items:center;gap:5px;"><div style="width:20px;height:20px;border-radius:6px;background:#BA7517;display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0;">🎟</div><div style="font-size:8px;color:#F0F0F0;">예매 마감 임박</div></div>
+            </div>
+            <div style="padding:6px 8px;font-size:10px;color:#888;">알림</div>
+          </div>
+        </a>
+        <a href="https://moonggun.github.io/jazz-bridge/11_my.html" target="_blank" style="text-decoration:none;">
+          <div style="background:#1e2022;border-radius:12px;overflow:hidden;border:0.5px solid rgba(255,255,255,0.08);" onmouseover="this.style.borderColor='#0047AB'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+            <div style="height:100px;background:#151617;padding:8px;">
+              <div style="font-size:10px;font-weight:700;color:#F0F0F0;margin-bottom:6px;">마이</div>
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;"><div style="width:22px;height:22px;border-radius:50%;background:#0047AB;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#fff;">이재</div><div><div style="font-size:8px;font-weight:600;color:#F0F0F0;">이재윤</div><div style="font-size:7px;color:#888;">서울 · 2025.03</div></div></div>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;"><div style="text-align:center;background:#1e2022;border-radius:4px;padding:3px;"><div style="font-size:9px;font-weight:700;color:#F0F0F0;">24</div><div style="font-size:7px;color:#888;">공연</div></div><div style="text-align:center;background:#1e2022;border-radius:4px;padding:3px;"><div style="font-size:9px;font-weight:700;color:#F0F0F0;">5</div><div style="font-size:7px;color:#888;">팔로우</div></div><div style="text-align:center;background:#1e2022;border-radius:4px;padding:3px;"><div style="font-size:9px;font-weight:700;color:#F0F0F0;">3</div><div style="font-size:7px;color:#888;">예매</div></div></div>
+            </div>
+            <div style="padding:6px 8px;font-size:10px;color:#888;">마이</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 디자인 시스템 요약 -->
+    <div class="fade-up" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+      <div style="padding:20px;background:rgba(255,255,255,0.03);border-radius:14px;border:0.5px solid rgba(255,255,255,0.08);">
+        <div style="font-size:12px;font-weight:600;color:#0047AB;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px;">컬러 시스템</div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <div style="display:flex;align-items:center;gap:8px;"><div style="width:20px;height:20px;border-radius:4px;background:#0047AB;flex-shrink:0;"></div><div style="font-size:13px;color:var(--text-secondary);">Brand #0047AB</div></div>
+          <div style="display:flex;align-items:center;gap:8px;"><div style="width:20px;height:20px;border-radius:4px;background:#151617;border:0.5px solid rgba(255,255,255,0.1);flex-shrink:0;"></div><div style="font-size:13px;color:var(--text-secondary);">BG Primary #151617</div></div>
+          <div style="display:flex;align-items:center;gap:8px;"><div style="width:20px;height:20px;border-radius:4px;background:#1D9E75;flex-shrink:0;"></div><div style="font-size:13px;color:var(--text-secondary);">Teal #1D9E75</div></div>
+          <div style="display:flex;align-items:center;gap:8px;"><div style="width:20px;height:20px;border-radius:4px;background:#E24B4A;flex-shrink:0;"></div><div style="font-size:13px;color:var(--text-secondary);">Red #E24B4A</div></div>
+        </div>
+      </div>
+      <div style="padding:20px;background:rgba(255,255,255,0.03);border-radius:14px;border:0.5px solid rgba(255,255,255,0.08);">
+        <div style="font-size:12px;font-weight:600;color:#0047AB;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px;">타이포그래피</div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <div style="display:flex;align-items:baseline;gap:8px;"><span style="font-size:20px;font-weight:700;color:#F0F0F0;line-height:1;">Aa</span><span style="font-size:12px;color:var(--text-muted);">32px Bold — Display</span></div>
+          <div style="display:flex;align-items:baseline;gap:8px;"><span style="font-size:16px;font-weight:700;color:#F0F0F0;line-height:1;">Aa</span><span style="font-size:12px;color:var(--text-muted);">26px Bold — Heading</span></div>
+          <div style="display:flex;align-items:baseline;gap:8px;"><span style="font-size:13px;font-weight:600;color:#B8B8B8;line-height:1;">Aa</span><span style="font-size:12px;color:var(--text-muted);">16px Semi — Body</span></div>
+          <div style="display:flex;align-items:baseline;gap:8px;"><span style="font-size:11px;color:#888;line-height:1;">Aa</span><span style="font-size:12px;color:var(--text-muted);">12px — Caption</span></div>
+        </div>
+      </div>
+      <div style="padding:20px;background:rgba(255,255,255,0.03);border-radius:14px;border:0.5px solid rgba(255,255,255,0.08);">
+        <div style="font-size:12px;font-weight:600;color:#0047AB;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px;">컴포넌트</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="padding:7px 14px;background:#0047AB;border-radius:10px;font-size:12px;font-weight:600;color:#fff;text-align:center;">예매하기</div>
+          <div style="display:flex;gap:5px;"><span style="padding:4px 10px;border-radius:99px;background:#0047AB;font-size:11px;color:#fff;font-weight:600;">서울</span><span style="padding:4px 10px;border-radius:99px;background:#1e2022;font-size:11px;color:#888;border:0.5px solid rgba(255,255,255,0.08);">홍대</span></div>
+          <div style="padding:8px 10px;background:#1e2022;border-radius:8px;border:0.5px solid rgba(255,255,255,0.08);font-size:11px;color:#888;">모던 재즈 · 트리오 · ₩20,000</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fade-up" style="margin-top:24px;text-align:center;">
+      <a href="https://moonggun.github.io/jazz-bridge/jazz-bridge-design-guide.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:rgba(0,71,171,0.15);border:0.5px solid rgba(0,71,171,0.4);border-radius:10px;font-size:14px;font-weight:600;color:#4d8fe0;text-decoration:none;">디자인 가이드 전체 보기 →</a>
+    </div>
+
   </div>
 </section>
+
 
 <div class="section-divider"></div>
 
