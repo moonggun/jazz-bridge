@@ -348,6 +348,7 @@ section:nth-child(even) { background: rgba(255,255,255,0.02); }
     <a href="#problem">문제 정의</a>
     <a href="#solution">솔루션</a>
     <a href="#deliverables">결과물</a>
+    <a href="#tech-design">기술 설계</a>
     <a href="#roadmap">로드맵</a>
     <a href="#workflow">디자인 프로세스</a>
     <a href="#design-system">디자인 시스템</a>
@@ -427,10 +428,147 @@ section:nth-child(even) { background: rgba(255,255,255,0.02); }
 <div class="section-divider"></div>
 
 <!-- SOLUTION -->
-<section id="solution">
+<section id="tech-design">
   <div class="max-w">
     <div class="fade-up">
       <div class="section-eyebrow">02 — 솔루션</div>
+      <h2 class="section-title">SNS 자동 수집<br>파이프라인</h2>
+      <p class="section-desc">재즈 클럽 인스타·블로그·SNS → 공연 DB로 자동화하는 5단계 파이프라인과 4가지 수집 전략입니다.</p>
+    </div>
+
+    <!-- 파이프라인 플로우 -->
+    <div class="fade-up" style="margin-bottom:32px;">
+      <div style="font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;">수집 파이프라인 흐름</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-radius:14px;overflow:hidden;border:0.5px solid rgba(255,255,255,0.08);">
+        <div style="padding:18px 16px;background:rgba(0,71,171,0.15);border-right:0.5px solid rgba(255,255,255,0.08);text-align:center;">
+          <div style="font-size:10px;color:#4d8fe0;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;">1단계</div>
+          <div style="font-size:14px;font-weight:700;color:#F0F0F0;margin-bottom:4px;">소스 등록</div>
+          <div style="font-size:12px;color:#666;">클럽 SNS 계정 목록 관리</div>
+        </div>
+        <div style="padding:18px 16px;background:rgba(255,255,255,0.03);border-right:0.5px solid rgba(255,255,255,0.08);text-align:center;">
+          <div style="font-size:10px;color:#888;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;">2단계</div>
+          <div style="font-size:14px;font-weight:700;color:#F0F0F0;margin-bottom:4px;">주기적 수집</div>
+          <div style="font-size:12px;color:#666;">매일 1~2회 크롤링 실행</div>
+        </div>
+        <div style="padding:18px 16px;background:rgba(0,71,171,0.1);border-right:0.5px solid rgba(255,255,255,0.08);text-align:center;">
+          <div style="font-size:10px;color:#4d8fe0;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;">3단계</div>
+          <div style="font-size:14px;font-weight:700;color:#F0F0F0;margin-bottom:4px;">AI 파싱</div>
+          <div style="font-size:12px;color:#666;">날짜·뮤지션·장소 추출</div>
+        </div>
+        <div style="padding:18px 16px;background:rgba(255,255,255,0.03);border-right:0.5px solid rgba(255,255,255,0.08);text-align:center;">
+          <div style="font-size:10px;color:#888;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;">4단계</div>
+          <div style="font-size:14px;font-weight:700;color:#F0F0F0;margin-bottom:4px;">정규화</div>
+          <div style="font-size:12px;color:#666;">공연 DB 스키마에 맞게 변환</div>
+        </div>
+        <div style="padding:18px 16px;background:rgba(255,255,255,0.03);text-align:center;">
+          <div style="font-size:10px;color:#888;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;">5단계</div>
+          <div style="font-size:14px;font-weight:700;color:#F0F0F0;margin-bottom:4px;">검수·노출</div>
+          <div style="font-size:12px;color:#666;">자동 또는 수동 승인</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 수집 방법 4가지 -->
+    <div class="fade-up" style="margin-bottom:32px;">
+      <div style="font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;">수집 방법 4가지 — 난이도 & 안정성 비교</div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;">
+        <div style="padding:20px;background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+            <div style="font-size:14px;font-weight:700;color:#F0F0F0;">인스타그램 공식 API</div>
+            <span style="font-size:11px;padding:2px 8px;border-radius:99px;background:rgba(29,158,117,0.15);color:#1D9E75;border:0.5px solid rgba(29,158,117,0.3);">안정적</span>
+          </div>
+          <div style="font-size:13px;color:#888;line-height:1.6;margin-bottom:12px;">Meta의 Instagram Graph API 사용. 공연장이 앱을 "승인"하면 게시물을 공식적으로 가져올 수 있음.</div>
+          <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px;">
+            <div style="font-size:13px;color:#B8B8B8;display:flex;gap:6px;"><span style="color:#1D9E75;flex-shrink:0;">✓</span>서비스 약관 위반 없음, 안정적</div>
+            <div style="font-size:13px;color:#B8B8B8;display:flex;gap:6px;"><span style="color:#E24B4A;flex-shrink:0;">✕</span>공연장마다 개별 승인 필요 → 초기 확보 어려움</div>
+            <div style="font-size:13px;color:#B8B8B8;display:flex;gap:6px;"><span style="color:#E24B4A;flex-shrink:0;">✕</span>API 접근 권한 심사가 까다로움 (Meta 정책)</div>
+          </div>
+          <div style="font-size:12px;padding:6px 10px;background:rgba(0,71,171,0.1);border-radius:6px;color:#4d8fe0;">추천 시점: 서비스 성장 후 B2B 파트너십 단계</div>
+        </div>
+        <div style="padding:20px;background:rgba(0,71,171,0.08);border:0.5px solid rgba(0,71,171,0.3);border-radius:14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+            <div style="font-size:14px;font-weight:700;color:#F0F0F0;">웹 크롤링 + AI 파싱</div>
+            <span style="font-size:11px;padding:2px 8px;border-radius:99px;background:rgba(0,71,171,0.2);color:#4d8fe0;border:0.5px solid rgba(0,71,171,0.4);">현실적 ⭐</span>
+          </div>
+          <div style="font-size:13px;color:#888;line-height:1.6;margin-bottom:12px;">공개된 인스타 프로필, 네이버 블로그, 클럽 공식 홈페이지를 크롤링 후 Claude API로 공연 정보 추출.</div>
+          <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px;">
+            <div style="font-size:13px;color:#B8B8B8;display:flex;gap:6px;"><span style="color:#1D9E75;flex-shrink:0;">✓</span>공연장 협조 없이도 시작 가능</div>
+            <div style="font-size:13px;color:#B8B8B8;display:flex;gap:6px;"><span style="color:#1D9E75;flex-shrink:0;">✓</span>네이버 블로그·공홈은 비교적 크롤링 용이</div>
+            <div style="font-size:13px;color:#B8B8B8;display:flex;gap:6px;"><span style="color:#E24B4A;flex-shrink:0;">✕</span>인스타 직접 크롤링은 약관 위반 가능성</div>
+            <div style="font-size:13px;color:#B8B8B8;display:flex;gap:6px;"><span style="color:#E24B4A;flex-shrink:0;">✕</span>AI 파싱 오류율 존재 → 검수 프로세스 필요</div>
+          </div>
+          <div style="font-size:12px;padding:6px 10px;background:rgba(0,71,171,0.15);border-radius:6px;color:#4d8fe0;">추천 시점: MVP ~ 초기 서비스 단계 핵심 전략</div>
+        </div>
+        <div style="padding:20px;background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+            <div style="font-size:14px;font-weight:700;color:#F0F0F0;">공연장 직접 등록 (CMS)</div>
+            <span style="font-size:11px;padding:2px 8px;border-radius:99px;background:rgba(239,159,39,0.15);color:#EF9F27;border:0.5px solid rgba(239,159,39,0.3);">병행 필요</span>
+          </div>
+          <div style="font-size:13px;color:#888;line-height:1.6;margin-bottom:12px;">공연장이 직접 앱 또는 웹 대시보드에 공연 정보를 입력. 정확도 100%이나 공연장 참여 유인이 필요함.</div>
+          <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px;">
+            <div style="font-size:13px;color:#B8B8B8;display:flex;gap:6px;"><span style="color:#1D9E75;flex-shrink:0;">✓</span>가장 정확한 데이터</div>
+            <div style="font-size:13px;color:#B8B8B8;display:flex;gap:6px;"><span style="color:#1D9E75;flex-shrink:0;">✓</span>예매 수수료 수익 모델과 직결</div>
+            <div style="font-size:13px;color:#B8B8B8;display:flex;gap:6px;"><span style="color:#E24B4A;flex-shrink:0;">✕</span>초반엔 공연장 설득이 가장 큰 허들</div>
+          </div>
+          <div style="font-size:12px;padding:6px 10px;background:rgba(239,159,39,0.08);border-radius:6px;color:#EF9F27;">추천 시점: 크롤링 DB 구축 후 공연장에 직접 연락</div>
+        </div>
+        <div style="padding:20px;background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+            <div style="font-size:14px;font-weight:700;color:#F0F0F0;">커뮤니티 제보 (크라우드소싱)</div>
+            <span style="font-size:11px;padding:2px 8px;border-radius:99px;background:rgba(255,255,255,0.06);color:#888;border:0.5px solid rgba(255,255,255,0.1);">보조 수단</span>
+          </div>
+          <div style="font-size:13px;color:#888;line-height:1.6;margin-bottom:12px;">유저가 공연 정보를 직접 제보·등록. 초기 팬층의 참여로 DB를 빠르게 채울 수 있음.</div>
+          <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px;">
+            <div style="font-size:13px;color:#B8B8B8;display:flex;gap:6px;"><span style="color:#1D9E75;flex-shrink:0;">✓</span>재즈 팬층은 정보 공유 의지가 높음</div>
+            <div style="font-size:13px;color:#B8B8B8;display:flex;gap:6px;"><span style="color:#1D9E75;flex-shrink:0;">✓</span>커뮤니티 앱 정체성 강화</div>
+            <div style="font-size:13px;color:#B8B8B8;display:flex;gap:6px;"><span style="color:#E24B4A;flex-shrink:0;">✕</span>스팸·오정보 관리 필요</div>
+          </div>
+          <div style="font-size:12px;padding:6px 10px;background:rgba(255,255,255,0.05);border-radius:6px;color:#888;">추천 시점: 론칭 초기부터 병행 가능</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 코드 예시 -->
+    <div class="fade-up" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div style="padding:20px;background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:14px;">
+        <div style="font-size:13px;font-weight:600;color:#F0F0F0;margin-bottom:12px;">HTML 수집 (크롤러)</div>
+        <div style="background:#0e0f10;border-radius:10px;padding:16px;font-size:12px;font-family:monospace;color:#888;line-height:1.8;border:0.5px solid rgba(255,255,255,0.06);">
+          <div style="color:#555;"># 정적 페이지 (네이버 블로그 등)</div>
+          <div><span style="color:#4d8fe0;">resp</span> = requests.get(url, headers=headers)</div>
+          <div><span style="color:#4d8fe0;">soup</span> = BeautifulSoup(resp.text, <span style="color:#1D9E75;">"html.parser"</span>)</div>
+          <div><span style="color:#4d8fe0;">text</span> = soup.get_text(separator=<span style="color:#1D9E75;">"\n"</span>, strip=<span style="color:#EF9F27;">True</span>)</div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;">
+          <span style="font-size:11px;padding:2px 8px;border-radius:99px;background:rgba(0,71,171,0.15);color:#4d8fe0;border:0.5px solid rgba(0,71,171,0.3);">Python APScheduler</span>
+          <span style="font-size:11px;padding:2px 8px;border-radius:99px;background:rgba(255,255,255,0.06);color:#888;border:0.5px solid rgba(255,255,255,0.1);">또는 AWS Lambda</span>
+        </div>
+      </div>
+      <div style="padding:20px;background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:14px;">
+        <div style="font-size:13px;font-weight:600;color:#F0F0F0;margin-bottom:12px;">AI 파싱 — 공연 정보 추출</div>
+        <div style="background:#0e0f10;border-radius:10px;padding:16px;font-size:12px;font-family:monospace;color:#888;line-height:1.8;border:0.5px solid rgba(255,255,255,0.06);">
+          <div style="color:#555;"># 프롬프트 예시</div>
+          <div><span style="color:#4d8fe0;">prompt</span> = <span style="color:#1D9E75;">f"""</span></div>
+          <div style="color:#1D9E75;padding-left:8px;">아래 텍스트에서 재즈 공연 정보를 추출해주세요.</div>
+          <div style="color:#1D9E75;padding-left:8px;">JSON 형식: date, time, artists, venue, price</div>
+          <div style="color:#1D9E75;padding-left:8px;">텍스트: {'{text}'}</div>
+          <div><span style="color:#1D9E75;">"""</span></div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;">
+          <span style="font-size:11px;padding:2px 8px;border-radius:99px;background:rgba(0,71,171,0.15);color:#4d8fe0;border:0.5px solid rgba(0,71,171,0.3);">Claude Haiku (저렴·빠름)</span>
+          <span style="font-size:11px;padding:2px 8px;border-radius:99px;background:rgba(255,255,255,0.06);color:#888;border:0.5px solid rgba(255,255,255,0.1);">건당 약 ₩1~3원</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section id="solution">
+  <div class="max-w">
+    <div class="fade-up">
+      <div class="section-eyebrow">03 — 기술 설계</div>
       <h2 class="section-title">Jazz Bridge가<br>해결하는 방법</h2>
       <p class="section-desc">SNS 자동 수집 + AI 파싱 파이프라인으로 공연 정보를 자동화하고, 통합 예매까지 연결합니다.</p>
     </div>
@@ -509,7 +647,7 @@ section:nth-child(even) { background: rgba(255,255,255,0.02); }
 <section id="roadmap">
   <div class="max-w">
     <div class="fade-up">
-      <div class="section-eyebrow">03 — MVP 로드맵</div>
+      <div class="section-eyebrow">04 — MVP 로드맵</div>
       <h2 class="section-title">20주 안에<br>출시까지</h2>
       <p class="section-desc">크롤러 구축부터 예매 수익화까지, 4단계로 나눈 현실적인 MVP 로드맵입니다.</p>
     </div>
@@ -563,7 +701,7 @@ section:nth-child(even) { background: rgba(255,255,255,0.02); }
 <section id="deliverables">
   <div class="max-w">
     <div class="fade-up">
-      <div class="section-eyebrow">04 — 결과물</div>
+      <div class="section-eyebrow">05 — 결과물</div>
       <h2 class="section-title">Claude와 함께<br>만든 것들</h2>
       <p class="section-desc">브레인스토밍부터 HTML 코드 추출, GitHub 배포까지 Claude 단독으로 수행한 결과물 전체입니다.</p>
     </div>
@@ -624,7 +762,7 @@ section:nth-child(even) { background: rgba(255,255,255,0.02); }
 <section id="workflow">
   <div class="max-w">
     <div class="fade-up">
-      <div class="section-eyebrow">05 — 디자인 프로세스</div>
+      <div class="section-eyebrow">06 — 디자인 프로세스</div>
       <h2 class="section-title">Claude → GitHub →<br>Figma → 코드</h2>
       <p class="section-desc">프롬프트 한 줄에서 시작해 실제 배포 가능한 HTML까지. AI와 협업한 새로운 디자인 워크플로우입니다.</p>
     </div>
@@ -739,7 +877,7 @@ section:nth-child(even) { background: rgba(255,255,255,0.02); }
 <section id="design-system">
   <div class="max-w">
     <div class="fade-up">
-      <div class="section-eyebrow">06 — 디자인 시스템</div>
+      <div class="section-eyebrow">07 — 디자인 시스템</div>
       <h2 class="section-title">18개 화면과<br>완성된 디자인 시스템</h2>
       <p class="section-desc">컬러 토큰, 타이포그래피, 컴포넌트, 접근성 가이드까지 — 실제 서비스에 바로 적용 가능한 수준의 디자인 시스템을 함께 구축했습니다.</p>
     </div>
